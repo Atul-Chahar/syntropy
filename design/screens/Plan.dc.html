@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Syntropy · Plan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=Geist:wght@200..700&amp;family=Geist+Mono:wght@400..500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0F0D}
+.sy{font-family:'Geist',ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;color:#F3F1EC}
+.dot{font-family:'Doto','Geist Mono',ui-monospace,monospace;font-weight:800;font-variant-numeric:tabular-nums}
+.mono{font-family:'Geist Mono',ui-monospace,SFMono-Regular,monospace}
+a{color:inherit;text-decoration:none}a:hover{color:#FFC7B0}
+button{font:inherit;color:inherit;cursor:pointer;margin:0}
+input{font:inherit;color:inherit}
+.field::placeholder{color:#F3F1EC;opacity:1}
+@keyframes sy-scan{0%{transform:translateY(0)}50%{transform:translateY(270px)}100%{transform:translateY(0)}}
+@keyframes sy-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes sy-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+</style>
+</helmet>
+<div class="sy" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #0B0F0D"><div aria-hidden="true" style="position: absolute; right: -240px; top: -120px; width: 560px; height: 560px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle at center, rgba(255,107,61,0.34) 0%, rgba(255,107,61,0.12) 38%, rgba(255,107,61,0) 70%)"></div><div aria-hidden="true" style="position: absolute; left: -260px; bottom: -200px; width: 540px; height: 540px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle at center, rgba(137,170,124,0.36) 0%, rgba(137,170,124,0.13) 38%, rgba(137,170,124,0) 70%)"></div><div style="position: absolute; left: 0; right: 0; top: 0; padding: 60px 20px 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px"><header style="display: flex; justify-content: space-between; align-items: flex-end"><div style="display: flex; flex-direction: column; gap: 4px"><div class="mono" style="font-size: 11px; letter-spacing: 0.06em; color: rgba(243,241,236,0.55)">WEEK 3 · CUSTOM SPLIT</div><h1 style="margin: 0; font-size: 30px; font-weight: 300; letter-spacing: -0.045em">Plan</h1></div><a href="Library.dc.html" style="height: 44px; padding: 0 16px; border-radius: 22px; display: flex; align-items: center; gap: 7px; font-size: 13.5px; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.085); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 48px -24px rgba(0,0,0,0.6)"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M4 6h16M4 12h16M4 18h10"></path></svg>Library</a></header><button type="button" style="display: flex; align-items: center; gap: 14px; width: 100%; padding: 14px 16px 14px 14px; box-sizing: border-box; border-radius: 26px; text-align: left; position: relative; overflow: hidden; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.085); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 48px -24px rgba(0,0,0,0.6)">
+<span aria-hidden="true" style="position: absolute; right: -40px; top: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(255,107,61,0.32), rgba(255,107,61,0) 70%)"></span>
+<span style="position: relative; width: 48px; height: 48px; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #1A0E08; background: radial-gradient(circle at 32% 25%, #FFC2A3 0%, #FF7A4A 50%, #E0501F 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5)"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M12 3c.7 5 3.9 8.3 9 9-5.1.7-8.3 3.9-9 9-.7-5.1-3.9-8.3-9-9 5.1-.7 8.3-4 9-9z"></path></svg></span>
+<span style="position: relative; display: flex; flex-direction: column; gap: 3px; flex-grow: 1"><span style="font-size: 16px; font-weight: 500; letter-spacing: -0.02em">Coach</span><span style="font-size: 12.5px; line-height: 1.35; color: rgba(243,241,236,0.66)">Design, review and adjust your split from your own training data.</span></span>
+<span style="position: relative; color: rgba(243,241,236,0.6)"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M9 6l6 6-6 6"></path></svg></span>
+</button><div role="group" aria-label="Week of 21 September" style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px">
+<sc-for list="{{week}}" as="d" hint-placeholder-count="7">
+<button type="button" onClick="{{d.pick}}" aria-pressed="{{d.pressed}}" aria-label="{{d.aria}}" style="height: 76px; border-radius: 22px; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: {{d.bg}}; color: {{d.fg}}; border: 1px solid {{d.bd}}">
+<span class="mono" style="font-size: 10.5px; opacity: 0.7">{{d.l}}</span>
+<span style="font-size: 18px; font-weight: 400; letter-spacing: -0.02em">{{d.n}}</span>
+<span style="width: 6px; height: 6px; border-radius: 3px; background: {{d.dot}}"></span>
+</button>
+</sc-for>
+</div><section aria-label="Day routine" style="border-radius: 32px; padding: 20px 18px 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.085); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 48px -24px rgba(0,0,0,0.6)">
+<div style="display: flex; justify-content: space-between; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span class="mono" style="font-size: 11px; letter-spacing: 0.06em; color: {{sel.kc}}">{{sel.kicker}}</span>
+<span style="font-size: 30px; font-weight: 300; letter-spacing: -0.045em; line-height: 1.05">{{sel.routine}}</span>
+<span style="font-size: 12.5px; color: rgba(243,241,236,0.6)">{{sel.meta}}</span>
+</div>
+<button type="button" aria-label="Routine options" style="width: 44px; height: 44px; border-radius: 22px; padding: 0; border: 1px solid rgba(255,255,255,0.1); background: transparent; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><circle cx="6" cy="12" r="1.2"></circle><circle cx="12" cy="12" r="1.2"></circle><circle cx="18" cy="12" r="1.2"></circle></svg></button>
+</div>
+<sc-if value="{{sel.isRest}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 6px 0 2px">
+<div style="display: flex; gap: 10px; align-items: flex-start; padding: 14px; border-radius: 18px; background: rgba(169,195,160,0.08); font-size: 13px; line-height: 1.5; color: rgba(243,241,236,0.8)"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #C9DCBF; margin-top: 2px"><path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"></path><path d="M5 19l7-7"></path></svg><span>Recovery is part of the plan. Protein and sleep carry today&#39;s work.</span></div>
+<button type="button" style="height: 52px; border-radius: 26px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; border: 1px dashed rgba(243,241,236,0.3); background: transparent"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M12 5v14M5 12h14"></path></svg>Add routine</button>
+</div>
+</sc-if>
+<sc-if value="{{sel.hasEx}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{sel.ex}}" as="e" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; height: 46px; border-top: 1px solid rgba(255,255,255,0.07)">
+<span class="mono" style="font-size: 11px; color: rgba(243,241,236,0.45)">{{e.i}}</span>
+<span style="font-size: 14.5px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{e.name}}</span>
+<span class="mono" style="font-size: 12px; color: rgba(243,241,236,0.62)">{{e.sch}}</span>
+</div>
+</sc-for>
+</div>
+<a href="{{sel.href}}" style="height: 54px; border-radius: 27px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15.5px; font-weight: 500; background: {{sel.ctaBg}}; color: {{sel.ctaFg}}; border: 1px solid {{sel.ctaBd}}">{{sel.cta}}<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M9 6l6 6-6 6"></path></svg></a>
+</sc-if>
+</section></div><div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 200px; pointer-events: none; background: linear-gradient(180deg, rgba(11,15,13,0) 0%, rgba(11,15,13,0.82) 55%, rgba(11,15,13,0.96) 100%)"></div><nav aria-label="Primary" style="position: absolute; left: 20px; right: 20px; bottom: 26px; height: 70px; border-radius: 35px; box-sizing: border-box; padding: 0 9px; display: flex; align-items: center; justify-content: space-between; background: rgba(14,18,16,0.58); border: 1px solid rgba(255,255,255,0.09); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 20px 40px rgba(0,0,0,0.45)"><a href="Home.dc.html" aria-label="Home" style="width: 52px; height: 52px; border-radius: 26px; display: flex; align-items: center; justify-content: center; color: rgba(243,241,236,0.66)"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><rect x="4" y="4" width="6.5" height="6.5" rx="2"></rect><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"></rect><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"></rect><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="3.25"></rect></svg></a><a href="Plan.dc.html" aria-label="Train" aria-current="page" style="width: 52px; height: 52px; border-radius: 26px; display: flex; align-items: center; justify-content: center; background: #F3F1EC; color: #0B0F0D"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"></path></svg></a><a href="Scan.dc.html" aria-label="Scan a meal" style="width: 58px; height: 58px; border-radius: 29px; display: flex; align-items: center; justify-content: center; color: #1A0E08; background: radial-gradient(circle at 32% 25%, #FFC2A3 0%, #FF7A4A 45%, #E0501F 100%); box-shadow: 0 10px 28px rgba(255,107,61,0.45), inset 0 1px 0 rgba(255,255,255,0.5)"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"></path><circle cx="12" cy="12" r="3.5"></circle></svg></a><a href="FoodLog.dc.html" aria-label="Food log" style="width: 52px; height: 52px; border-radius: 26px; display: flex; align-items: center; justify-content: center; color: rgba(243,241,236,0.66)"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M4 11.5h16a8 8 0 0 1-16 0z"></path><path d="M9 3.5c-1 1.5 1 2.5 0 4.5M13.5 3.5c-1 1.5 1 2.5 0 4.5"></path></svg></a><a href="Stats.dc.html" aria-label="Stats" style="width: 52px; height: 52px; border-radius: 26px; display: flex; align-items: center; justify-content: center; color: rgba(243,241,236,0.66)"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M6 20V11M12 20V4M18 20v-7"></path></svg></a></nav><svg aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0.07; mix-blend-mode: overlay; pointer-events: none"><filter id="gr-plan"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#gr-plan)"></rect></svg></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const D = {"mon": {"k": "mon", "l": "M", "n": "21", "status": "done", "name": "Monday", "routine": "Push", "meta": "6 exercises \u00b7 58 min \u00b7 done", "cta": "Review session", "href": "Stats.dc.html", "ex": [{"i": "01", "name": "Barbell bench press", "sch": "4 \u00d7 6"}, {"i": "02", "name": "Overhead press", "sch": "3 \u00d7 8"}, {"i": "03", "name": "Incline dumbbell press", "sch": "3 \u00d7 10"}, {"i": "04", "name": "Lateral raise", "sch": "4 \u00d7 15"}, {"i": "05", "name": "Triceps pushdown", "sch": "3 \u00d7 12"}]}, "tue": {"k": "tue", "l": "T", "n": "22", "status": "rest", "name": "Tuesday", "routine": "Rest", "meta": "Recovery day", "ex": []}, "wed": {"k": "wed", "l": "W", "n": "23", "status": "done", "name": "Wednesday", "routine": "Legs", "meta": "5 exercises \u00b7 64 min \u00b7 done", "cta": "Review session", "href": "Stats.dc.html", "ex": [{"i": "01", "name": "Back squat", "sch": "4 \u00d7 5"}, {"i": "02", "name": "Romanian deadlift", "sch": "3 \u00d7 8"}, {"i": "03", "name": "Leg press", "sch": "3 \u00d7 12"}, {"i": "04", "name": "Lying leg curl", "sch": "3 \u00d7 12"}, {"i": "05", "name": "Standing calf raise", "sch": "4 \u00d7 15"}]}, "thu": {"k": "thu", "l": "T", "n": "24", "status": "today", "name": "Thursday \u00b7 Today", "routine": "Pull", "meta": "5 exercises \u00b7 ~55 min \u00b7 in progress", "cta": "Resume session", "href": "Workout.dc.html", "ex": [{"i": "01", "name": "Weighted pull-up", "sch": "3 / 4 sets"}, {"i": "02", "name": "Chest-supported row", "sch": "4 \u00d7 10"}, {"i": "03", "name": "Face pull", "sch": "3 \u00d7 15"}, {"i": "04", "name": "Hammer curl", "sch": "3 \u00d7 12"}, {"i": "05", "name": "Incline curl", "sch": "3 \u00d7 12"}]}, "fri": {"k": "fri", "l": "F", "n": "25", "status": "rest", "name": "Friday", "routine": "Rest", "meta": "Recovery day", "ex": []}, "sat": {"k": "sat", "l": "S", "n": "26", "status": "planned", "name": "Saturday", "routine": "Full body", "meta": "5 exercises \u00b7 ~50 min", "cta": "Preview in library", "href": "Library.dc.html", "ex": [{"i": "01", "name": "Conventional deadlift", "sch": "3 \u00d7 5"}, {"i": "02", "name": "Dips", "sch": "3 \u00d7 10"}, {"i": "03", "name": "Walking lunge", "sch": "3 \u00d7 12"}, {"i": "04", "name": "Cable row", "sch": "3 \u00d7 12"}, {"i": "05", "name": "Plank", "sch": "3 \u00d7 60 s"}]}, "sun": {"k": "sun", "l": "S", "n": "27", "status": "rest", "name": "Sunday", "routine": "Rest", "meta": "Recovery day", "ex": []}};
+    const order = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    const cur = (this.state && this.state.day) || 'thu';
+    const dotC = { done: '#A9C3A0', today: '#FF6B3D', planned: 'rgba(243,241,236,0.45)', rest: 'rgba(243,241,236,0.12)' };
+    const week = order.map((k) => {
+      const d = D[k], on = k === cur;
+      return {
+        l: d.l, n: d.n, pressed: on ? 'true' : 'false', aria: d.name + ', ' + d.routine,
+        bg: on ? '#F3F1EC' : 'rgba(255,255,255,0.045)', fg: on ? '#0B0F0D' : '#F3F1EC',
+        bd: on ? '#F3F1EC' : (d.status === 'today' ? 'rgba(255,107,61,0.6)' : 'rgba(255,255,255,0.08)'),
+        dot: dotC[d.status], pick: () => this.setState({ day: k })
+      };
+    });
+    const d = D[cur];
+    const today = d.status === 'today';
+    const sel = {
+      kicker: d.name.toUpperCase(), kc: today ? '#FFB79A' : 'rgba(243,241,236,0.55)',
+      routine: d.routine, meta: d.meta, ex: d.ex, isRest: d.status === 'rest', hasEx: d.status !== 'rest',
+      cta: d.cta || '', href: d.href || 'Plan.dc.html',
+      ctaBg: today ? '#F3F1EC' : 'rgba(255,255,255,0.05)', ctaFg: today ? '#0B0F0D' : '#F3F1EC',
+      ctaBd: today ? '#F3F1EC' : 'rgba(255,255,255,0.12)'
+    };
+    return { week, sel };
+  }
+}
+</script>
+</body>
+</html>

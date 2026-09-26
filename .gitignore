@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+.next/
+out/
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+
+# tests
+coverage/
+playwright-report/
+test-results/
+
+# env and secrets
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+keystore.properties
+
+# android
+apps/app/android/.gradle/
+apps/app/android/app/build/
+apps/app/android/build/
+apps/app/android/local.properties
+apps/app/android/.idea/
+apps/app/android/captures/
+*.apk
+*.aab
+
+# editors and OS
+.idea/
+.DS_Store
+*.log

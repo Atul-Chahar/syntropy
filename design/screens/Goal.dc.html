@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Syntropy · Target physique</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=Geist:wght@200..700&amp;family=Geist+Mono:wght@400..500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0F0D}
+.sy{font-family:'Geist',ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;color:#F3F1EC}
+.dot{font-family:'Doto','Geist Mono',ui-monospace,monospace;font-weight:800;font-variant-numeric:tabular-nums}
+.mono{font-family:'Geist Mono',ui-monospace,SFMono-Regular,monospace}
+a{color:inherit;text-decoration:none}a:hover{color:#FFC7B0}
+button{font:inherit;color:inherit;cursor:pointer;margin:0}
+input{font:inherit;color:inherit}
+.field::placeholder{color:#F3F1EC;opacity:1}
+@keyframes sy-scan{0%{transform:translateY(0)}50%{transform:translateY(270px)}100%{transform:translateY(0)}}
+@keyframes sy-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes sy-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+</style>
+</helmet>
+<div class="sy" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #0B0F0D"><div aria-hidden="true" style="position: absolute; right: -240px; top: -140px; width: 560px; height: 560px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle at center, rgba(255,107,61,0.34) 0%, rgba(255,107,61,0.12) 38%, rgba(255,107,61,0) 70%)"></div><div aria-hidden="true" style="position: absolute; left: -260px; bottom: -220px; width: 540px; height: 540px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle at center, rgba(137,170,124,0.36) 0%, rgba(137,170,124,0.13) 38%, rgba(137,170,124,0) 70%)"></div><div style="position: absolute; left: 0; right: 0; top: 0; padding: 60px 20px 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px"><header style="display: flex; justify-content: space-between; align-items: flex-end"><div style="display: flex; flex-direction: column; gap: 4px"><div class="mono" style="font-size: 11px; letter-spacing: 0.06em; color: rgba(243,241,236,0.55)">YOUR GOAL</div><h1 style="margin: 0; font-size: 30px; font-weight: 300; letter-spacing: -0.045em">Target physique</h1></div><a href="FoodLog.dc.html" aria-label="Close" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; padding: 0; color: #F3F1EC; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.085); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 48px -24px rgba(0,0,0,0.6) "><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M6 6l12 12M18 6L6 18"></path></svg></a></header><section aria-label="Now and target" style="display: grid; grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr); align-items: center; gap: 6px; padding: 14px 16px; border-radius: 26px; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.085); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 48px -24px rgba(0,0,0,0.6)">
+<div style="display: flex; flex-direction: column; gap: 3px"><span class="mono" style="font-size: 10.5px; letter-spacing: 0.06em; color: rgba(243,241,236,0.5)">NOW</span><span style="font-size: 20px; font-weight: 300; letter-spacing: -0.03em">74.2 kg</span><span style="font-size: 11.5px; color: rgba(243,241,236,0.58)">~16% body fat</span></div>
+<span style="color: rgba(243,241,236,0.5); display: flex; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M9 6l6 6-6 6"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 3px"><span class="mono" style="font-size: 10.5px; letter-spacing: 0.06em; color: #FFB79A">TARGET</span><span style="font-size: 20px; font-weight: 300; letter-spacing: -0.03em">{{tw}}</span><span style="font-size: 11.5px; color: rgba(243,241,236,0.58)">{{eta}}</span></div>
+</section><div role="radiogroup" aria-label="Target physique" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{goals}}" as="g" hint-placeholder-count="4">
+<button type="button" role="radio" aria-checked="{{g.pressed}}" onClick="{{g.pick}}" style="height: 84px; border-radius: 24px; padding: 12px 14px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; text-align: left; background: {{g.bg}}; border: 1px solid {{g.bd}}; color: {{g.fg}}">
+<span style="width: 8px; height: 8px; border-radius: 4px; background: {{g.dot}}"></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em">{{g.name}}</span><span style="font-size: 11.5px; opacity: 0.66">{{g.sub}}</span></span>
+</button>
+</sc-for>
+</div><div role="group" aria-label="Pace" style="display: grid; grid-template-columns: 56px repeat(3, minmax(0, 1fr)); gap: 6px; align-items: center"><span class="mono" style="font-size: 10.5px; letter-spacing: 0.06em; color: rgba(243,241,236,0.5)">PACE</span><sc-for list="{{paces}}" as="p" hint-placeholder-count="3"><button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="height: 40px; border-radius: 20px; font-size: 13px; border: 1px solid {{p.bd}}; background: {{p.bg}}; color: {{p.fg}}; opacity: {{p.op}}">{{p.label}}</button></sc-for></div><section aria-label="Daily targets" style="border-radius: 32px; padding: 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.085); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 48px -24px rgba(0,0,0,0.6)">
+<span aria-hidden="true" style="position: absolute; right: -60px; top: -80px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(255,107,61,0.25), rgba(255,107,61,0) 70%)"></span>
+<div style="position: relative; display: flex; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 10.5px; letter-spacing: 0.06em; color: rgba(243,241,236,0.55)">TRAINING DAY</span>
+<span style="display: flex; align-items: baseline; gap: 6px"><span class="dot" style="font-size: 50px; line-height: 0.95">{{kTrain}}</span><span style="font-size: 13px; color: rgba(243,241,236,0.62)">kcal</span></span></div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px"><span class="mono" style="font-size: 10.5px; letter-spacing: 0.06em; color: rgba(243,241,236,0.55)">REST DAY</span><span style="font-size: 22px; font-weight: 300; letter-spacing: -0.03em">{{kRest}} kcal</span></div>
+</div>
+<div style="position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08)">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: rgba(243,241,236,0.62)"><span style="width: 7px; height: 7px; border-radius: 4px; background: #A9C3A0"></span>Protein</span><span style="font-size: 20px; font-weight: 300; letter-spacing: -0.03em">{{p}}</span></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: rgba(243,241,236,0.62)"><span style="width: 7px; height: 7px; border-radius: 4px; background: #FFC7B0"></span>Carbs</span><span style="font-size: 20px; font-weight: 300; letter-spacing: -0.03em">{{c}}</span></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: rgba(243,241,236,0.62)"><span style="width: 7px; height: 7px; border-radius: 4px; background: #FF8A5C"></span>Fat</span><span style="font-size: 20px; font-weight: 300; letter-spacing: -0.03em">{{f}}</span></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: rgba(243,241,236,0.62)"><span style="width: 7px; height: 7px; border-radius: 4px; background: #9CC7E0"></span>Water</span><span style="font-size: 20px; font-weight: 300; letter-spacing: -0.03em">{{w}}</span></div>
+</div>
+<div style="position: relative; display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.45; color: rgba(243,241,236,0.66)"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #FFC7B0; margin-top: 1px"><path d="M12 3c.7 5 3.9 8.3 9 9-5.1.7-8.3 3.9-9 9-.7-5.1-3.9-8.3-9-9 5.1-.7 8.3-4 9-9z"></path></svg><span>Recalculated every Sunday from your weight trend and training load.</span></div>
+</section></div><a href="FoodLog.dc.html" style="position: absolute; left: 20px; right: 20px; bottom: 30px; height: 58px; border-radius: 29px; background: #F3F1EC; color: #0B0F0D; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; font-weight: 500"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; "><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Save targets</a><svg aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0.07; mix-blend-mode: overlay; pointer-events: none"><filter id="gr-goal"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#gr-goal)"></rect></svg></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const seg = (keys, labels, cur, set) => keys.map((k, i) => ({
+      label: labels[i], pressed: k === cur ? 'true' : 'false',
+      bg: k === cur ? '#F3F1EC' : 'rgba(255,255,255,0.045)',
+      fg: k === cur ? '#0B0F0D' : 'rgba(243,241,236,0.72)',
+      bd: k === cur ? '#F3F1EC' : 'rgba(255,255,255,0.09)',
+      pick: () => set(k)
+    }));
+    const g = (this.state && this.state.g) || 'cut';
+    const pc = (this.state && this.state.p) || 'steady';
+    const G = {
+      cut: { name: 'Lean & defined', sub: 'Lose fat, keep muscle', dot: '#FF6B3D' },
+      recomp: { name: 'Recomposition', sub: 'Same weight, less fat', dot: '#FFC7B0' },
+      gain: { name: 'Lean muscle', sub: 'Slow, clean gain', dot: '#A9C3A0' },
+      keep: { name: 'Maintain', sub: 'Hold what you built', dot: 'rgba(243,241,236,0.6)' }
+    };
+    const paced = g === 'cut' || g === 'gain';
+    const D = { cut: { gentle: -250, steady: -400, faster: -600 }, gain: { gentle: 150, steady: 250, faster: 400 } };
+    const delta = paced ? D[g][pc] : (g === 'recomp' ? -150 : 0);
+    const kT = 2650 + delta, kR = 2450 + delta;
+    const P = g === 'keep' ? 135 : 150, Fa = 65;
+    const C = Math.round((kT - P * 4 - Fa * 9) / 4 / 5) * 5;
+    const rate = Math.abs(delta) * 7 / 7700;
+    let tw = '74.2 kg', eta = 'Hold steady';
+    if (g === 'cut') { tw = '71.5 kg'; eta = '~12% · ' + Math.round(2.7 / rate) + ' weeks'; }
+    if (g === 'gain') { tw = '77.0 kg'; eta = '~15% · ' + Math.round(2.8 / rate) + ' weeks'; }
+    if (g === 'recomp') { tw = '74 kg'; eta = '~13% · 16 weeks'; }
+    const fmt = (n) => n.toLocaleString('en-IN');
+    const goals = Object.keys(G).map((k) => ({
+      name: G[k].name, sub: G[k].sub, dot: G[k].dot, pressed: k === g ? 'true' : 'false',
+      bg: k === g ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.035)',
+      bd: k === g ? 'rgba(255,199,176,0.55)' : 'rgba(255,255,255,0.08)', fg: '#F3F1EC',
+      pick: () => this.setState({ g: k })
+    }));
+    const paces = seg(['gentle', 'steady', 'faster'], ['Gentle', 'Steady', 'Faster'], pc, (k) => this.setState({ p: k }))
+      .map((x) => Object.assign(x, { op: paced ? '1' : '0.4' }));
+    return { goals, paces, kTrain: fmt(kT), kRest: fmt(kR), p: P + ' g', c: C + ' g', f: Fa + ' g', w: '3.5 L', tw, eta };
+  }
+}
+</script>
+</body>
+</html>

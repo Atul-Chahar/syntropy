@@ -1,0 +1,301 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Exercise.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "B03 Exercise",
+      "w": 390,
+      "x": 940,
+      "y": 2500
+    },
+    "FoodLog.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A07 Food log",
+      "w": 390,
+      "x": 2820,
+      "y": 1300
+    },
+    "Goal.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A05 Target physique",
+      "w": 390,
+      "x": 1880,
+      "y": 1300
+    },
+    "Home.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A06 Synthesis",
+      "w": 390,
+      "x": 2350,
+      "y": 1300
+    },
+    "Icon.dc.html": {
+      "h": 1000,
+      "title": "App icon",
+      "w": 1000,
+      "x": 1520,
+      "y": -100
+    },
+    "Identity.dc.html": {
+      "h": 900,
+      "title": "Visual identity",
+      "w": 1440,
+      "x": 2600,
+      "y": 0
+    },
+    "Landing.dc.html": {
+      "h": 6010,
+      "is_interactive": true,
+      "title": "Landing page",
+      "w": 1440,
+      "x": 5800,
+      "y": 0
+    },
+    "Library.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "B05 Library",
+      "w": 390,
+      "x": 1880,
+      "y": 2500
+    },
+    "Lock.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A11 Lock screen",
+      "w": 390,
+      "x": 4700,
+      "y": 1300
+    },
+    "Main.dc.html": {
+      "h": 900,
+      "title": "Logo",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Meal.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A09 Review meal",
+      "w": 390,
+      "x": 3760,
+      "y": 1300
+    },
+    "Plan.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "B01 Plan",
+      "w": 390,
+      "x": 0,
+      "y": 2500
+    },
+    "Progress.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "B08 Body progress",
+      "w": 390,
+      "x": 3290,
+      "y": 2500
+    },
+    "QuickAdd.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A10 Quick add",
+      "w": 390,
+      "x": 4230,
+      "y": 1300
+    },
+    "Recovery.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "B07 Recovery",
+      "w": 390,
+      "x": 2820,
+      "y": 2500
+    },
+    "Scan.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A08 Meal scan",
+      "w": 390,
+      "x": 3290,
+      "y": 1300
+    },
+    "Showcase.dc.html": {
+      "h": 1080,
+      "title": "Showcase",
+      "w": 1440,
+      "x": 0,
+      "y": 3700
+    },
+    "Stats.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "B06 Stats",
+      "w": 390,
+      "x": 2350,
+      "y": 2500
+    },
+    "Welcome.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A01 Welcome",
+      "w": 390,
+      "x": 0,
+      "y": 1300
+    },
+    "Widgets.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "A12 Home screen widgets",
+      "w": 390,
+      "x": 5170,
+      "y": 1300
+    },
+    "Workout.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "title": "B02 Workout",
+      "w": 390,
+      "x": 470,
+      "y": 2500
+    },
+    "SignUp.dc.html": {
+      "w": 390,
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "x": 470,
+      "y": 1300,
+      "title": "A02 Create account"
+    },
+    "Passkey.dc.html": {
+      "w": 390,
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "x": 940,
+      "y": 1300,
+      "title": "A03 Create passkey"
+    },
+    "SignIn.dc.html": {
+      "w": 390,
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "x": 1410,
+      "y": 1300,
+      "title": "A04 Sign in"
+    },
+    "FormGuide.dc.html": {
+      "w": 390,
+      "h": 844,
+      "is_interactive": true,
+      "radius": 48,
+      "x": 1410,
+      "y": 2500,
+      "title": "B04 Form guide"
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-09-23T22:55:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "brand": {
+      "kind": "title1",
+      "maxW": 4040,
+      "text": "Brand · logo, icon, identity",
+      "w": 240,
+      "x": 0,
+      "y": -420
+    },
+    "landing": {
+      "kind": "title1",
+      "maxW": 1440,
+      "text": "Landing page",
+      "w": 240,
+      "x": 5800,
+      "y": -300
+    },
+    "screens": {
+      "kind": "title1",
+      "maxW": 5560,
+      "text": "App · access, nutrition & widgets",
+      "w": 240,
+      "x": 0,
+      "y": 1000
+    },
+    "show": {
+      "kind": "title1",
+      "maxW": 1440,
+      "text": "Showcase",
+      "w": 240,
+      "x": 0,
+      "y": 3400
+    },
+    "training": {
+      "kind": "title1",
+      "maxW": 3680,
+      "text": "App · training & progress",
+      "w": 240,
+      "x": 0,
+      "y": 2200
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Icon.dc.html",
+    "Identity.dc.html",
+    "Welcome.dc.html",
+    "SignUp.dc.html",
+    "Passkey.dc.html",
+    "SignIn.dc.html",
+    "Goal.dc.html",
+    "Home.dc.html",
+    "FoodLog.dc.html",
+    "Scan.dc.html",
+    "Meal.dc.html",
+    "QuickAdd.dc.html",
+    "Lock.dc.html",
+    "Widgets.dc.html",
+    "Plan.dc.html",
+    "Workout.dc.html",
+    "Exercise.dc.html",
+    "FormGuide.dc.html",
+    "Library.dc.html",
+    "Stats.dc.html",
+    "Recovery.dc.html",
+    "Progress.dc.html",
+    "Showcase.dc.html",
+    "Landing.dc.html"
+  ],
+  "pages": [],
+  "title": "Syntropy"
+}

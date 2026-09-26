@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Syntropy · Showcase</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=Geist:wght@200..700&amp;family=Geist+Mono:wght@400..500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0F0D}
+.sy{font-family:'Geist',ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;color:#F3F1EC}
+.dot{font-family:'Doto','Geist Mono',ui-monospace,monospace;font-weight:800;font-variant-numeric:tabular-nums}
+.mono{font-family:'Geist Mono',ui-monospace,SFMono-Regular,monospace}
+a{color:inherit;text-decoration:none}a:hover{color:#FFC7B0}
+button{font:inherit;color:inherit;cursor:pointer;margin:0}
+input{font:inherit;color:inherit}
+.field::placeholder{color:#F3F1EC;opacity:1}
+@keyframes sy-scan{0%{transform:translateY(0)}50%{transform:translateY(270px)}100%{transform:translateY(0)}}
+@keyframes sy-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes sy-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+</style>
+</helmet>
+<div class="sy" style="position: relative; width: 1440px; height: 1080px; overflow: hidden; background: radial-gradient(ellipse 70% 60% at 60% 30%, #F1F1EE 0%, #DADBD7 55%, #C4C6C1 100%); color: #1B211E">
+<div style="position: absolute; left: 80px; top: 70px; font-size: 200px; line-height: 0.86; font-weight: 500; letter-spacing: -0.07em; background: linear-gradient(180deg, #5B665F 0%, #1B211E 70%); -webkit-background-clip: text; background-clip: text; color: transparent">Order<br>from chaos</div>
+<div style="position: absolute; right: 80px; top: 86px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+<span style="font-size: 26px; letter-spacing: 0.01em; font-weight: 500">UX/UI DESIGN</span>
+<span style="font-size: 24px; color: #6F7771">Health &amp; Performance</span>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 380px; top: 960px; width: 760px; height: 90px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(20,24,22,0.35), rgba(20,24,22,0) 70%)"></div>
+<div style="position: absolute; left: 420px; top: 214px; width: 414px; height: 868px; transform: rotate(-7deg) scale(0.94); transform-origin: 50% 50%; z-index: 2; border-radius: 66px; padding: 12px; box-sizing: border-box; background: linear-gradient(145deg, #3A3E3C 0%, #121413 30%, #0A0B0B 70%, #2A2D2B 100%); box-shadow: 0 80px 120px -40px rgba(20,24,22,0.55), 0 30px 60px -20px rgba(20,24,22,0.35), inset 0 0 0 1px rgba(255,255,255,0.12)"><div style="width: 390px; height: 844px; border-radius: 54px; overflow: hidden; position: relative; background: #0B0F0D"><dc-import name="Home" hint-size="390px,844px"></dc-import></div></div>
+<div style="position: absolute; left: 820px; top: 190px; width: 414px; height: 868px; transform: rotate(6deg) scale(0.94); transform-origin: 50% 50%; z-index: 1; border-radius: 66px; padding: 12px; box-sizing: border-box; background: linear-gradient(145deg, #3A3E3C 0%, #121413 30%, #0A0B0B 70%, #2A2D2B 100%); box-shadow: 0 80px 120px -40px rgba(20,24,22,0.55), 0 30px 60px -20px rgba(20,24,22,0.35), inset 0 0 0 1px rgba(255,255,255,0.12)"><div style="width: 390px; height: 844px; border-radius: 54px; overflow: hidden; position: relative; background: #0B0F0D"><dc-import name="Scan" hint-size="390px,844px"></dc-import></div></div>
+<div style="position: absolute; left: 80px; bottom: 70px; display: flex; align-items: center; gap: 12px"><svg aria-hidden="true" width="19.7" height="34" viewBox="28 12 44 76" style="flex-shrink: 0; display: block; "><defs><linearGradient id="sc-mt" x1="0" y1="14" x2="0" y2="50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFC2A3"></stop><stop offset="1" stop-color="#FF6B3D"></stop></linearGradient><linearGradient id="sc-mb" x1="0" y1="50" x2="0" y2="86" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#C9DCBF"></stop><stop offset="1" stop-color="#7E9F74"></stop></linearGradient></defs><path d="M30 34A20 20 0 0 1 70 34L50 34L59 48.4L39 48.4Z" fill="url(#sc-mt)"></path><path d="M70 66A20 20 0 0 1 30 66L50 66L41 51.6L61 51.6Z" fill="url(#sc-mb)"></path></svg><span style="font-size: 32px; font-weight: 500; letter-spacing: -0.05em">syntropy</span></div>
+<div class="mono" style="position: absolute; right: 80px; bottom: 76px; font-size: 13px; letter-spacing: 0.08em; color: #5E6661">TRAIN · FUEL · RECOVER</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1440, "height": 1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -19,7 +19,7 @@ screenshot, and wires real data after approval. The phase column says when each 
 | 9 | AI settings | Paste the Gemini key, pick models, test the connection, what data leaves the phone, today's usage and cap. | 7 |
 | 10 | Scan capture states | Camera permission request or denied, live viewfinder with shutter, analysing, "could not read this plate", gallery import. | 7 |
 | 11 | Coach intake | One question per step: goal, experience, days per week, session length, equipment, limitations. | 8 |
-| 12 | AI Coach chat | Thread, thinking state, suggested prompts, composer with mic, plan proposal cards. | 8 |
+| 12 | Coach chat history and voice chat | The list of past threads behind the history button; the voice-chat state behind the quick action. (Intro and chat are designed: `Coach.dc.html`, `Chat.dc.html`.) | 8 |
 | 13 | Plan proposal review | Proposed changes per routine, a reason for each, apply or refine. | 8 |
 | 14 | Weekly check-in | Weight trend, food and training adherence, suggested targets with the reason, accept or keep. | 8 |
 | 15 | Settings / Profile | Profile, units, rest timer defaults, reminders, water glass size and target, AI settings, app lock, backup/export/import, about and licence. | 3 |

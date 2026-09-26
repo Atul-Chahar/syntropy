@@ -50,10 +50,12 @@ Settings (`/settings`) opens from the Home avatar. The AI Coach (`/coach`) opens
 
 | File | Route | Notes |
 |---|---|---|
-| `Plan.dc.html` | `/plan` | Coach card, Monday to Sunday strip, selected day routine with CTA (Resume, Review, Preview). |
+| `Plan.dc.html` | `/plan` | Coach card (links to `/coach`), Monday to Sunday strip, selected day routine with CTA (Resume, Review, Preview). |
 | `Workout.dc.html` | `/workout` | Rest timer ring, set table (set, previous, kg, reps, RPE, done), up next. Tapping the exercise name opens Exercise. |
 | `Exercise.dc.html` | `/workout/exercise?ex=` | Looping form demo card, progression note, weight and reps steppers, RPE chips, "Log set". |
 | `FormGuide.dc.html` | `/exercise/guide?ex=` | Full-screen demo: 3D model or Video, Side or Front angle, tempo bar (Pull, Hold, Lower) with moving playhead, cues that change with the phase, play/pause, 0.5x or 1x, common mistakes. |
+| `Coach.dc.html` | `/coach` | Coach intro: animated orb avatar, greeting bubble, four suggested questions (each opens the chat with that question), "Start a chat", AI disclaimer. Opened from the Plan coach card. Details in `docs/COACH.md`. |
+| `Chat.dc.html` | `/coach/chat?id=` | Coach chat: messages, attached photo and PDF cards, formatted replies with action chips, thinking state, quick actions (Scan plate, Add files, Plan week, Voice chat), composer with mic and send. |
 | `Library.dc.html` | `/library` | Search, muscle chips, equipment chips, "Create your own exercise", rows with a small muscle-map thumbnail and "+ Plan". |
 | `Stats.dc.html` | `/stats` | Four tiles, 26-week activity dot grid, muscle card with Balance (sets vs 10 to 20 range), Fatigue, Strength (e1RM with sparklines) tabs. |
 | `Recovery.dc.html` | `/recovery` | Front and back capsule body map coloured by state (ready, recovering, fatigued, detrained) and muscle rows. |

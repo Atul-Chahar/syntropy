@@ -1,4 +1,4 @@
-import { t } from './i18n.js'
+import { t } from './i18n-core.js'
 import { EXDB } from './exercises-data.js'
 
 // Every equipment value present in the catalogue, most common first — this becomes the

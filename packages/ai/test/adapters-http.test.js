@@ -10,13 +10,13 @@ import assert from 'node:assert/strict';
 import { tempData } from './helpers.mjs';
 
 tempData();
-const anthropic = (await import('../coach/core/adapters/anthropic.js')).default;
-const openai = (await import('../coach/core/adapters/openai.js')).default;
-const gemini = (await import('../coach/core/adapters/gemini.js')).default;
-const compatible = (await import('../coach/core/adapters/compatible.js')).default;
-const { attemptOnce } = await import('../coach/core/pipeline.js');
-const { HTTP_PROVIDERS, validateBaseUrl } = await import('../coach/core/providers.js');
-const { SYSTEM_PROMPT } = await import('../coach/core/system-prompt.js');
+const anthropic = (await import('../src/coach/core/adapters/anthropic.js')).default;
+const openai = (await import('../src/coach/core/adapters/openai.js')).default;
+const gemini = (await import('../src/coach/core/adapters/gemini.js')).default;
+const compatible = (await import('../src/coach/core/adapters/compatible.js')).default;
+const { attemptOnce } = await import('../src/coach/core/pipeline.js');
+const { HTTP_PROVIDERS, validateBaseUrl } = await import('../src/coach/core/providers.js');
+const { SYSTEM_PROMPT } = await import('../src/coach/core/system-prompt.js');
 
 /** A fetch that records what it was asked and answers from a script. Like the real one, it
  *  refuses an already-aborted signal without putting anything on the wire. */
@@ -279,7 +279,7 @@ test('validateBaseUrl: http(s) only, no credentials, no query, trailing slash dr
 });
 
 test('models(): OpenAI’s list is cut to what Chat Completions can use; a compatible endpoint is not filtered', async () => {
-  const { isChatModel } = await import('../coach/core/adapters/openai.js');
+  const { isChatModel } = await import('../src/coach/core/adapters/openai.js');
   const all = ['gpt-5.6', 'gpt-5.6-mini', 'gpt-4o', 'o3', 'o4-mini', 'chatgpt-4o-latest',
     'gpt-4o-realtime-preview', 'gpt-4o-audio-preview', 'gpt-4o-mini-tts', 'gpt-4o-transcribe', 'whisper-1',
     'text-embedding-3-small', 'gpt-image-1', 'dall-e-3', 'omni-moderation-latest', 'gpt-4o-search-preview',
@@ -289,7 +289,7 @@ test('models(): OpenAI’s list is cut to what Chat Completions can use; a compa
   assert.deepEqual((await openai.models({}, env, { fetch: oa })).models, ['chatgpt-4o-latest', 'gpt-4o', 'gpt-5.6', 'gpt-5.6-mini', 'o3', 'o4-mini']);
   const stub = fakeFetch([ok({ data: [{ id: 'model-b' }, { id: 'model-a' }] })]);
   assert.deepEqual((await openai.models({}, env, { fetch: stub })).models, ['model-a', 'model-b'], 'a list with no recognisable chat model is served whole');
-  const { default: compatible } = await import('../coach/core/adapters/compatible.js');
+  const { default: compatible } = await import('../src/coach/core/adapters/compatible.js');
   const co = fakeFetch([ok({ data: [{ id: 'qwen2.5:3b' }, { id: 'llama3.2' }] })]);
   assert.deepEqual((await compatible.models({ providerOptions: { compatible: { baseUrl: 'http://ollama:11434' } } }, {}, { fetch: co })).models, ['llama3.2', 'qwen2.5:3b']);
 });

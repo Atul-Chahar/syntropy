@@ -1,0 +1,26 @@
+{
+  "name": "@syntropy/ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-or-later",
+  "description": "Gemini client and the AI Coach pipeline (payload allowlist, prompts, validator) from OpenGym v1.3.8.",
+  "sideEffects": false,
+  "exports": {
+    "./coach/core/*": "./src/coach/core/*.js",
+    "./coach/client/*": "./src/coach/client/*.js"
+  },
+  "scripts": {
+    "test": "vitest run && node --test test/*.test.js",
+    "assets": "node scripts/build-coach-assets.mjs",
+    "assets:check": "node scripts/build-coach-assets.mjs --check"
+  },
+  "dependencies": {
+    "@syntropy/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "vite": "^8.1.5",
+    "vitest": "^5.0.2"
+  }
+}

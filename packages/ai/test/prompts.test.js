@@ -7,10 +7,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const { PROMPTS } = await import('../coach/core/prompts.js');
-const { buildPrompt } = await import('../coach/core/prompt.js');
+const { PROMPTS } = await import('../src/coach/core/prompts.js');
+const { buildPrompt } = await import('../src/coach/core/prompt.js');
 
-const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'coach', 'prompts');
+const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'src', 'coach', 'prompts');
 
 test('core/prompts.js matches api/coach/prompts/*.md byte for byte', () => {
   const files = fs.readdirSync(dir).filter(f => f.endsWith('.md')).sort();

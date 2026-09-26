@@ -1,0 +1,24 @@
+{
+  "name": "syntropy",
+  "private": true,
+  "description": "A calm, scientific health companion: training and Indian-food nutrition as one loop.",
+  "license": "AGPL-3.0-or-later",
+  "packageManager": "pnpm@11.21.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "turbo run dev --filter=@syntropy/app",
+    "dev:site": "turbo run dev --filter=@syntropy/site",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "lint": "biome check .",
+    "format": "biome check --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "turbo": "2.11.4",
+    "typescript": "~6.0.3"
+  }
+}

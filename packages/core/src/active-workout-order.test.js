@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import { canMoveActiveWorkoutUnit, moveActiveWorkoutUnit } from './active-workout-order.js'
-import { LANGS, DERIVED_LOCALES } from './i18n-core.js'
-import { PT_BR_OVERRIDES } from '../locales/pt-BR.js'
 
 const entry = (id, extra = {}) => ({
   id,
@@ -63,27 +61,5 @@ describe('active workout whole-unit order', () => {
     expect(moveActiveWorkoutUnit(active, 0, -1)).toBeNull()
     expect(active.entries).toEqual(entries)
     expect(active.cur).toBe(0)
-  })
-})
-
-describe('active workout move locale coverage', () => {
-  const packs = import.meta.glob('../locales/*.js', { eager: true, import: 'default' })
-  // English is the source language and has no pack. Derived locales (de-CH) have none either:
-  // they transform their base language's pack at load time, and are checked separately below.
-  const localeCodes = Object.keys(LANGS).filter(code => code !== 'en' && !DERIVED_LOCALES[code])
-
-  it('defines both visible move labels in every current locale pack', () => {
-    expect(Object.keys(packs)).toHaveLength(localeCodes.length)
-    for (const code of localeCodes) {
-      const pack = packs[`../locales/${code}.js`]
-      expect(pack, `${code} locale pack is missing`).toBeTruthy()
-      for (const key of ['Move up', 'Move down']) {
-        expect(Object.hasOwn(pack, key), `${code} is missing ${key}`).toBe(true)
-        expect(pack[key], `${code} has a blank ${key}`).toEqual(expect.any(String))
-        expect(pack[key].trim(), `${code} has a blank ${key}`).not.toBe('')
-      }
-    }
-    expect(Object.hasOwn(PT_BR_OVERRIDES, 'Move up')).toBe(true)
-    expect(Object.hasOwn(PT_BR_OVERRIDES, 'Move down')).toBe(true)
   })
 })

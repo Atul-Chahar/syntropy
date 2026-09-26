@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildPrompt, buildPromptParts, taskOf } from '../coach/core/prompt.js';
-import { SCHEMAS } from '../coach/core/schemas.js';
-import { build, FULL_DETAIL_SESSIONS } from '../coach/core/payload.js';
-import { chatCompletionsSpec } from '../coach/core/adapters/openai.js';
-import { validatePlan } from '../coach/core/validate.js';
+import { buildPrompt, buildPromptParts, taskOf } from '../src/coach/core/prompt.js';
+import { SCHEMAS } from '../src/coach/core/schemas.js';
+import { build, FULL_DETAIL_SESSIONS } from '../src/coach/core/payload.js';
+import { chatCompletionsSpec } from '../src/coach/core/adapters/openai.js';
+import { validatePlan } from '../src/coach/core/validate.js';
 
 const S = (workouts = []) => ({
   lang: 'en', unit: 'kg', routines: [{ id: 'r1', name: 'A', ex: [{ id: '0001', sets: 3, reps: 8 }] }],

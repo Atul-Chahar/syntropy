@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Doto, Geist, Geist_Mono } from 'next/font/google'
+import { Providers } from '@/components/Providers'
 import './globals.css'
 
 // Self-hosted at build time, so the app has its fonts offline inside the WebView.
@@ -28,7 +29,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable} ${doto.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

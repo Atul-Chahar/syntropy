@@ -17,3 +17,30 @@ body {
   overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(255, 199, 176, 0.7);
+  outline-offset: 2px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(243, 241, 236, 0.4);
+}
+
+.hide-scroll {
+  scrollbar-width: none;
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}

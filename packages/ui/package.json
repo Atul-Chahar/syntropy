@@ -9,6 +9,7 @@
     "*.css"
   ],
   "exports": {
+    ".": "./src/index.ts",
     "./tokens.css": "./src/tokens.css",
     "./*": "./src/*.tsx"
   },
@@ -22,5 +23,8 @@
     "@types/react": "^19.3.0",
     "react": "^19.3.0",
     "typescript": "~6.0.3"
+  },
+  "dependencies": {
+    "motion": "^13.4.4"
   }
 }

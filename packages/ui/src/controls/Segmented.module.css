@@ -1,0 +1,122 @@
+.pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pills::-webkit-scrollbar {
+  display: none;
+}
+
+.pill {
+  flex-shrink: 0;
+  border-radius: var(--sy-radius-pill);
+  font: inherit;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--sy-text-72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition:
+    background var(--sy-dur) var(--sy-ease),
+    color var(--sy-dur) var(--sy-ease),
+    border-color var(--sy-dur) var(--sy-ease);
+}
+
+.pill[aria-pressed="true"],
+.pill[aria-checked="true"] {
+  background: var(--sy-bone);
+  color: var(--sy-void);
+  border-color: var(--sy-bone);
+}
+
+.fill .pill {
+  flex: 1 1 0;
+}
+
+.track {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 24px;
+  gap: 2px;
+  background: rgba(14, 18, 16, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+}
+
+.trackItem {
+  position: relative;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 18px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  color: rgba(243, 241, 236, 0.75);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trackItem[aria-pressed="true"] {
+  color: var(--sy-void);
+}
+
+.trackThumb {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: var(--sy-bone);
+  z-index: 0;
+}
+
+.trackLabel {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tabs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  padding: 4px;
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tab {
+  position: relative;
+  height: 38px;
+  border-radius: 18px;
+  border: 0;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--sy-text-66);
+  cursor: pointer;
+}
+
+.tab[aria-selected="true"] {
+  color: var(--sy-bone);
+}
+
+.tabThumb {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+}

@@ -7,16 +7,20 @@
   "description": "Gemini client and the AI Coach pipeline (payload allowlist, prompts, validator) from OpenGym v1.3.8.",
   "sideEffects": false,
   "exports": {
+    ".": "./src/index.ts",
     "./coach/core/*": "./src/coach/core/*.js",
-    "./coach/client/*": "./src/coach/client/*.js"
+    "./coach/client/*": "./src/coach/client/*.js",
+    "./gemini/*": "./src/gemini/*.ts"
   },
   "scripts": {
     "test": "vitest run && node --test test/*.test.js",
     "assets": "node scripts/build-coach-assets.mjs",
-    "assets:check": "node scripts/build-coach-assets.mjs --check"
+    "assets:check": "node scripts/build-coach-assets.mjs --check",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@syntropy/core": "workspace:*"
+    "@syntropy/core": "workspace:*",
+    "@syntropy/nutrition": "workspace:*"
   },
   "devDependencies": {
     "typescript": "~6.0.3",

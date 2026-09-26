@@ -38,6 +38,34 @@
   --sy-gutter: 20px;
   --sy-touch: 44px;
 
+  /* Extended from the boards: colours they use that the original tokens lacked */
+  --sy-peach-rgb: 255, 199, 176;
+  --sy-sage-ui-rgb: 169, 195, 160;
+  --sy-water-rgb: 156, 199, 224;
+  --sy-bone-rgb: 243, 241, 236;
+  --sy-peach-light: #ffc2a3; /* logo top, scan FAB, rest ring */
+  --sy-peach-text: #ffb79a; /* accent kickers, primary muscle tags */
+  --sy-peach-badge: #ffd6c4; /* peach badge text */
+  --sy-fatigued: #ff9c78; /* "fatigued" copy */
+  --sy-water-light: #d3e7f3;
+  --sy-fab: radial-gradient(circle at 32% 25%, #ffc2a3 0%, #ff7a4a 45%, #e0501f 100%);
+  --sy-fab-ink: #1a0e08;
+
+  /* Text alpha steps used across the boards */
+  --sy-text-50: rgba(243, 241, 236, 0.5);
+  --sy-text-55: rgba(243, 241, 236, 0.55);
+  --sy-text-66: rgba(243, 241, 236, 0.66);
+  --sy-text-72: rgba(243, 241, 236, 0.72);
+  --sy-text-80: rgba(243, 241, 236, 0.8);
+
+  --sy-line: rgba(255, 255, 255, 0.07);
+  --sy-line-strong: rgba(255, 255, 255, 0.12);
+  --sy-fill: rgba(255, 255, 255, 0.045);
+  --sy-fill-2: rgba(255, 255, 255, 0.07);
+
+  --sy-safe-top: env(safe-area-inset-top, 0px);
+  --sy-safe-bottom: env(safe-area-inset-bottom, 0px);
+
   /* Motion */
   --sy-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --sy-dur-fast: 200ms;
@@ -182,6 +210,79 @@ body {
   100% {
     transform: scale(1);
   }
+}
+
+@keyframes sy-scan {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(270px);
+  }
+}
+@keyframes sy-ring {
+  0% {
+    transform: scale(0.72);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+@keyframes sy-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sy-scanline {
+  0%,
+  100% {
+    transform: translateY(-26px);
+  }
+  50% {
+    transform: translateY(26px);
+  }
+}
+@keyframes sy-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes sy-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(30px, -24px);
+  }
+}
+@keyframes sy-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.sy-mono {
+  font-family: var(--sy-font-mono);
+}
+.sy-dot {
+  font-family: var(--sy-font-dot);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.sy-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

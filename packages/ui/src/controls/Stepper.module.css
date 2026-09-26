@@ -1,0 +1,98 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pillBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 0;
+  background: transparent;
+  color: var(--sy-bone);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pillBtn:disabled {
+  opacity: 0.35;
+}
+
+.pillValue {
+  min-width: 64px;
+  text-align: center;
+  font-family: var(--sy-font-mono);
+  font-size: 13px;
+  color: var(--sy-bone);
+}
+
+.row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rowBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--sy-bone);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity var(--sy-dur-fast) var(--sy-ease);
+}
+
+.rowBtn:disabled {
+  opacity: 0.35;
+}
+
+.rowValue {
+  min-width: 30px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tileRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tileValue {
+  font-size: 26px;
+  line-height: 1;
+  text-align: center;
+  flex: 1;
+}
+
+.tileMinus {
+  composes: rowBtn;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tilePlus {
+  composes: rowBtn;
+  background: rgba(255, 255, 255, 0.08);
+}

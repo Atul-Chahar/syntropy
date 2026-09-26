@@ -1,0 +1,33 @@
+.hero {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  gap: 20px;
+  padding: 40px var(--sy-gutter);
+  text-align: center;
+}
+
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.word {
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(40px, 8vw, 104px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.dim {
+  opacity: 0.42;
+}

@@ -4,12 +4,12 @@
   "files": {
     "includes": [
       "**",
-      "!design/**",
-      "!packages/core/src/**",
-      "!packages/ai/src/coach/**",
-      "!packages/ai/test/**",
-      "!packages/ai/scripts/**",
-      "!**/android/**",
+      "!design",
+      "!packages/core/src",
+      "!packages/ai/src/coach",
+      "!packages/ai/test",
+      "!packages/ai/scripts",
+      "!**/android",
       "!**/*.dc.html"
     ]
   },
@@ -33,7 +33,7 @@
   },
   "linter": {
     "enabled": true,
-    "rules": { "recommended": true }
+    "rules": { "preset": "recommended" }
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } }
 }

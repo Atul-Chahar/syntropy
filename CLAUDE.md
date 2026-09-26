@@ -1,54 +1,107 @@
 # Syntropy
 
 Syntropy is a calm, scientific health companion that treats training and nutrition as one loop.
-It is a fork of OpenGym (React 19 + Vite + React Router + Zustand frontend, framework-free Node API,
-passkey auth with @simplewebauthn/server, JSON file storage). We are adding a full redesign, AI photo
-nutrition with Gemini (built for Indian food), water tracking, goal-based targets, a Capacitor mobile
-shell, home and lock screen widgets, and a landing page.
+It is a personal daily-driver Android app and a portfolio project. It is built on the training
+engine and AI Coach pipeline of OpenGym v1.3.8 (AGPL-3.0), with a new Next.js UI, Indian-food
+nutrition with Gemini photo analysis, an AI chat coach, adaptive targets, and Android widgets.
 
-Full product brief: `docs/PRD.md`. Build order and phase prompts: `docs/BUILD_PLAN.md`.
-Screen-by-screen spec: `docs/SCREENS.md`.
+- Product brief: `docs/PRD.md`
+- Architecture and decisions: `docs/ARCHITECTURE.md`
+- Build phases: `docs/BUILD_PLAN.md`
+- Screens, routes, data shapes, Gemini contract: `docs/SCREENS.md`
+- Pages missing from the designs: `docs/DESIGN_GAPS.md`
+
+## Decisions (settled, do not reopen without the owner)
+
+- **Phone-only, local-first.** No server. All data lives on the device; backup is an export file.
+  A public web demo build uses seed data.
+- **Android only.** No iOS widgets or Live Activity.
+- **No accounts.** SignUp creates a local profile; the Passkey/SignIn designs are a biometric
+  app lock (enrol, unlock).
+- **AI = Gemini API free tier, called from the phone.** The user pastes their own key; it is
+  stored in the Android Keystore via secure storage and never bundled, logged, exported or synced.
+  No on-device models. Model names are a setting (defaults: `gemini-3.8-flash` for vision and
+  coach, `gemini-3.5-flash-lite` for chat and text parsing).
+- **Next.js (static export) + Motion** for the UI, inside Capacitor 8.
+- **Missing pages are designed by Claude in the same design system**, shown to the owner as a
+  390 x 844 screenshot for approval before real data is wired.
+
+## Repo map
+
+```
+apps/app        Next.js app (output: 'export') + Capacitor Android (apps/app/android)
+apps/site       Next.js landing page (phase 13)
+packages/ui     design system: tokens.css, sy components, icons, motion presets
+packages/core   OpenGym training engine (JS) + generated .d.ts
+packages/ai     Gemini client, coach pipeline (from OpenGym api/coach/core), coach client
+packages/nutrition  Indian food table, units, targets, energy balance (phase 6)
+design/         Claude Design boards (*.dc.html) and the original tokens.css
+docs/           PRD, architecture, build plan, screens, design gaps
+```
 
 ## Source of truth for the UI
 
-- Every screen is designed in `design/screens/*.dc.html`. These are HTML mockups with inline styles.
-  Read them for exact layout, spacing, sizes, colours, copy and interaction states.
-  They use a small runtime (`support.js`, not included), so do not try to run them. Treat them as markup references.
-- `{{name}}` in a design file is a value that comes from the script block at the bottom of that file.
-  The script shows the sample data and the interaction logic (steppers, toggles, state changes).
-- Design tokens live in `design/tokens.css`. Import it once at the app root and use its variables and classes.
-  Never hard-code a colour that already has a token.
-- Phone designs are 390 x 844. The real app must be fluid from 360 to 430 px wide and respect safe areas
-  (`env(safe-area-inset-*)`). Do not draw a fake status bar.
+- Every designed screen is in `design/screens/*.dc.html`: HTML mockups with inline styles, a
+  missing runtime (`support.js`), `{{name}}` values from the script block at the bottom, which
+  also holds the sample data and interaction logic. Read them as markup references; they do not run.
+- Tokens: `packages/ui/src/tokens.css` (extended from `design/tokens.css`). Use variables and
+  classes; never hard-code a colour that has a token. Add a token when a design colour lacks one.
+- Phone boards are 390 x 844. The app is fluid from 360 to 430 px and respects
+  `env(safe-area-inset-*)`. Never draw a fake status bar.
+- Match sizes, radii, colours, copy and motion from the board exactly. When a screen is built,
+  compare a 390 x 844 screenshot against the board value by value.
 
-## Look and feel rules
+## Look and feel
 
 - Dark first. Ground `--sy-void`, text `--sy-bone`. Accents: sage (nutrition, recovery, "good"),
   ember (training, energy), peach (highlights), water blue (hydration only).
-- Frosted glass cards (`.sy-glass`), pill buttons, 44 px minimum touch targets.
-- Fonts: Geist (UI, light 300 for big titles), Doto (dot-matrix, only for metric numbers),
-  Geist Mono (small uppercase kickers). Load from Google Fonts.
-- Tone is calm and non-judgmental. No red error walls for going over a target; use neutral copy.
-- Motion is subtle: fades, gentle floats, spring-like eases. Always honour `prefers-reduced-motion`.
-- Numbers in the designs are sample data. Real values come from the store and the API.
+- Frosted glass cards (`.sy-glass`, `.sy-glass-dark`), pill buttons, 44 px minimum touch targets.
+- Fonts (self-hosted by `next/font`): Geist (UI, 300 for big titles), Doto (metric numbers only),
+  Geist Mono (small uppercase kickers).
+- Tone is calm and non-judgmental. No red error walls for going over a target.
+- Motion is subtle: fades, gentle floats, spring-like eases. Always honour reduced motion.
+- Numbers in the designs are sample data. Real values come from the stores.
 
 ## Code conventions
 
-- TypeScript for new code. Function components and hooks. Zustand stores per domain
-  (`useNutritionStore`, `useWaterStore`, `useGoalStore`, existing training stores).
-- Shared UI components in `frontend/src/components/sy/` (GlassCard, PillButton, Segmented, Stepper,
-  Ring, Gauge, TabBar, Orbs, Grain, MetricNumber). Build them once, reuse everywhere.
-- Real `<button>`, `<a>`, `<input>` with `<label>`. `aria-label` on icon-only buttons.
-- Keep the API framework-free like upstream OpenGym. New routes go under `/api/...`.
-- Secrets (Gemini API key) live only on the server in `.env`. Never ship them to the client.
-- Every AI estimate is shown to the user to confirm or edit before it is saved.
+- TypeScript (strict) for new code; function components and hooks. Biome formats and lints
+  (single quotes, no semicolons, 2 spaces, width 100). Run `pnpm lint`.
+- Styling: CSS Modules next to each component plus the global tokens. No Tailwind.
+- Motion: `motion/react` for springs, gestures, sheets, layout and screen transitions, number
+  tweens. Ambient loops (orbs, pulses, scan line, marquee) stay as CSS keyframes.
+  Wrap the app in `MotionConfig reducedMotion="user"`.
+- Accessibility: real `<button>`, `<a>`, `<input>` with `<label>`; `aria-label` on icon-only
+  buttons; Radix primitives for dialogs, tabs, radio groups, toggle groups and switches.
+- Static export rules: every screen is a client component; no route handlers, server actions,
+  middleware or `next/image` optimisation; ids go in the query string (`/meal/review?id=`).
+- State: one Zustand store per domain in `apps/app/src/stores` (training keeps OpenGym's `S`
+  shape so `@syntropy/core` works unchanged; nutrition, water, goal, profile, coach, ui).
+  Persistence goes through `apps/app/src/platform/storage` (Filesystem JSON on native,
+  IndexedDB on web). Photos are files, never state.
+- Native access only through `apps/app/src/platform/*` adapters, each with a web fallback.
+- Upstream code in `packages/core/src` and `packages/ai/src/coach` keeps OpenGym's style and
+  is excluded from Biome. Change it minimally, keep its tests passing, and note why in the commit.
+- Every AI estimate is shown to the user to confirm or edit before it is saved. AI calls have a
+  timeout, one retry, a daily cap, and a friendly fallback.
+
+## Commands
+
+```
+pnpm install               # once
+pnpm dev                   # app at http://localhost:3000
+pnpm build | test | typecheck | lint
+pnpm --filter @syntropy/app android      # build, sync and run on a device or emulator
+pnpm --filter @syntropy/ai assets        # regenerate coach prompts after editing prompts/*.md
+```
+
+Toolchain is pinned in `mise.toml` (Java 21, `ANDROID_HOME`). Node >= 22.12, pnpm 11.
 
 ## Working rules for Claude
 
-- Work one phase from `docs/BUILD_PLAN.md` at a time. Start in plan mode, list the files you will touch,
-  then build.
-- Before changing an upstream OpenGym file, read it fully and keep existing behaviour working.
-- After each phase: run the app, run tests (`node --test` in `api/`, the frontend test runner if present),
-  fix failures, then summarise what changed in plain language.
-- Licence: OpenGym is GNU AGPL v3. Keep the licence file and notices. Anyone using a hosted copy
-  must be able to get the source.
+- One phase from `docs/BUILD_PLAN.md` at a time. Read the relevant boards before building.
+- For a page with no board, design it from existing primitives, flag any new primitive, and show
+  the owner a screenshot before wiring data.
+- After each phase: build, run all tests, screenshot changed screens, fix failures, summarise in
+  plain language. Commit per phase when the owner agrees.
+- Licence: AGPL-3.0-or-later. Keep `LICENSE` and `NOTICE.md`. Never add exercise images or GIFs
+  to the repo or a build.

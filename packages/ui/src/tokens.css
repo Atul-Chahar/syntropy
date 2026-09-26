@@ -1,0 +1,196 @@
+/* Syntropy design tokens. Import once at the app root.
+   Fonts are self-hosted by next/font, which sets --font-geist, --font-geist-mono and --font-doto. */
+
+:root {
+  /* Colour */
+  --sy-void: #0b0f0d; /* app background */
+  --sy-void-deep: #070a09;
+  --sy-bone: #f3f1ec; /* primary text, primary button fill */
+  --sy-mist: rgba(243, 241, 236, 0.62); /* secondary text */
+  --sy-mist-2: rgba(243, 241, 236, 0.46); /* tertiary text, kickers */
+  --sy-hairline: rgba(255, 255, 255, 0.08);
+
+  --sy-sage: #a9c3a0; /* nutrition, recovery, "ready" */
+  --sy-sage-light: #c9dcbf;
+  --sy-sage-deep: #7e9f74;
+  --sy-peach: #ffc7b0; /* highlights, carbs, "recovering" */
+  --sy-ember: #ff6b3d; /* training, energy, "fatigued" */
+  --sy-ember-soft: #ff8a5c; /* fat */
+  --sy-water: #9cc7e0; /* hydration only */
+
+  --sy-sage-rgb: 137, 170, 124;
+  --sy-ember-rgb: 255, 107, 61;
+
+  /* Type */
+  --sy-font:
+    var(--font-geist), "Geist", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue",
+    sans-serif;
+  --sy-font-dot: var(--font-doto), "Doto", "Geist Mono", ui-monospace, monospace;
+  --sy-font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+  --sy-title: 300 30px / 1.05 var(--sy-font); /* screen titles, letter-spacing -0.045em */
+  --sy-kicker-size: 11px; /* mono, uppercase, letter-spacing 0.06em */
+
+  /* Shape and space */
+  --sy-radius-card: 32px;
+  --sy-radius-tile: 24px;
+  --sy-radius-row: 22px;
+  --sy-radius-pill: 999px;
+  --sy-gutter: 20px;
+  --sy-touch: 44px;
+
+  /* Motion */
+  --sy-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --sy-dur-fast: 200ms;
+  --sy-dur: 350ms;
+  --sy-dur-slow: 900ms;
+}
+
+html,
+body {
+  background: var(--sy-void);
+  color: var(--sy-bone);
+  font-family: var(--sy-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Frosted glass surfaces */
+.sy-glass {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 24px 48px -24px rgba(0, 0, 0, 0.6);
+}
+.sy-glass-dark {
+  background: rgba(14, 18, 16, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 20px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Text styles */
+.sy-metric {
+  font-family: var(--sy-font-dot);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.sy-kicker {
+  font-family: var(--sy-font-mono);
+  font-size: var(--sy-kicker-size);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sy-mist-2);
+}
+.sy-title {
+  font: var(--sy-title);
+  letter-spacing: -0.045em;
+  margin: 0;
+}
+
+/* Buttons */
+.sy-btn-primary {
+  height: 58px;
+  border-radius: var(--sy-radius-pill);
+  background: var(--sy-bone);
+  color: var(--sy-void);
+  font-weight: 500;
+  font-size: 16px;
+  border: 0;
+}
+.sy-btn-ghost {
+  height: 58px;
+  border-radius: var(--sy-radius-pill);
+  color: var(--sy-bone);
+  font-size: 15px;
+}
+.sy-btn-primary,
+.sy-btn-ghost {
+  transition: transform var(--sy-dur) var(--sy-ease);
+}
+.sy-btn-primary:active,
+.sy-btn-ghost:active {
+  transform: scale(0.97);
+}
+
+/* Background glow orbs: place 1 to 2 per screen, behind content */
+.sy-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.sy-orb--sage {
+  background: radial-gradient(
+    circle,
+    rgba(var(--sy-sage-rgb), 0.45) 0%,
+    rgba(var(--sy-sage-rgb), 0.16) 38%,
+    rgba(var(--sy-sage-rgb), 0) 70%
+  );
+}
+.sy-orb--ember {
+  background: radial-gradient(
+    circle,
+    rgba(var(--sy-ember-rgb), 0.42) 0%,
+    rgba(var(--sy-ember-rgb), 0.15) 38%,
+    rgba(var(--sy-ember-rgb), 0) 70%
+  );
+}
+
+/* Shared keyframes used across the designs */
+@keyframes sy-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+@keyframes sy-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes sy-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sy-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must beat every component animation */
+    animation: none !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must beat every component transition */
+    transition: none !important;
+  }
+}

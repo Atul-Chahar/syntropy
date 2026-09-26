@@ -1,173 +1,93 @@
 # Build plan
 
-Do one phase per Claude Code session. For each phase:
+One phase at a time. Each phase ends with: build, all tests green, 390 x 844 screenshots of
+changed screens next to their boards, the owner's review, then a commit and push.
+Pages without a board (`docs/DESIGN_GAPS.md`) are designed by Claude in the same system and
+approved from a screenshot before data is wired.
 
-1. Start `claude` in the repo, press **Shift+Tab** until you see plan mode, paste the prompt.
-2. Read the plan it proposes. Push back if something is off, then approve.
-3. When it finishes, run the app and look at it next to the design file.
-4. Commit (`git add -A && git commit -m "phase N: ..."`), then type `/clear` before the next phase.
+## Phase 0: monorepo foundation ✅
 
----
+- pnpm + Turborepo monorepo, Biome, shared tsconfig, `mise.toml` toolchain (Java 21, Android SDK).
+- OpenGym v1.3.8 engine imported unmodified, then packaged as `@syntropy/core` and `@syntropy/ai`
+  (763 + 312 upstream tests passing).
+- `apps/app`: Next.js static export + Capacitor 8 Android; runs on the emulator.
+- `apps/site`: Next.js skeleton. Docs, notices, CI, public repo.
 
-## Phase 0: get the base running
+## Phase 1: design system (`packages/ui`)
 
-In your terminal (not in Claude yet):
+- Tokens extended with every colour, alpha step and keyframe the boards use but `tokens.css`
+  lacks (peach, UI-sage and water RGB; `#FFC2A3`, `#FFB79A`, `#FFD6C4`, `#FF9C78`, `#D3E7F3`;
+  text alphas .55, .72, .8; `sy-scan`, `sy-ring`, `sy-spin`, `sy-scanline`, `sy-marquee`).
+- Components: GlassCard, Screen (orbs, grain, safe areas, bottom fade), ScreenHeader,
+  ModalHeader, PillButton, IconButton, Segmented (pill and track), Tabs, Stepper (4 variants),
+  Chip/Tag/Badge, TextField, InsightCallout, ProgressBar/SegmentBar, Ring, Gauge, MetricNumber,
+  Kicker, BodyMap, DotGrid, Sparkline, EmaChart, BottomSheet, TabBar; plus Switch, ChatBubble,
+  Composer, Calendar, ListRow, EmptyState, Skeleton, Toast.
+- 37 icons, brand mark, particle mark. Motion presets. `/dev/ui` gallery of every state.
 
-```bash
-git clone https://github.com/DuarteSantos8/openGym syntropy
-cd syntropy
-# copy CLAUDE.md, design/ and docs/ from this kit into this folder
-cp .env.example .env
-docker compose up -d        # open http://localhost:8080 and check OpenGym works
-claude
-```
+## Phase 2: app shell
 
-Prompt:
+- Edge-to-edge dark system bars. Tab bar: Home · Train · Scan · Food · Stats.
+- Route map from `docs/SCREENS.md`; modal flows hide the tab bar; screen transitions.
+- Android back button; placeholders for screens not built yet.
 
-```
-Read CLAUDE.md, docs/PRD.md and docs/SCREENS.md, then explore this repo.
-Explain in plain language how the frontend, the api and the auth work today, where
-workouts and body weight are stored, and how to run the frontend and api without Docker
-for fast development. Then write docs/ARCHITECTURE.md with what you found and a short
-list of risks for our plan (Capacitor, passkeys in a native WebView, Gemini, widgets).
-Do not change any code yet.
-```
+## Phase 3: data layer
 
-## Phase 1: design system
+- Stores and types; training keeps OpenGym's `S` shape.
+- `platform/storage` (Filesystem JSON on Android, IndexedDB on web), photo files.
+- Demo seed data; JSON export and import. Settings / Profile page.
 
-```
-Build the Syntropy design system from design/tokens.css and the design files.
-1. Import design/tokens.css at the app root (copy it into frontend/src/styles/).
-2. Create frontend/src/components/sy/ with: GlassCard, PillButton, IconButton, Segmented,
-   Stepper, Ring, Gauge (the homeostasis dial from Home.dc.html), MetricNumber (Doto),
-   Kicker, TabBar (the floating pill from any tab screen), Orbs, Grain, BottomSheet.
-3. Add an icon set as small React components, copying the SVG paths used in the designs.
-4. Add a dev-only page at /dev/ui that shows every component in every state.
-Match sizes, radii, colours and motion exactly from the design files. Keep everything accessible.
-```
+## Phase 4: onboarding and lock
 
-## Phase 2: restyle the training screens
+- Welcome, SignUp (local profile), Passkey → biometric enrol, SignIn → unlock, App unlock.
+- Body profile. Goal with maintenance from Mifflin-St Jeor.
 
-```
-Restyle the existing OpenGym training screens to match the designs, keeping all current
-behaviour and data working:
-- Plan: design/screens/Plan.dc.html
-- Workout logger: design/screens/Workout.dc.html
-- Library: design/screens/Library.dc.html
-- Stats: design/screens/Stats.dc.html
-Use the components from frontend/src/components/sy. Add the new tab bar
-(Home, Train, Scan, Food, Stats) and routes from docs/SCREENS.md. Screens that do not
-exist yet can be simple placeholders for now.
-```
+## Phase 5: training
 
-## Phase 3: sign in and sign up
+- Boards: Plan (Coach card → `/coach`), Workout, Exercise, Library (body-map thumbnails), Stats,
+  Recovery, Progress, all on `@syntropy/core`.
+- Designed: routine builder, exercise picker, workout summary, weigh-in, history, exercise detail.
 
-```
-OpenGym already has passkey auth. Rebuild its screens to match Welcome.dc.html,
-SignUp.dc.html, Passkey.dc.html and SignIn.dc.html, wiring the idle, verifying and done
-states to the real WebAuthn calls and errors (cancelled, not supported, timed out).
-After a new account, route to /goal. Add an "email me a sign-in link" recovery flow
-behind a feature flag. Explain what I need to configure for passkeys to work on a real
-domain and later inside the iOS and Android app.
-```
+## Phase 6: nutrition without AI
 
-## Phase 4: nutrition data, food log, water, goals
+- `packages/nutrition`: ~150 Indian foods per unit (pc, katori 150 g, cup, plate), source cited,
+  licence checked, every value marked as an estimate; targets and energy maths.
+- Boards: FoodLog, QuickAdd (manual), water. Designed: meal detail, food search, custom food.
 
-```
-Add nutrition to the api and frontend:
-1. Data: foods, meals, water and goal as in docs/SCREENS.md, stored like OpenGym's
-   per-user JSON state. Add api routes and tests with node --test.
-2. Seed data/foods-indian.json with about 150 common Indian foods using per-unit values
-   (pc, katori 150 g, cup, plate). Mark every value as an estimate and cite the source
-   you used in a comment at the top of the file.
-3. Screens: FoodLog.dc.html, QuickAdd.dc.html, Goal.dc.html. The Goal formula is in the
-   script block of Goal.dc.html. Use it, but base maintenance calories on the user's
-   weight, height, age and activity (Mifflin-St Jeor) instead of the fixed 2650.
-4. Home tiles (Fuel left, Water) and the Energy in value read from this data.
-```
+## Phase 7: Gemini meal scanning
 
-## Phase 5: Gemini photo analysis
+- AI settings (key in Keystore, models, test, usage).
+- Scan: live viewfinder, gallery import, 1280 px JPEG, capture/analysing/error states.
+- Gemini JSON → validate → match to the food table → Meal review with "Ate more later?".
+- QuickAdd free-text parse. Nothing is saved until the user confirms.
 
-```
-Add AI meal scanning:
-1. api: POST /api/meals/analyze takes an image (max 1280 px, compressed on the client),
-   calls the current Gemini Flash vision model with a strict JSON schema (see
-   docs/SCREENS.md), validates the result, matches items to foods-indian.json, and returns
-   items with unit, quantity and confidence. Key from GEMINI_API_KEY in .env. Add a
-   timeout, one retry, and a clear error for "could not read this plate".
-2. api: POST /api/meals/parse-text for Quick add sentences like "2 more roti and a katori
-   of dahi", returning the same item shape.
-3. Screens: Scan.dc.html (camera with getUserMedia on web, Capacitor Camera later) and
-   Meal.dc.html with the "Ate more later?" flow that adds to the same meal and tags
-   the extra items.
-Nothing is saved until the user taps "Log to lunch".
-```
+## Phase 8: AI coach and adaptive plans
 
-## Phase 6: synthesis, recovery, progress
+- Coach setup, intake, chat, proposal review, weekly check-in.
+- Nutrition summaries in the coach payload; free chat grounded in the user's data.
+- Rule-based target adjustment with a model-written explanation; insight callouts.
 
-```
-Build Home.dc.html, Recovery.dc.html and Progress.dc.html with real data:
-- Energy in from meals, energy out = BMR + activity + training estimate from logged volume.
-- Fatigue per muscle from recent sets and time since training (explain the formula you
-  choose in docs/ARCHITECTURE.md in simple words).
-- Weight trend as an exponential moving average, with 7D, 30D and 90D ranges.
-- Training-day carb adjustment note on Home.
-```
+## Phase 9: Synthesis
 
-## Phase 7: exercise demos
+- Home gauge from real data: energy in from meals; energy out = BMR + activity + training
+  estimate (formula documented in `docs/ARCHITECTURE.md`). Readiness. Progress milestone photos.
 
-```
-Build Exercise.dc.html and FormGuide.dc.html.
-1. First use the media from the exercise dataset OpenGym already uses (check its licence)
-   for the Video mode, looping and muted.
-2. Then add the 3D mode with react-three-fiber: a rigged glTF mannequin with one looping
-   animation per exercise, camera presets for Side and Front, play/pause and 0.5x speed,
-   and the tempo bar with phase cues synced to the animation time. Start with pull-up,
-   squat, bench press, deadlift and overhead press. Lazy-load the 3D code so the
-   rest of the app stays fast.
-```
+## Phase 10: native polish
 
-## Phase 8: mobile app with Capacitor
+- Icon and splash from `Icon.dc.html`, haptics, rest timer as an ongoing notification,
+  water reminders, keyboard handling, signed release APK.
 
-```
-Wrap the frontend with Capacitor for iOS and Android.
-Add Camera, Haptics, Preferences and Local Notifications (rest timer, water reminders).
-Make passkeys work inside the app shell (associated domains on iOS, Digital Asset Links on
-Android) and tell me exactly which files and settings I must fill in myself.
-Handle safe areas, the keyboard and the back button on Android.
-```
+## Phase 11: Android widgets
 
-## Phase 9: widgets and live activity
+- Glance widgets from a SharedPreferences snapshot: Today, Scan plate, Water +250 ml
+  (interactive), Quick add (roti, dahi, chai, dal).
 
-Widgets are native code, so this phase needs Xcode (Mac) for iOS and Android Studio for Android.
+## Phase 12: exercise demos
 
-```
-Add native widgets that read today's summary from shared storage the app writes to
-(App Group on iOS, SharedPreferences on Android):
-- iOS WidgetKit: small Scan plate, small Water +250 ml (App Intent), medium Today,
-  lock screen circular kcal and protein, rectangular water. Live Activity for the rest timer.
-- Android Glance widgets with the same content.
-Match Widgets.dc.html and Lock.dc.html. Explain each step I need to do in Xcode and
-Android Studio.
-```
+- SVG pull-up figure and tempo bar from Exercise and FormGuide. Video mode never bundles media.
+  react-three-fiber mannequin as a stretch goal.
 
-## Phase 10: landing page
+## Phase 13: landing page and portfolio
 
-```
-Build the marketing site from design/screens/Landing.dc.html as a separate Vite page in
-/landing (static, fast, no app code). Responsive down to 360 px. Replace the phone
-mockups with real screenshots from the running app. Keep the subtle motion: load-in
-fade, slow floating phones, marquee of dishes, scroll reveals with a no-JS fallback.
-The early-access form posts to /api/waitlist.
-```
-
----
-
-## Tips
-
-- If Claude drifts from the look, point it at the exact design file and ask it to compare
-  sizes and colours line by line.
-- Ask it to take screenshots with Playwright of each screen and put them next to the design.
-- Keep sessions small. One phase, one commit.
-- Ask "explain what you just built like I am presenting it to a friend" at the end of each
-  phase, so you can explain every part of your project.
+- `apps/site` from `Landing.dc.html`, responsive to 360 px, real app screens as mockups,
+  Motion scroll reveals. Deploy the site and the web demo. README case study.

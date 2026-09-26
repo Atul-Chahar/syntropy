@@ -1,0 +1,56 @@
+.screen {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  padding: calc(60px + env(safe-area-inset-top)) var(--sy-gutter)
+    calc(40px + env(safe-area-inset-bottom));
+}
+
+.orbSage {
+  width: 560px;
+  height: 560px;
+  left: -240px;
+  bottom: -260px;
+}
+
+.orbEmber {
+  width: 520px;
+  height: 520px;
+  right: -260px;
+  top: -220px;
+}
+
+.lockup {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.word {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+
+.card {
+  position: relative;
+  border-radius: var(--sy-radius-card);
+  padding: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.metric {
+  font-size: 50px;
+}
+
+.note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sy-mist);
+}

@@ -1,0 +1,6 @@
+# Toolchain for this repo. Java 21 is what Capacitor 8's Android build needs.
+[tools]
+java = "temurin-21"
+
+[env]
+ANDROID_HOME = "{{env.HOME}}/Android/Sdk"

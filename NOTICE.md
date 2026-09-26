@@ -1,3 +1,40 @@
+# Notices
+
+Syntropy — Copyright (C) 2026 Atul Chahar.
+Syntropy is a derivative work of openGym and is licensed under the **GNU AGPL v3.0 or later**
+(see [LICENSE](LICENSE)). The complete source code is published at
+<https://github.com/Atul-Chahar/syntropy>.
+
+## What Syntropy takes from openGym
+
+Syntropy imports openGym **v1.3.8** (commit `f91cde15a1c7ec9af815a1c5878643105636abdf`,
+<https://github.com/DuarteSantos8/openGym>). The import commit in this repository's history holds
+the files byte for byte; later commits adapt them.
+
+| openGym path | Syntropy path |
+| --- | --- |
+| `frontend/src/lib/**` (training engine) | `packages/core/src/` |
+| `frontend/src/lib/coach*.js` (coach client) | `packages/ai/src/coach/client/` |
+| `api/coach/core/**`, `api/coach/prompts/*.md` | `packages/ai/src/coach/` |
+
+openGym's user interface, server, sync, admin and QR check-in code are **not** used. Paths in
+openGym's notice below refer to openGym's layout; `frontend/src/lib/body-paths.js` is
+`packages/core/src/body-paths.js` here.
+
+The app-store exception in openGym's notice is granted for "the openGym mobile application".
+Syntropy does not rely on it: the Android app is distributed as an APK with its source available
+under the AGPL.
+
+## Exercise images and animations
+
+Syntropy follows openGym's position below: the exercise thumbnails and animations are
+third-party content licensed to neither project. They are **not** in this repository or in any
+Syntropy build. Library thumbnails are drawn from the MIT-licensed body-map geometry instead.
+
+---
+
+The notice from openGym v1.3.8 follows, reproduced unchanged.
+
 # Third-party notices
 
 openGym — Copyright (C) 2026 Duarte Santos.

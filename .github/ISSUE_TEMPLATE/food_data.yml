@@ -1,0 +1,11 @@
+name: Food data
+description: A dish is missing or its values look off
+labels: [food-data]
+body:
+  - type: input
+    attributes: { label: Dish, placeholder: "Pesarattu" }
+    validations: { required: true }
+  - type: input
+    attributes: { label: One unit is, placeholder: "1 pc · 90 g" }
+  - type: textarea
+    attributes: { label: Values per unit and source, placeholder: "160 kcal · P 8 · C 22 · F 4 — source: …" }

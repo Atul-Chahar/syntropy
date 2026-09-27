@@ -1,0 +1,58 @@
+name: Pages
+
+# Landing page at /syntropy/ and the web demo (sample data, no key needed) at /syntropy/demo/.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @syntropy/core build
+      - name: Build landing page
+        run: pnpm --filter @syntropy/site build
+        env:
+          NEXT_BASE_PATH: /syntropy
+          NEXT_PUBLIC_BASE_PATH: /syntropy
+      - name: Build web demo
+        run: pnpm --filter @syntropy/app build
+        env:
+          NEXT_BASE_PATH: /syntropy/demo
+          NEXT_PUBLIC_SYNTROPY_DEMO: '1'
+      - run: |
+          mkdir -p _site
+          cp -r apps/site/out/. _site/
+          mkdir -p _site/demo
+          cp -r apps/app/out/. _site/demo/
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

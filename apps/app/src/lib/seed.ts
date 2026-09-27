@@ -193,12 +193,18 @@ export function buildSeed() {
     for (const slot of ['breakfast', 'lunch', 'snack', 'dinner'] as MealSlot[]) {
       if (slot === 'snack' && rnd() < 0.15) continue
       const menu = MENUS[slot][Math.floor(rnd() * MENUS[slot].length)]
+      const extra: [string, number][] =
+        slot === 'breakfast' && rnd() < 0.6
+          ? [['greek-yogurt', 1]]
+          : slot === 'dinner'
+            ? [['boiled-egg', 2]]
+            : []
       meals.push({
         id: newId('meal'),
         date: d,
         slot,
         time: TIMES[slot],
-        items: menu.map(([id, q]) => it(id, q)),
+        items: [...menu, ...extra].map(([id, q]) => it(id, q)),
         createdAt: 0,
       })
     }

@@ -24,10 +24,8 @@
     "@capacitor/haptics": "^8.0.2",
     "@capacitor/keyboard": "^8.0.5",
     "@capacitor/local-notifications": "^8.3.1",
-    "@capacitor/preferences": "^8.0.1",
     "@capacitor/share": "^8.0.2",
     "@capacitor/splash-screen": "^8.0.2",
-    "@capacitor/status-bar": "^8.0.3",
     "@syntropy/ai": "workspace:*",
     "@syntropy/core": "workspace:*",
     "@syntropy/nutrition": "workspace:*",
@@ -41,6 +39,7 @@
   },
   "devDependencies": {
     "@capacitor/android": "^8.5.2",
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^8.5.2",
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.6.3",

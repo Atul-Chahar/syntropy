@@ -6,10 +6,13 @@
   "scripts": {
     "dev": "next dev --port 3001",
     "build": "next build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prebuild": "node scripts/copy-screens.mjs",
+    "predev": "node scripts/copy-screens.mjs"
   },
   "dependencies": {
     "@syntropy/ui": "workspace:*",
+    "motion": "^13.4.4",
     "next": "^16.3.6",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"

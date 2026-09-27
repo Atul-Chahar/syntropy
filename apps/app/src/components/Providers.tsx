@@ -34,8 +34,11 @@ export function Providers({ children }: { children: ReactNode }) {
     if (started.current) return
     started.current = true
     void (async () => {
+      if (isNative()) document.documentElement.classList.add('sy-native')
       await hydrateStores()
       if (isDemoBuild && !useProfile.getState().onboarded) loadSeed()
+      // Demo builds expose the stores for the screenshot scripts (scripts/marketing-shots.mjs).
+      if (isDemoBuild) Object.assign(window, { __sy: await import('@/stores') })
       useUi.getState().set({ hydrated: true })
       void createChannels()
     })()
@@ -53,12 +56,26 @@ export function Providers({ children }: { children: ReactNode }) {
       if (tabFor(window.location.pathname) === 'home' || !canGoBack) void App.exitApp()
       else router.back()
     })
+    const ROUTES: Record<string, string> = {
+      scan: '/scan/',
+      food: '/food/',
+      plan: '/plan/',
+      workout: '/workout/',
+      coach: '/coach/',
+    }
+    const openUrl = (url?: string) => {
+      const m = url?.match(/^syntropy:\/\/([a-z]+)/)
+      if (m && ROUTES[m[1]]) router.push(ROUTES[m[1]])
+    }
+    void App.getLaunchUrl().then((r) => openUrl(r?.url))
+    const deep = App.addListener('appUrlOpen', ({ url }) => openUrl(url))
     const pause = App.addListener('pause', () => {
       if (useProfile.getState().lockEnabled) useUi.getState().set({ unlocked: false })
     })
     return () => {
       void sub.then((s) => s.remove())
       void pause.then((s) => s.remove())
+      void deep.then((s) => s.remove())
     }
   }, [router])
 

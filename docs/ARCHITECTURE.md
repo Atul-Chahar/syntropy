@@ -14,7 +14,7 @@ Gemini API, called with the user's own key.
 │      └─ @syntropy/ui (tokens, components, Motion)                     │
 │   @syntropy/ai ── platform/http (CapacitorHttp) ──► Gemini API        │
 │        └─ key from platform/secrets (Android Keystore)                │
-│  Native: Glance widgets ◄── SharedPreferences snapshot ── app         │
+│  Native: RemoteViews widgets ◄── SharedPreferences snapshot ── app    │
 └───────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -27,7 +27,7 @@ Gemini API, called with the user's own key.
 | `packages/ui` | Tokens, `sy` components, icons, motion presets | New, from `design/` |
 | `packages/core` | Exercises (1,324), history and volume, workout and set model, progression, e1RM, recovery and fatigue, supersets, starter plans, CSV/Hevy import | OpenGym `frontend/src/lib` |
 | `packages/ai` | Coach pipeline (payload allowlist, prompts, provider adapters, validator, repair round), coach client (apply engine, insights, demo provider); Gemini vision and parsing (phase 7) | OpenGym `api/coach/core`, `frontend/src/lib/coach*.js`; new |
-| `packages/nutrition` | Indian food table, units, targets, energy balance, weight EMA (phase 6) | New |
+| `packages/nutrition` | Indian food table (170 foods), matching, units, targets, energy balance, weight EMA | New |
 
 Dependency direction: `app → ui, core, ai, nutrition`; `ai → core`; `core` depends on nothing.
 Upstream JS keeps its own style and tests; `@syntropy/core` ships generated `.d.ts` files
@@ -68,9 +68,11 @@ Upstream JS keeps its own style and tests; `@syntropy/core` ships generated `.d.
 - **Meal scan.** Photo → resize to 1280 px JPEG → Gemini with a JSON schema → validate → match
   names to the local Indian food table so quantities scale by unit (pc, katori) → user reviews
   and edits → saved. Nothing is logged without confirmation.
-- **Coach.** OpenGym's pipeline: an allowlisted payload of the user's data, a fixed system
-  prompt, JSON output, a validator and one repair round. Syntropy adds nutrition summaries to the
-  payload and a free chat mode. Plan changes arrive as proposals the user applies or refines.
+- **Coach chat.** A streaming chat grounded in an allowlisted summary built on the phone
+  (`lib/coachContext.ts`): today's meals and targets, water, readiness, recent sessions, weight trend.
+  Replies may end with an `ACTIONS:` line; actions are validated (known food ids, bounded amounts)
+  and run only when the user taps them. OpenGym's plan pipeline (payload allowlist, JSON schema,
+  validator, repair round) is packaged in `@syntropy/ai` for the plan-design screens still to come.
 - **Adaptive targets.** Code, not the model, changes calorie targets: weekly weight trend vs
   planned rate moves targets by a bounded step. The model explains the change and suggests
   training adjustments.
@@ -99,10 +101,45 @@ Upstream JS keeps its own style and tests; `@syntropy/core` ships generated `.d.
   Measure on a real device and fall back to flat translucent fills when needed.
 - **App Router transitions:** exit animations across routes are limited; use Motion within
   screens and the View Transition API between them.
-- **Widgets:** the Capacitor widget bridge is community-maintained; the widget UI is native Kotlin.
+- **Widgets:** RemoteViews layouts are basic by nature (no custom fonts or blur), so they follow the
+  design's colours and shapes rather than its glass.
 - **Keystore:** the key is lost if the app is uninstalled; the user re-enters it.
 - **AGPL:** every distributed build must point to its source.
 
-## Known issues
+## Formulas
 
-- Android shows light system bars around the WebView; fixed with edge-to-edge in phase 2.
+- **BMR** (Mifflin-St Jeor): `10·kg + 6.25·cm − 5·age + 5` (men) or `− 161` (women).
+- **Maintenance** = BMR × daily-life factor (1.2 sitting · 1.3 light · 1.4 on-feet · 1.5 physical) + average daily training
+  (`5.5 MET × kg × 1 h × sessions per week / 7`).
+- **Targets** (Goal board): training day = maintenance + 100 + goal delta, rest day = maintenance − 100 + delta.
+  Deltas: cut −250/−400/−600, gain +150/+250/+400, recomp −150. Protein 2.0 g/kg (1.8 to maintain), fat 0.9 g/kg,
+  carbs fill the rest. Water = 35 ml/kg + 900 ml.
+- **Energy out today** = BMR + BMR × (factor − 1) + logged training (`5.5 MET × kg × session hours`).
+- **Weight trend**: exponential moving average with α = 0.1 per day, adjusted for gaps between weigh-ins.
+- **Weekly check-in**: observed kg/week (trend over 14 days) vs planned `delta × 7 / 7700`. If they differ by
+  ≥ 0.1 kg/week, the calorie target moves by `−diff × 7700 / 7`, rounded to 50 and capped at ±150 kcal.
+- **Fatigue** (OpenGym): per-muscle stimulus from completed sets, 36-hour half-life, saturating curve; < 0.25 ready,
+  ≤ 0.5 recovering, > 0.5 fatigued. **Readiness** = 100 − 42 × mean of the three most fatigued muscles.
+- **Carb adjustment**: a lower-body session over 6 t of volume yesterday adds 40 g carbs today.
+
+## Widgets and deep links
+
+The app writes a small JSON snapshot (kcal, protein, water, next session) to SharedPreferences through a local
+Capacitor plugin (`SyntropyWidgets`) after every change. Four `AppWidgetProvider`s render it with RemoteViews
+(Today, Water, Scan plate, Quick add). Water and Quick add taps are handled by a `BroadcastReceiver` without opening
+the app and queued; the app collects the queue after its stores have loaded and on every resume. Taps that open
+the app use `syntropy://scan|food|plan` deep links, routed by `@capacitor/app`. RemoteViews was chosen over Jetpack
+Glance to avoid a Kotlin/Compose toolchain for four simple layouts.
+
+## Builds
+
+- `pnpm --filter @syntropy/app build`: the Android app (sync with `npx cap sync android`).
+- `NEXT_PUBLIC_SYNTROPY_DEMO=1`: the web demo — seeds sample data on first open, scans a sample plate and replies
+  with scripted coach answers when no key is set, and exposes stores to the screenshot scripts.
+- `NEXT_BASE_PATH`: sub-path hosting (GitHub Pages serves the site at `/syntropy/` and the demo at `/syntropy/demo/`).
+
+## Tests
+
+- Vitest: OpenGym engine (763), coach pipeline (241 + 71 node tests), nutrition (23), Gemini layer (16).
+- Playwright (`apps/app/e2e`): onboarding, sample data, scan → review → log, Quick add parsing, water, a full
+  workout, coach actions, and a crawl of every screen for runtime errors.

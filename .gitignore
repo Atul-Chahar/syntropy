@@ -38,3 +38,4 @@ apps/app/android/captures/
 .idea/
 .DS_Store
 *.log
+public/screens/

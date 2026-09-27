@@ -63,8 +63,9 @@
   --sy-fill: rgba(255, 255, 255, 0.045);
   --sy-fill-2: rgba(255, 255, 255, 0.07);
 
-  --sy-safe-top: env(safe-area-inset-top, 0px);
-  --sy-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --sy-top-pad: 60px;
+  --sy-safe-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --sy-safe-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
 
   /* Motion */
   --sy-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -263,6 +264,11 @@ body {
   to {
     background-position: -200% 0;
   }
+}
+
+/* Inside the Android app the status bar is not drawn over, so less top padding. */
+.sy-native {
+  --sy-top-pad: 26px;
 }
 
 .sy-mono {

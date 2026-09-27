@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: max(60px, calc(var(--sy-safe-top) + 16px)) var(--sy-gutter) 40px;
+  padding: max(var(--sy-top-pad), calc(var(--sy-safe-top) + 16px)) var(--sy-gutter) 40px;
   max-width: 480px;
   margin: 0 auto;
 }

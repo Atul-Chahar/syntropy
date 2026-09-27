@@ -312,7 +312,7 @@ export function QuickAddScreen() {
                   icon="minus"
                   label={`One less ${f.name}`}
                   variant="plain"
-                  onClick={() => set(f.id, n - f.step)}
+                  onClick={() => set(f.id, n - (n % 1 ? n % 1 : 1))}
                   style={{ opacity: n ? 1 : 0.35 }}
                   disabled={!n}
                 />
@@ -326,7 +326,7 @@ export function QuickAddScreen() {
                   icon="plus"
                   label={`One more ${f.name}`}
                   variant="plain"
-                  onClick={() => set(f.id, n + f.step)}
+                  onClick={() => set(f.id, Math.floor(n) + 1)}
                   style={{ background: 'rgba(255,255,255,0.08)' }}
                 />
               </div>

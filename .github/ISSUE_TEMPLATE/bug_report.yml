@@ -1,0 +1,11 @@
+name: Bug report
+description: Something is broken or looks wrong
+labels: [bug]
+body:
+  - type: textarea
+    attributes: { label: What happened?, description: Steps to reproduce and what you expected }
+    validations: { required: true }
+  - type: input
+    attributes: { label: Where, description: "Android version and phone, or browser for the web demo" }
+  - type: textarea
+    attributes: { label: Screenshots, description: Drag images here (please hide personal data) }

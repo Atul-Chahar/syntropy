@@ -2,10 +2,11 @@
 
 import { App } from '@capacitor/app'
 import { effectiveRoutines } from '@syntropy/core/history'
+import { FOOD_BY_ID, itemFromFood, slotForHour } from '@syntropy/nutrition'
 import { useEffect } from 'react'
 import { isNative } from '@/platform/native'
-import { pushWidgetSnapshot, takePendingWater } from '@/platform/widgets'
-import { toast, useTraining, useWater } from '@/stores'
+import { pushWidgetSnapshot, takePendingFoods, takePendingWater } from '@/platform/widgets'
+import { toast, useNutrition, useTraining, useUi, useWater } from '@/stores'
 import { addDays, today } from './dates'
 import { useToday } from './summary'
 
@@ -35,13 +36,28 @@ export function useWidgetSync() {
     })
   }, [t, S])
 
+  const hydrated = useUi((u) => u.hydrated)
   useEffect(() => {
-    if (!isNative()) return
+    // Only after the stores have loaded, or the loaded data would overwrite the widget taps.
+    if (!isNative() || !hydrated) return
     const collect = async () => {
       const ml = await takePendingWater()
       if (ml > 0) {
         for (let left = ml; left > 0; left -= 250) useWater.getState().add(Math.min(250, left))
         toast(`${ml} ml added from the widget`, { icon: 'drop' })
+      }
+      const foods = (await takePendingFoods()).filter((id) => FOOD_BY_ID[id])
+      if (foods.length) {
+        const slot = slotForHour(new Date().getHours())
+        const n = useNutrition.getState()
+        const hadMeal = n.meals.some((m) => m.date === today() && m.slot === slot)
+        n.addItems(
+          today(),
+          slot,
+          foods.map((id) => itemFromFood(FOOD_BY_ID[id], 1, 'manual')),
+          hadMeal,
+        )
+        toast(`${foods.length} ${foods.length === 1 ? 'item' : 'items'} added from the widget`)
       }
     }
     void collect()
@@ -49,5 +65,5 @@ export function useWidgetSync() {
     return () => {
       void sub.then((s) => s.remove())
     }
-  }, [])
+  }, [hydrated])
 }

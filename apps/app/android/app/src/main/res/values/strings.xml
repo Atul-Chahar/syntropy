@@ -4,4 +4,8 @@
     <string name="title_activity_main">Syntropy</string>
     <string name="package_name">com.atulchahar.syntropy</string>
     <string name="custom_url_scheme">com.atulchahar.syntropy</string>
+    <string name="widget_today_desc">Calories left, protein and water today</string>
+    <string name="widget_water_desc">Add a glass of water in one tap</string>
+    <string name="widget_scan_desc">Open the camera to scan a plate</string>
+    <string name="widget_quick_desc">Log roti, dahi, chai or dal in one tap</string>
 </resources>

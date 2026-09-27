@@ -1,6 +1,11 @@
 # Design gaps
 
 Pages and states the Claude Design boards do not cover. Each entry is purpose and content only.
+
+**Status (1.0.0):** built — 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12 (history), 14, 15, 16, 17, 19, 20, 21, 24, 25, 26.
+Still open — 11 coach intake and 13 plan proposal review (pipeline exists, screens not wired), 18 a dedicated
+exercise detail page, 22 notifications inbox, 23 voice states (voice uses the keyboard's dictation today),
+27 is done on the landing page.
 Claude designs these in the same system (tokens and existing primitives), shows a 390 x 844
 screenshot, and wires real data after approval. The phase column says when each is needed.
 

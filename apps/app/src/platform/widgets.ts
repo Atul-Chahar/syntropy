@@ -23,6 +23,7 @@ export interface WidgetSnapshot {
 interface WidgetBridgePlugin {
   update(options: { snapshot: string }): Promise<void>
   takePendingWater(): Promise<{ ml: number }>
+  takePendingFoods(): Promise<{ foods: string[] }>
 }
 
 const Bridge = registerPlugin<WidgetBridgePlugin>('SyntropyWidgets')
@@ -40,5 +41,14 @@ export async function takePendingWater(): Promise<number> {
     return (await Bridge.takePendingWater()).ml
   } catch {
     return 0
+  }
+}
+
+export async function takePendingFoods(): Promise<string[]> {
+  if (!isNative()) return []
+  try {
+    return (await Bridge.takePendingFoods()).foods
+  } catch {
+    return []
   }
 }

@@ -18,7 +18,7 @@ function useCloud() {
       if (y <= 34) return (x - 50) ** 2 + (y - 34) ** 2 <= 400
       if (y <= 48.4) {
         const t = (y - 34) / 14.4
-        return x >= 50 - t * 11 && x <= 50 + t * 9
+        return x >= 30 + t * 9 && x <= 50 + t * 9
       }
       return false
     }
@@ -119,7 +119,7 @@ export function WelcomeScreen() {
             className="sy-mono"
             style={{ fontSize: 12, letterSpacing: '0.02em', color: 'rgba(243,241,236,0.6)' }}
           >
-            /ˈsɪn.trə.pi/ · noun
+            /ˈsin.trə.pi/ · noun
           </div>
           <h1
             style={{

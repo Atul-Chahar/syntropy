@@ -34,7 +34,7 @@ apps/site       Next.js landing page (phase 13)
 packages/ui     design system: tokens.css, sy components, icons, motion presets
 packages/core   OpenGym training engine (JS) + generated .d.ts
 packages/ai     Gemini client, coach pipeline (from OpenGym api/coach/core), coach client
-packages/nutrition  Indian food table, units, targets, energy balance (phase 6)
+packages/nutrition  Indian food table, units, targets, energy balance
 design/         Claude Design boards (*.dc.html) and the original tokens.css
 docs/           PRD, architecture, build plan, screens, design gaps
 ```
@@ -66,12 +66,12 @@ docs/           PRD, architecture, build plan, screens, design gaps
 
 - TypeScript (strict) for new code; function components and hooks. Biome formats and lints
   (single quotes, no semicolons, 2 spaces, width 100). Run `pnpm lint`.
-- Styling: CSS Modules next to each component plus the global tokens. No Tailwind.
+- Styling: `packages/ui` components use CSS Modules; screens port board values 1:1 as style objects. No Tailwind.
 - Motion: `motion/react` for springs, gestures, sheets, layout and screen transitions, number
   tweens. Ambient loops (orbs, pulses, scan line, marquee) stay as CSS keyframes.
   Wrap the app in `MotionConfig reducedMotion="user"`.
 - Accessibility: real `<button>`, `<a>`, `<input>` with `<label>`; `aria-label` on icon-only
-  buttons; Radix primitives for dialogs, tabs, radio groups, toggle groups and switches.
+  buttons; ARIA roles on the custom primitives (dialog sheets, tabs, radio groups, switches).
 - Static export rules: every screen is a client component; no route handlers, server actions,
   middleware or `next/image` optimisation; ids go in the query string (`/meal/review?id=`).
 - State: one Zustand store per domain in `apps/app/src/stores` (training keeps OpenGym's `S`

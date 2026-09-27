@@ -3,7 +3,7 @@ import { createReadStream, existsSync, statSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { extname, join, normalize } from 'node:path'
 
-const root = join(import.meta.dirname, '..', 'out')
+const root = process.env.ROOT || join(import.meta.dirname, '..', 'out')
 const port = Number(process.env.PORT || 4173)
 const types = {
   '.html': 'text/html',

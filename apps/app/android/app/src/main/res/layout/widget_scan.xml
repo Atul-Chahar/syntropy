@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/widget_scan_bg" android:orientation="vertical" android:padding="14dp" android:gravity="bottom">
+    <ImageView android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/ic_widget_scan" android:contentDescription="Scan" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp"
+        android:text="Scan plate" android:textColor="#1A0E08" android:textSize="17sp" android:textStyle="bold" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Thali, tiffin, anything" android:textColor="#B31A0E08" android:textSize="11sp" />
+</LinearLayout>

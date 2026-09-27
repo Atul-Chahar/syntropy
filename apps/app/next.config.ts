@@ -5,6 +5,8 @@ import type { NextConfig } from 'next'
 // Routes that need an id take it from the query string (/meal/review?id=…).
 const config: NextConfig = {
   output: 'export',
+  // GitHub Pages hosts the web demo under /syntropy/demo (set in .github/workflows/pages.yml).
+  basePath: process.env.NEXT_BASE_PATH || undefined,
   trailingSlash: true,
   images: { unoptimized: true },
   reactStrictMode: true,

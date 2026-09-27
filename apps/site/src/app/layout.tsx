@@ -11,10 +11,17 @@ const geistMono = Geist_Mono({
 })
 const doto = Doto({ subsets: ['latin'], variable: '--font-doto', display: 'swap' })
 
+const title = 'Syntropy — Order, built from chaos'
+const description =
+  'An open-source health companion: Indian-food photo nutrition with Gemini, a set-by-set training log, recovery maps and an AI coach. Private, on your phone.'
+
 export const metadata: Metadata = {
-  title: 'Syntropy — Order, built from chaos',
-  description:
-    'A calm, scientific health companion. Training and Indian-food nutrition as one loop, private on your phone.',
+  title,
+  description,
+  metadataBase: new URL('https://atul-chahar.github.io/syntropy/'),
+  openGraph: { title, description, images: ['banner.png'], type: 'website' },
+  twitter: { card: 'summary_large_image', title, description, images: ['banner.png'] },
+  icons: { icon: 'icon.png' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

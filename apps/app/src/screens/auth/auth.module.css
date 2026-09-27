@@ -26,7 +26,8 @@
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding: max(60px, calc(var(--sy-safe-top) + 16px)) 24px calc(30px + var(--sy-safe-bottom));
+  padding: max(var(--sy-top-pad), calc(var(--sy-safe-top) + 16px)) 24px
+    calc(30px + var(--sy-safe-bottom));
   max-width: 480px;
   margin: 0 auto;
 }

@@ -73,7 +73,7 @@ export function FormGuideScreen() {
             position: 'absolute',
             left: 20,
             right: 20,
-            top: 'max(60px, calc(var(--sy-safe-top) + 16px))',
+            top: 'max(var(--sy-top-pad), calc(var(--sy-safe-top) + 16px))',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',

@@ -9,7 +9,10 @@
     "typecheck": "tsc --noEmit",
     "cap:sync": "cap sync android",
     "android": "next build && cap sync android && cap run android",
-    "android:open": "cap open android"
+    "android:open": "cap open android",
+    "e2e": "playwright test",
+    "serve": "node scripts/serve.mjs",
+    "shots": "node scripts/shoot.mjs"
   },
   "dependencies": {
     "@aparajita/capacitor-biometric-auth": "^10.0.0",

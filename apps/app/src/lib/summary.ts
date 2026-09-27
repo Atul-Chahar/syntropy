@@ -93,7 +93,7 @@ export function readinessOf(S: TrainingState, now = Date.now()) {
     .sort((a, b) => b - a)
     .slice(0, 3)
   const mean = top.length ? top.reduce((a, b) => a + b, 0) / top.length : 0
-  return Math.max(5, Math.round(100 - mean * 55))
+  return Math.max(5, Math.round(100 - mean * 42))
 }
 
 export type MuscleRow = {

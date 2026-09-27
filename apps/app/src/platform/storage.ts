@@ -55,7 +55,7 @@ const webStorage: StateStorage = {
 }
 
 /** Debounced writes: a burst of taps (steppers) becomes one file write. */
-function debounced(inner: StateStorage, ms = 350): StateStorage {
+function debounced(inner: StateStorage, ms = 200): StateStorage {
   const timers = new Map<string, ReturnType<typeof setTimeout>>()
   const pending = new Map<string, string>()
   const flush = (name: string) => {

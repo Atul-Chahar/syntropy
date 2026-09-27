@@ -2,7 +2,7 @@
 
 import { ACTIVITY_LABEL, type Activity, bmr } from '@syntropy/nutrition'
 import { Callout, PillButton, Segmented, Switch, TileStepper } from '@syntropy/ui'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useProfile, useTraining } from '@/stores'
 import { AuthPage, bottomClass, StepHeader } from './parts'
 
@@ -17,17 +17,23 @@ const ACT_SUB: Record<Activity, string> = {
 /** Body profile (DESIGN_GAPS #1): the inputs Goal and energy maths need. */
 export function BodyScreen() {
   const router = useRouter()
+  const edit = useSearchParams().get('edit') === '1'
   const p = useProfile()
   const kcal = Math.round(bmr(p))
   const next = () => {
     p.set({ bodyDone: true })
+    if (edit) return router.back()
     const S = useTraining.getState()
     if (!S.S.bodyweight.length) S.addWeighIn(p.weightKg)
     router.push('/goal/?onboarding=1')
   }
   return (
     <AuthPage>
-      <StepHeader step={3} back="/signup/lock/" />
+      {edit ? (
+        <StepHeader step={0} back="/settings/" />
+      ) : (
+        <StepHeader step={3} back="/signup/lock/" />
+      )}
       <div
         style={{
           display: 'flex',
@@ -183,8 +189,14 @@ export function BodyScreen() {
         </Callout>
       </div>
       <div className={bottomClass} style={{ paddingTop: 20 }}>
-        <PillButton icon="chevronRight" iconAfter lifted block onClick={next}>
-          Set your target physique
+        <PillButton
+          icon={edit ? 'check' : 'chevronRight'}
+          iconAfter={!edit}
+          lifted
+          block
+          onClick={next}
+        >
+          {edit ? 'Save' : 'Set your target physique'}
         </PillButton>
       </div>
     </AuthPage>

@@ -52,7 +52,7 @@ export function StepHeader({ step, back }: { step: number; back?: string }) {
         >
           STEP {step} OF 3
         </span>
-        <span style={{ display: 'flex', gap: 4 }}>
+        <span style={{ display: step ? 'flex' : 'none', gap: 4 }}>
           {[1, 2, 3].map((i) => (
             <span
               key={i}

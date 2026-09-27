@@ -191,7 +191,7 @@ export function buildSeed() {
   for (let i = 30; i >= 1; i--) {
     const d = addDays(t, -i)
     for (const slot of ['breakfast', 'lunch', 'snack', 'dinner'] as MealSlot[]) {
-      if (slot === 'snack' && rnd() < 0.3) continue
+      if (slot === 'snack' && rnd() < 0.15) continue
       const menu = MENUS[slot][Math.floor(rnd() * MENUS[slot].length)]
       meals.push({
         id: newId('meal'),

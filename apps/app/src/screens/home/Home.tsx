@@ -25,7 +25,12 @@ export function HomeScreen() {
   const name = useProfile((p) => p.name)
   const S = useTraining((s) => s.S)
   const meals = useNutrition((s) => s.meals)
-  const pending = useGoal((g) => g.checkins.find((c) => c.status === 'pending'))
+  const checkins = useGoal((g) => g.checkins)
+  const pending =
+    checkins.find((c) => c.status === 'pending') ??
+    (new Date().getDay() === 0 && !checkins.some((c) => c.date === today())
+      ? { headline: 'Review the week and adjust your targets' }
+      : undefined)
   const t = useToday()
   const [range, setRange] = useState<Range>('today')
 

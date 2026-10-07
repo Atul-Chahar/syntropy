@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Syntropy · App icon</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&amp;family=Geist:wght@200..700&amp;family=Geist+Mono:wght@400..500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0F0D}
+.sy{font-family:'Geist',ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;color:#F3F1EC}
+.dot{font-family:'Doto','Geist Mono',ui-monospace,monospace;font-weight:800;font-variant-numeric:tabular-nums}
+.mono{font-family:'Geist Mono',ui-monospace,SFMono-Regular,monospace}
+a{color:inherit;text-decoration:none}a:hover{color:#FFC7B0}
+button{font:inherit;color:inherit;cursor:pointer;margin:0}
+input{font:inherit;color:inherit}
+.field::placeholder{color:#F3F1EC;opacity:1}
+@keyframes sy-scan{0%{transform:translateY(0)}50%{transform:translateY(270px)}100%{transform:translateY(0)}}
+@keyframes sy-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes sy-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+</style>
+</helmet>
+<div class="sy" style="position: relative; width: 1000px; height: 1000px; overflow: hidden; background: #0A0B0D">
+<svg aria-hidden="true" width="1000" height="1000" viewBox="0 0 1000 1000" style="position: absolute; left: 0; top: 0"><line x1="125" y1="0" x2="125" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="125" x2="1000" y2="125" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="250" y1="0" x2="250" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="375" y1="0" x2="375" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="375" x2="1000" y2="375" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="500" y1="0" x2="500" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="500" x2="1000" y2="500" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="625" y1="0" x2="625" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="625" x2="1000" y2="625" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="750" y1="0" x2="750" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="750" x2="1000" y2="750" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="875" y1="0" x2="875" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="875" x2="1000" y2="875" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="0" x2="1000" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-dasharray="3 5"></line><line x1="1000" y1="0" x2="0" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-dasharray="3 5"></line><circle cx="500" cy="500" r="110" fill="none" stroke="rgba(255,255,255,0.09)" stroke-dasharray="2 5"></circle><circle cx="500" cy="500" r="190" fill="none" stroke="rgba(255,255,255,0.09)" stroke-dasharray="2 5"></circle><circle cx="500" cy="500" r="300" fill="none" stroke="rgba(255,255,255,0.09)" stroke-dasharray="2 5"></circle></svg>
+<div style="position: absolute; left: 280px; top: 280px; width: 440px; height: 440px; border-radius: 104px; overflow: hidden; background: {{tileBg}}; box-shadow: 0 60px 120px -30px {{shadow}}, inset 0 1px 0 rgba(255,255,255,0.18)">
+<svg aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0.42; mix-blend-mode: overlay; pointer-events: none"><filter id="gr-icon"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#gr-icon)"></rect></svg>
+<svg aria-hidden="true" width="440" height="440" viewBox="0 0 440 440" style="position: absolute; left: 0; top: 0">
+<defs>
+<linearGradient id="ic-t" x1="0" y1="14" x2="0" y2="86" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="{{t0}}"></stop><stop offset="0.55" stop-color="{{t1}}"></stop><stop offset="1" stop-color="{{t2}}"></stop></linearGradient>
+<linearGradient id="ic-b" x1="0" y1="14" x2="0" y2="86" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="{{b0}}"></stop><stop offset="0.55" stop-color="{{b1}}"></stop><stop offset="1" stop-color="{{b2}}"></stop></linearGradient>
+</defs>
+<g transform="translate(220 220) scale(3.05) translate(-50 -50)">
+<path d="M30 34A20 20 0 0 1 70 34L50 34L59 48.4L39 48.4Z" fill="url(#ic-t)"></path>
+<path d="M70 66A20 20 0 0 1 30 66L50 66L41 51.6L61 51.6Z" fill="url(#ic-b)"></path>
+</g>
+</svg>
+</div>
+<svg aria-hidden="true" width="1000" height="1000" viewBox="0 0 1000 1000" style="position: absolute; left: 0; top: 0; opacity: 0.35; mix-blend-mode: screen"><line x1="125" y1="0" x2="125" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="125" x2="1000" y2="125" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="250" y1="0" x2="250" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="375" y1="0" x2="375" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="375" x2="1000" y2="375" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="500" y1="0" x2="500" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="500" x2="1000" y2="500" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="625" y1="0" x2="625" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="625" x2="1000" y2="625" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="750" y1="0" x2="750" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="750" x2="1000" y2="750" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="875" y1="0" x2="875" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="875" x2="1000" y2="875" stroke="rgba(255,255,255,0.07)" stroke-width="1"></line><line x1="0" y1="0" x2="1000" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-dasharray="3 5"></line><line x1="1000" y1="0" x2="0" y2="1000" stroke="rgba(255,255,255,0.07)" stroke-dasharray="3 5"></line><circle cx="500" cy="500" r="110" fill="none" stroke="rgba(255,255,255,0.09)" stroke-dasharray="2 5"></circle><circle cx="500" cy="500" r="190" fill="none" stroke="rgba(255,255,255,0.09)" stroke-dasharray="2 5"></circle><circle cx="500" cy="500" r="300" fill="none" stroke="rgba(255,255,255,0.09)" stroke-dasharray="2 5"></circle></svg>
+<div class="mono" style="position: absolute; left: 48px; bottom: 44px; font-size: 13px; letter-spacing: 0.08em; color: rgba(243,241,236,0.5)">SYNTROPY · APP ICON · {{ed}}</div>
+<div class="mono" style="position: absolute; right: 48px; bottom: 44px; font-size: 13px; letter-spacing: 0.08em; color: rgba(243,241,236,0.5)">1024 × 1024</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"edition": {"editor": "enum", "options": ["Ember", "Sage", "Duo"], "default": "Ember"}, "$preview": {"width": 1000, "height": 1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const e = this.props.edition ?? 'Ember';
+    const dark = 'radial-gradient(ellipse 62% 56% at 50% 42%, #0B0E11 32%, rgba(11,14,17,0.82) 52%, rgba(11,14,17,0) 100%)';
+    const E = {
+      Ember: {
+        tileBg: dark + ', radial-gradient(ellipse 130% 90% at 50% 112%, #FF9A5C 0%, #F2622B 34%, #9A3A18 66%, #3A1A12 100%)',
+        shadow: 'rgba(255,107,61,0.45)',
+        t: ['#FFC29C', '#FF7A45', '#7A2C12'], b: ['#FFC29C', '#FF7A45', '#7A2C12']
+      },
+      Sage: {
+        tileBg: dark + ', radial-gradient(ellipse 130% 90% at 50% 112%, #D4E6C8 0%, #93B685 34%, #46613E 66%, #17211A 100%)',
+        shadow: 'rgba(137,170,124,0.45)',
+        t: ['#E6F1DE', '#A9C3A0', '#34482F'], b: ['#E6F1DE', '#A9C3A0', '#34482F']
+      },
+      Duo: {
+        tileBg: dark + ', radial-gradient(ellipse 80% 80% at 110% 110%, #FF8A4C 0%, #D2502A 40%, rgba(160,60,25,0) 75%), radial-gradient(ellipse 80% 80% at -10% 110%, #B9D2AC 0%, #6F8F63 40%, rgba(70,97,62,0) 75%), #16191A',
+        shadow: 'rgba(200,120,90,0.4)',
+        t: ['#FFC9AC', '#FF7A45', '#B84A22'], b: ['#DCEBD3', '#A9C3A0', '#5E7C55']
+      }
+    };
+    const d = E[e] || E.Ember;
+    return { tileBg: d.tileBg, shadow: d.shadow, t0: d.t[0], t1: d.t[1], t2: d.t[2], b0: d.b[0], b1: d.b[1], b2: d.b[2], ed: e.toUpperCase() + ' EDITION' };
+  }
+}
+</script>
+</body>
+</html>

@@ -29,19 +29,27 @@
 
         <receiver android:name=".widgets.WidgetActions" android:exported="false" />
         <receiver android:name=".widgets.TodayWidget" android:exported="true" android:label="Syntropy · Today">
-            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_today" />
         </receiver>
         <receiver android:name=".widgets.WaterWidget" android:exported="true" android:label="Syntropy · Water">
-            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_water" />
         </receiver>
         <receiver android:name=".widgets.ScanWidget" android:exported="true" android:label="Syntropy · Scan plate">
-            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_scan" />
         </receiver>
         <receiver android:name=".widgets.QuickAddWidget" android:exported="true" android:label="Syntropy · Quick add">
-            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_quick" />
         </receiver>
 

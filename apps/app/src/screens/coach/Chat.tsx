@@ -311,7 +311,12 @@ export function ChatScreen() {
         useCoach.getState().append(tid, {
           id: msgId(),
           role: 'coach',
-          text: r.kind === 'no-key' ? GATE_COPY['no-key'] : r.message,
+          text:
+            r.kind === 'no-key'
+              ? GATE_COPY['no-key']
+              : r.detail
+                ? `${r.message}\n\nGemini said: ${r.detail}`
+                : r.message,
           at: Date.now(),
           error: true,
         })

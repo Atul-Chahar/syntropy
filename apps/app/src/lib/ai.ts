@@ -35,7 +35,7 @@ export const GATE_COPY = {
 /** Run an AI task with the usage counter and calm error copy. */
 export async function withAi<T>(
   task: () => Promise<T>,
-): Promise<{ ok: true; value: T } | { ok: false; message: string; kind: string }> {
+): Promise<{ ok: true; value: T } | { ok: false; message: string; kind: string; detail?: string }> {
   const gate = await aiReady()
   if (!gate.ok) return { ok: false, message: GATE_COPY[gate.reason], kind: gate.reason }
   useSettings.getState().countUse()

@@ -45,7 +45,8 @@ export function AiSettingsScreen() {
 
   const save = async () => {
     const k = key.trim()
-    if (!/^[A-Za-z0-9_-]{20,}$/.test(k)) return toast('That does not look like a Gemini API key')
+    // Google issues both legacy "AIza…" keys and newer "AQ.…" auth keys (which contain dots).
+    if (k.length < 20 || /\s/.test(k)) return toast('That does not look like a Gemini API key')
     await setApiKey(k)
     setSaved(k)
     setKey('')

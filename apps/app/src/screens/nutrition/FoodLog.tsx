@@ -5,9 +5,12 @@ import { GlassCard, Icon, IconButton, PillButton, ProgressBar, Ring, Screen } fr
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useMemo } from 'react'
 import { Header } from '@/components/BottomBar'
 import { addDays, fmt, kickerDate, today } from '@/lib/dates'
+import { dayColor, useDayStats } from '@/lib/foodHistory'
 import { useToday } from '@/lib/summary'
+import { mondayOf } from '@/lib/training'
 import { tap } from '@/platform/haptics'
 import { useWater } from '@/stores'
 
@@ -338,6 +341,7 @@ export function FoodLogScreen() {
           )
         })}
       </section>
+      <WeekCard date={date} />
       <div style={{ display: 'flex', justifyContent: 'center', gap: 8 }}>
         <PillButton
           variant="ghost"
@@ -374,5 +378,90 @@ export function FoodLogScreen() {
         </p>
       ) : null}
     </Screen>
+  )
+}
+
+function WeekCard({ date }: { date: string }) {
+  const mon = mondayOf(date)
+  const dates = useMemo(() => Array.from({ length: 7 }, (_, i) => addDays(mon, i)), [mon])
+  const stats = useDayStats(dates)
+  const max = Math.max(...stats.map((d) => Math.max(d.kcal, d.target)), 1)
+  const logged = stats.filter((d) => d.meals)
+  const avg = logged.length ? logged.reduce((a, d) => a + d.kcal, 0) / logged.length : 0
+  return (
+    <GlassCard
+      href="/food/history/"
+      radius={24}
+      padding="14px 16px"
+      style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+        <span style={{ fontSize: 15 }}>This week</span>
+        <span className="sy-mono" style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.55)' }}>
+          AVG {fmt(Math.round(avg))} KCAL · HISTORY ›
+        </span>
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(7, minmax(0,1fr))',
+          gap: 8,
+          alignItems: 'end',
+          height: 64,
+        }}
+      >
+        {stats.map((d, i) => (
+          <span
+            key={d.date}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 4,
+              height: '100%',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <span
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: 46,
+                display: 'flex',
+                alignItems: 'flex-end',
+              }}
+            >
+              <span
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  bottom: (d.target / max) * 46,
+                  borderTop: '1px dashed rgba(243,241,236,0.25)',
+                }}
+              />
+              <span
+                style={{
+                  width: '100%',
+                  height: Math.max(3, (d.kcal / max) * 46),
+                  borderRadius: 5,
+                  background: d.meals ? dayColor(d).bg : 'rgba(255,255,255,0.06)',
+                }}
+              />
+            </span>
+            <span
+              className="sy-mono"
+              style={{
+                fontSize: 9.5,
+                color: d.date === date ? '#FFC7B0' : 'rgba(243,241,236,0.5)',
+              }}
+            >
+              {'MTWTFSS'[i]}
+            </span>
+          </span>
+        ))}
+      </div>
+    </GlassCard>
   )
 }

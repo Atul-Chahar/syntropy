@@ -1,11 +1,11 @@
-// Renders the Duo app icon (design/screens/Icon.dc.html) and splash to PNG sources for
+// Renders the Ember app icon (the board's default edition) (design/screens/Icon.dc.html) and splash to PNG sources for
 // @capacitor/assets: node scripts/brand-assets.mjs
 import { chromium } from '@playwright/test'
 
-const T = ['#FFC9AC', '#FF7A45', '#B84A22']
-const B = ['#DCEBD3', '#A9C3A0', '#5E7C55']
+const T = ['#FFC29C', '#FF7A45', '#7A2C12']
+const B = ['#FFC29C', '#FF7A45', '#7A2C12']
 const TILE =
-  'radial-gradient(ellipse 62% 56% at 50% 42%, #0B0E11 32%, rgba(11,14,17,0.82) 52%, rgba(11,14,17,0) 100%), radial-gradient(ellipse 80% 80% at 110% 110%, #FF8A4C 0%, #D2502A 40%, rgba(160,60,25,0) 75%), radial-gradient(ellipse 80% 80% at -10% 110%, #B9D2AC 0%, #6F8F63 40%, rgba(70,97,62,0) 75%), #16191A'
+  'radial-gradient(ellipse 62% 56% at 50% 42%, #0B0E11 32%, rgba(11,14,17,0.82) 52%, rgba(11,14,17,0) 100%), radial-gradient(ellipse 130% 90% at 50% 112%, #FF9A5C 0%, #F2622B 34%, #9A3A18 66%, #3A1A12 100%)'
 
 const mark = (size, scale) => `
 <svg width="${size}" height="${size}" viewBox="0 0 440 440" style="position:absolute;left:0;top:0">
@@ -31,7 +31,7 @@ const pages = {
   ],
   'icon-foreground.png': [
     1024,
-    `<div style="position:relative;width:1024px;height:1024px">${mark(1024, 2.2)}</div>`,
+    `<div style="position:relative;width:1024px;height:1024px">${mark(1024, 3.05)}</div>`,
   ],
   'splash.png': [
     2732,

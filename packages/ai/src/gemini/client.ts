@@ -36,7 +36,7 @@ export const ERROR_COPY: Record<GeminiErrorKind, string> = {
   timeout: 'Gemini took too long to answer. Check your connection and try again.',
   network: 'No connection to Gemini right now. Your data is safe on the phone.',
   server: 'Gemini is having trouble right now. Try again shortly.',
-  'bad-output': 'Gemini sent back something unreadable. Try again.',
+  'bad-output': 'Gemini could not run this request. Check the model name in AI settings.',
 }
 
 export type FetchLike = (
@@ -87,6 +87,7 @@ function bodyOf(req: GenerateRequest) {
 function kindForStatus(status: number): GeminiErrorKind {
   if (status === 400 || status === 401 || status === 403) return 'auth'
   if (status === 429) return 'quota'
+  if (status === 404) return 'bad-output'
   return 'server'
 }
 

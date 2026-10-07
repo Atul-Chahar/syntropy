@@ -41,16 +41,53 @@ export function Ring({
       aria-label={label}
       style={{ position: 'relative', width: size, height: size, flexShrink: 0 }}
     >
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
-        {colorTo ? (
-          <defs>
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        aria-hidden="true"
+        // The glow spills past the ring; a clipped CSS drop-shadow shows square corners.
+        style={{ overflow: 'visible' }}
+      >
+        <defs>
+          {colorTo ? (
             <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor={color} />
               <stop offset="1" stopColor={colorTo} />
             </linearGradient>
-          </defs>
-        ) : null}
+          ) : null}
+          {glow ? (
+            <filter
+              id={`${id}-glow`}
+              filterUnits="userSpaceOnUse"
+              x={-size / 2}
+              y={-size / 2}
+              width={size * 2}
+              height={size * 2}
+            >
+              <feGaussianBlur stdDeviation={stroke * 0.9} />
+            </filter>
+          ) : null}
+        </defs>
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={track} strokeWidth={stroke} />
+        {glow ? (
+          <motion.circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke={color}
+            strokeWidth={stroke * 1.4}
+            strokeLinecap="round"
+            strokeDasharray={c}
+            initial={{ strokeDashoffset: c }}
+            animate={{ strokeDashoffset: c * (1 - v) }}
+            transition={{ type: 'spring', stiffness: 60, damping: 18 }}
+            transform={`rotate(-90 ${size / 2} ${size / 2})`}
+            filter={`url(#${id}-glow)`}
+            opacity={0.45}
+          />
+        ) : null}
         <motion.circle
           cx={size / 2}
           cy={size / 2}
@@ -64,7 +101,6 @@ export function Ring({
           animate={{ strokeDashoffset: c * (1 - v) }}
           transition={{ type: 'spring', stiffness: 60, damping: 18 }}
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
-          style={glow ? { filter: `drop-shadow(0 0 6px ${color})` } : undefined}
         />
       </svg>
       {children ? (

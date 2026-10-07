@@ -14,6 +14,7 @@ import { Dot, Icon, IconButton, PillButton, Skeleton, TrackSegmented } from '@sy
 import { AnimatePresence, motion } from 'motion/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { LiveVideo } from '@/components/LiveVideo'
 import { ThaliArt } from '@/components/ThaliArt'
 import { gemini, withAi } from '@/lib/ai'
 import { captureFrame, ensureCameraPermission, pickPhoto } from '@/platform/camera'
@@ -189,19 +190,7 @@ export function ScanScreen() {
             'radial-gradient(ellipse 80% 55% at 50% 40%, #3A2E24 0%, #1C1712 55%, #0A0D0C 100%)',
         }}
       />
-      <video
-        ref={video}
-        playsInline
-        muted
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          opacity: phase === 'camera' ? 1 : 0,
-        }}
-      />
+      <LiveVideo ref={video} visible={phase === 'camera'} label="Camera preview" />
       {still ? (
         // biome-ignore lint/performance/noImgElement: captured frame
         <img

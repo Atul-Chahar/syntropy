@@ -60,7 +60,8 @@ function DotGrid() {
   }
   return (
     <div>
-      <svg aria-hidden="true" width="100%" viewBox="0 0 318 92" style={{ display: 'block' }}>
+      {/* 5 units of margin so the "today" ring on the edge columns is never clipped. */}
+      <svg aria-hidden="true" width="100%" viewBox="-5 -5 328 102" style={{ display: 'block' }}>
         {cols.map((c) =>
           Array.from({ length: 7 }, (_, r) => {
             const d = addDays(start, c * 7 + r)
@@ -83,7 +84,7 @@ function DotGrid() {
             return (
               <g key={d}>
                 {d === t ? (
-                  <circle cx={x} cy={y} r="7" fill="none" stroke="#FFC7B0" strokeWidth="1.2" />
+                  <circle cx={x} cy={y} r="6.4" fill="none" stroke="#FFC7B0" strokeWidth="1.2" />
                 ) : null}
                 <circle
                   cx={x}
@@ -104,7 +105,10 @@ function DotGrid() {
             className="sy-mono"
             style={{
               position: 'absolute',
-              left: `${(m.x / 318) * 100}%`,
+              left: `${((m.x + 5) / 328) * 100}%`,
+              // Centred on its column; the last label right-aligns so it stays inside the card.
+              transform:
+                m.x > 290 ? 'translateX(-100%)' : m.x < 20 ? undefined : 'translateX(-50%)',
               fontSize: 10,
               color: 'rgba(243,241,236,0.5)',
             }}

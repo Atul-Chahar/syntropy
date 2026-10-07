@@ -44,3 +44,11 @@ textarea::placeholder {
 .hide-scroll::-webkit-scrollbar {
   display: none;
 }
+
+/* Camera previews never show the WebView's built-in play button or controls. */
+video::-webkit-media-controls,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}

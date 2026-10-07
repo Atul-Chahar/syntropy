@@ -176,7 +176,7 @@ describe('meal analysis', () => {
     expect(a.title).toBe('North Indian thali')
     const roti = a.items.find((i) => i.foodId === 'roti')!
     expect(roti.qty).toBe(2)
-    expect(roti.per.kcal).toBe(105)
+    expect(roti.per.kcal).toBe(102)
     // 225 g of rice in "serving" converts to 1.5 katori of the table's steamed rice.
     const rice = a.items.find((i) => i.foodId === 'rice')!
     expect(rice.unit).toBe('katori')

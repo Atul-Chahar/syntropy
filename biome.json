@@ -9,6 +9,7 @@
     "includes": [
       "**",
       "!design",
+      "!App icon-html",
       "!packages/core/src",
       "!packages/ai/src/coach",
       "!packages/ai/test",

@@ -18,7 +18,7 @@ const mark = (size, scale) => `
     <path d="M70 66A20 20 0 0 1 30 66L50 66L41 51.6L61 51.6Z" fill="url(#b)"/>
   </g>
 </svg>`
-const grain = `<svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.35;mix-blend-mode:overlay"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>`
+const grain = `<svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.42;mix-blend-mode:overlay"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>`
 
 const pages = {
   'icon-only.png': [

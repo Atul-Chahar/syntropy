@@ -216,3 +216,16 @@ by the Capawesome Team (Robin Genz), a Capacitor wrapper around Google's ML Kit,
 **Apache License 2.0**. openGym pins the `7.x` line to stay on Capacitor 7. The full license text is
 available at <https://www.apache.org/licenses/LICENSE-2.0> and in the package's own `LICENSE` file.
 The decoded string is what openGym keeps; the photo itself is never stored.
+
+---
+
+## Syntropy food values
+
+`packages/nutrition/src/foods.ts` holds individual numeric values derived from these sources. Each
+value is cited per food in `packages/nutrition/data/foods-sourced.json`, with the method in
+`packages/nutrition/data/SOURCES.md`. No source files are redistributed.
+
+- Indian Nutrient Databank (INDB), https://github.com/lindsayjaacks/Indian-Nutrient-Databank-INDB-
+- Longvah T, Ananthan R, Bhaskarachary K, Venkaiah K. *Indian Food Composition Tables 2017*.
+  ICMR–National Institute of Nutrition, Hyderabad.
+- USDA FoodData Central (SR Legacy), public domain.

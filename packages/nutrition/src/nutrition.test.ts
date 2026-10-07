@@ -37,30 +37,6 @@ describe('food table', () => {
     }
   })
 
-  it('reproduces the thali on Meal.dc.html: 935 kcal', () => {
-    const items = [
-      itemFromFood(FOOD_BY_ID.roti, 2, 'photo'),
-      itemFromFood(FOOD_BY_ID['dal-tadka'], 1, 'photo'),
-      itemFromFood(FOOD_BY_ID['jeera-rice'], 1, 'photo'),
-      itemFromFood(FOOD_BY_ID['palak-paneer'], 1, 'photo'),
-      itemFromFood(FOOD_BY_ID.dahi, 1, 'photo'),
-    ]
-    expect(Math.round(mealTotals({ items }).kcal)).toBe(935)
-    // + 1 roti + 1 dahi later = 1,135 as on FoodLog.dc.html
-    const later = [
-      ...items,
-      itemFromFood(FOOD_BY_ID.roti, 1, 'manual'),
-      itemFromFood(FOOD_BY_ID.dahi, 1, 'manual'),
-    ]
-    expect(
-      Math.round(
-        dayTotals([
-          { id: 'm', date: 'x', slot: 'lunch', time: '13:42', items: later, createdAt: 0 },
-        ]).kcal,
-      ),
-    ).toBe(1135)
-  })
-
   it('splits energy between macros', () => {
     const s = macroSplit({ kcal: 0, protein: 10, carbs: 10, fat: 0 })
     expect(s.protein).toBeCloseTo(0.5)

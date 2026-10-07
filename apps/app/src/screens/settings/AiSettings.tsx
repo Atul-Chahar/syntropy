@@ -113,7 +113,7 @@ export function AiSettingsScreen() {
           label={saved ? 'Replace key' : 'API key'}
           type="password"
           autoComplete="off"
-          placeholder="AIza…"
+          placeholder="AQ.… or AIza…"
           value={key}
           onChange={(e) => setKey(e.target.value)}
         />

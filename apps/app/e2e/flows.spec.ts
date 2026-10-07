@@ -39,7 +39,7 @@ test('Scan a sample plate, review and log it to a meal', async ({ page }) => {
   await sample(page)
   await page.goto('/scan/?slot=dinner')
   await page.getByRole('button', { name: 'Try a sample plate' }).click()
-  await expect(page.getByLabel('Scan result')).toContainText('935')
+  await expect(page.getByLabel('Scan result')).toContainText('821')
   await page.getByRole('button', { name: /Review/ }).click()
   await page.waitForURL('**/meal/review/')
   await page.getByRole('button', { name: 'More Roti' }).click()

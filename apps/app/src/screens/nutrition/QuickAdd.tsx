@@ -55,7 +55,8 @@ export function QuickAddScreen() {
     return FOODS.filter((f) => f.cuisine === 'indian')
   }, [text, tab, recent, custom, byId])
 
-  const existing = meals.find((m) => m.date === date && m.slot === slot)
+  const existing =
+    slot === 'extra' ? undefined : meals.find((m) => m.date === date && m.slot === slot)
   const set = (id: string, n: number) => {
     tap()
     setCounts((c) => ({ ...c, [id]: Math.max(0, Math.min(20, Math.round(n * 100) / 100)) }))

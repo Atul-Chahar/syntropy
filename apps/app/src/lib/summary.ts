@@ -10,6 +10,8 @@ import {
   dayTotals,
   energyOut,
   type Macros,
+  type Meal,
+  measuredMaintenance,
   type Targets,
   trendRate,
   weightTrend,
@@ -23,12 +25,14 @@ import { addDays, today } from './dates'
 import { EX as EXIDX } from './ex'
 
 export function bodyOf(p: ReturnType<typeof useProfile.getState>, S: TrainingState): BodyProfile {
-  const last = S.bodyweight[S.bodyweight.length - 1]
+  // The smoothed trend, not the last noisy weigh-in.
+  const trend = weightTrend(S.bodyweight)
+  const last = trend[trend.length - 1]
   return {
     sex: p.sex,
     age: p.age,
     heightCm: p.heightCm,
-    weightKg: last?.w ?? p.weightKg,
+    weightKg: last ? Math.round(last.ema * 10) / 10 : p.weightKg,
     activity: p.activity,
     bodyFatPct: p.bodyFatPct ?? undefined,
     trainingDaysPerWeek: Math.max(1, Object.keys(S.week).length || p.trainingDaysPerWeek),
@@ -66,6 +70,36 @@ export function trainingKcalOn(S: TrainingState, date: string, weightKg: number)
     .reduce((a, w) => a + workoutKcal(weightKg, durMin(w)), 0)
 }
 
+/** kcal eaten per logged day. */
+export function intakeByDay(meals: Meal[]): { d: string; kcal: number }[] {
+  const by = new Map<string, Meal[]>()
+  for (const m of meals) by.set(m.date, [...(by.get(m.date) ?? []), m])
+  return [...by].map(([d, ms]) => ({ d, kcal: dayTotals(ms).kcal }))
+}
+
+/**
+ * The one place targets are computed: the user's goal and target weight, with maintenance
+ * measured from their own food logs and weight trend once there is enough data. Weekly
+ * check-in adjustments only apply while maintenance is still the formula estimate.
+ */
+export function targetsFor(
+  profile: ReturnType<typeof useProfile.getState>,
+  S: TrainingState,
+  goal: ReturnType<typeof useGoal.getState>,
+  meals: Meal[],
+  date: string = today(),
+  type = goal.type,
+  pace = goal.pace,
+  targetKg: number | null | undefined = goal.targetKg,
+): Targets {
+  const measured = measuredMaintenance(intakeByDay(meals), S.bodyweight, date)
+  return computeTargets(bodyOf(profile, S), type, pace, {
+    adjustKcal: measured ? 0 : goal.adjustKcal,
+    targetKg,
+    measured,
+  })
+}
+
 /** Everything Home, Food and the widgets need, derived in one place. */
 export function useToday(date: string = today()) {
   const profile = useProfile()
@@ -75,7 +109,7 @@ export function useToday(date: string = today()) {
   const waterDays = useWater((s) => s.days)
   return useMemo(() => {
     const body = bodyOf(profile, S)
-    const targets = computeTargets(body, goal.type, goal.pace, goal.adjustKcal)
+    const targets = targetsFor(profile, S, goal, meals, date)
     const training = isTrainingDay(S, date)
     const dt = dayTargets(targets, training)
     const todays = meals.filter((m) => m.date === date)

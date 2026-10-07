@@ -1,6 +1,6 @@
 'use client'
 
-import { GlassCard, IconButton, Screen, Segmented } from '@syntropy/ui'
+import { fitDot, GlassCard, IconButton, Screen, Segmented } from '@syntropy/ui'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
@@ -292,8 +292,16 @@ export function FoodHistoryScreen() {
             style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
           >
             <span style={{ fontSize: 11.5, color: 'rgba(243,241,236,0.6)' }}>{k}</span>
-            <span style={{ display: 'flex', alignItems: 'baseline', gap: 3 }}>
-              <span className="sy-dot" style={{ fontSize: 22, lineHeight: 1 }}>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                flexWrap: 'wrap',
+                columnGap: 3,
+                containerType: 'inline-size',
+              }}
+            >
+              <span className="sy-dot" style={{ fontSize: fitDot(v, 22), lineHeight: 1 }}>
                 {v}
               </span>
               <span style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.55)' }}>{u}</span>

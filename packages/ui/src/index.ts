@@ -9,6 +9,8 @@ export { PillStepper, RowStepper, TileStepper } from './controls/Stepper'
 export {
   Callout,
   Dot,
+  fitDot,
+  fitDotPx,
   Kicker,
   MacroRow,
   MetricNumber,

@@ -51,6 +51,8 @@ export const useNutrition = persisted<NutritionStore>('nutrition', (set, get) =>
     return meal
   },
   addItems: (date, slot, items, later = false) => {
+    // Extras are never merged: each one keeps its own time.
+    if (slot === 'extra') return get().saveMeal({ slot, date, items }).id
     const existing = get().meals.find((m) => m.date === date && m.slot === slot)
     const marked = items.map((i) => ({ ...i, addedLater: later || i.addedLater }))
     get().touchRecent(items.map((i) => i.foodId).filter(Boolean) as string[])

@@ -10,7 +10,7 @@ mkdirSync(outDir, { recursive: true })
 
 const browser = await chromium.launch({ executablePath: process.env.CHROME || undefined })
 const ctx = await browser.newContext({
-  viewport: { width: 390, height: 844 },
+  viewport: { width: Number(process.env.W || 390), height: Number(process.env.H || 844) },
   deviceScaleFactor: 2,
   colorScheme: 'dark',
   reducedMotion: process.env.MOTION ? 'no-preference' : 'reduce',

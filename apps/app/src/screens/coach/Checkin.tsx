@@ -21,6 +21,25 @@ import { toast, useGoal, useNutrition, useSettings, useTraining } from '@/stores
 import type { Checkin } from '@/stores/goal'
 
 /** Weekly check-in (DESIGN_GAPS #14): code decides the change, Coach explains it. */
+/** Check-in copy once maintenance is measured: targets self-correct, so explain the gap. */
+function measuredBody(
+  observed: number | null,
+  planned: number,
+  avgKcal: number,
+  target: number,
+  maintenance: number,
+): string {
+  const head = `Maintenance is now measured from your own logs (about ${fmt(maintenance)} kcal), so daily targets adjust by themselves.`
+  if (observed == null) return `${head} Weigh in a few times this week to keep the trend fresh.`
+  const trend = `Your trend moved ${observed.toFixed(2)} kg a week against a plan of ${planned.toFixed(2)}.`
+  const diff = observed - planned
+  if (Math.abs(diff) < 0.1) return `${trend} That is on pace. ${head}`
+  const slower = planned < 0 ? observed > planned : observed < planned
+  if (slower)
+    return `${trend} ${head} You averaged ${fmt(Math.round(avgKcal))} kcal against a ${fmt(target)} target; eating closer to it closes the gap.`
+  return `${trend} Faster than plan. ${head} Eat your full target to protect muscle.`
+}
+
 export function CheckinScreen() {
   const router = useRouter()
   const goal = useGoal()
@@ -32,9 +51,10 @@ export function CheckinScreen() {
 
   const summary = useMemo(() => {
     const observed = trendRate(S.bodyweight, 14)
-    const planned = plannedRateKgPerWeek(goal.type, goal.pace)
+    const planned = plannedRateKgPerWeek(goal.type, goal.pace, t.body.weightKg)
+    // Once maintenance is measured from the logs, targets already follow the trend.
     const adj =
-      observed == null
+      observed == null || t.targets.maintenanceSource !== 'formula'
         ? { kcal: 0, reason: 'on-track' as const }
         : weeklyAdjustment(observed, planned)
     const days = Array.from({ length: 7 }, (_, i) => addDays(today(), -i - 1))
@@ -66,7 +86,7 @@ export function CheckinScreen() {
         .map(([m]) => muscleName(m)),
       loggedDays: logged.length,
     }
-  }, [S, meals, goal.type, goal.pace])
+  }, [S, meals, goal.type, goal.pace, t.body.weightKg, t.targets.maintenanceSource])
 
   const existing = goal.checkins.find((c) => c.date === today())
   const [c, setC] = useState<Checkin | null>(existing ?? null)
@@ -74,6 +94,7 @@ export function CheckinScreen() {
   useEffect(() => {
     if (existing) return
     const k = summary.adj.kcal
+    const measured = t.targets.maintenanceSource !== 'formula'
     const local: Checkin = {
       id: `ci_${today()}`,
       date: today(),
@@ -81,14 +102,22 @@ export function CheckinScreen() {
       reason: summary.adj.reason,
       observedKgPerWeek: summary.observed,
       plannedKgPerWeek: summary.planned,
-      headline:
-        k === 0
+      headline: measured
+        ? 'Targets follow your data'
+        : k === 0
           ? 'Right on track — targets hold'
           : k > 0
             ? `Losing a little fast — +${k} kcal a day`
             : `Progress slowed — ${k} kcal a day`,
-      body:
-        summary.observed == null
+      body: measured
+        ? measuredBody(
+            summary.observed,
+            summary.planned,
+            summary.avgKcal,
+            t.dt.kcal,
+            t.targets.maintenanceKcal,
+          )
+        : summary.observed == null
           ? 'Log a few more weigh-ins this week and next Sunday’s check-in can read your trend.'
           : `Your trend moved ${summary.observed.toFixed(2)} kg a week against a plan of ${summary.planned.toFixed(2)}. ${k === 0 ? 'That is close enough, so nothing changes.' : 'A small, bounded change keeps the pace sustainable.'}`,
       tips: summary.low.length
@@ -98,7 +127,7 @@ export function CheckinScreen() {
     }
     goal.addCheckin(local)
     setC(local)
-  }, [existing, summary, goal])
+  }, [existing, summary, goal, t.targets, t.dt.kcal])
 
   const explain = async () => {
     if (!c) return
@@ -252,7 +281,10 @@ export function CheckinScreen() {
       <p
         style={{ margin: 0, textAlign: 'center', fontSize: 11.5, color: 'rgba(243,241,236,0.45)' }}
       >
-        Targets move by at most 150 kcal a week. {summary.loggedDays} of 7 days logged.
+        {t.targets.maintenanceSource === 'formula'
+          ? 'Targets move by at most 150 kcal a week.'
+          : `Maintenance measured from ${t.targets.measuredDays} logged days.`}{' '}
+        {summary.loggedDays} of 7 days logged.
       </p>
     </Screen>
   )

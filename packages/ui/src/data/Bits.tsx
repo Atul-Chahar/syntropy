@@ -66,6 +66,20 @@ export function Title({
   )
 }
 
+/** Doto glyphs advance about 0.62 em, commas and points included. */
+const DOTO_EM = 0.62
+
+/** Font size (px) that fits `text` in Doto into `widthPx`, never above `max`. */
+export const fitDotPx = (text: string, max: number, widthPx: number) =>
+  Math.min(max, Math.floor(widthPx / (Math.max(1, text.length) * DOTO_EM)))
+
+/**
+ * CSS font-size that fits `text` in Doto into `share` of the nearest inline-size container
+ * (set `containerType: 'inline-size'` on a parent), never above `max` px.
+ */
+export const fitDot = (text: string, max: number, share = 1) =>
+  `min(${max}px, ${((100 * share) / (Math.max(1, text.length) * DOTO_EM)).toFixed(2)}cqi)`
+
 /** Doto metric that tweens between values. */
 export function MetricNumber({
   value,
@@ -74,6 +88,7 @@ export function MetricNumber({
   format,
   style,
   color,
+  fit,
 }: {
   value: number
   size?: number
@@ -81,22 +96,25 @@ export function MetricNumber({
   format?: (v: number) => string
   style?: CSSProperties
   color?: string
+  /** Shrink to this share of the nearest inline-size container when the value is long. */
+  fit?: number
 }) {
   const mv = useMotionValue(value)
   useEffect(() => {
     const c = animate(mv, value, { duration: 0.6, ease: [0.2, 0.7, 0.2, 1] })
     return () => c.stop()
   }, [value, mv])
-  const text = useTransform(mv, (v) =>
+  const show = (v: number) =>
     format
       ? format(v)
       : v.toLocaleString('en-IN', {
           minimumFractionDigits: decimals,
           maximumFractionDigits: decimals,
-        }),
-  )
+        })
+  const text = useTransform(mv, show)
+  const fontSize = fit ? fitDot(show(value), size, fit) : size
   return (
-    <motion.span className="sy-dot" style={{ fontSize: size, lineHeight: 1, color, ...style }}>
+    <motion.span className="sy-dot" style={{ fontSize, lineHeight: 1, color, ...style }}>
       {text}
     </motion.span>
   )

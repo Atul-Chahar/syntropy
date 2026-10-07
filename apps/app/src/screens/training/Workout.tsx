@@ -358,8 +358,8 @@ export function WorkoutScreen() {
           aria-hidden="true"
           style={{
             display: 'grid',
-            gridTemplateColumns: '30px minmax(0,1fr) 56px 44px 40px 44px',
-            gap: 6,
+            gridTemplateColumns: '26px minmax(0,1fr) 56px 44px 40px 44px',
+            gap: 5,
             padding: '0 9px',
             fontSize: 10,
             letterSpacing: '0.08em',
@@ -419,8 +419,8 @@ export function WorkoutScreen() {
                 key={i}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '30px minmax(0,1fr) 56px 44px 40px 44px',
-                  gap: 6,
+                  gridTemplateColumns: '26px minmax(0,1fr) 56px 44px 40px 44px',
+                  gap: 5,
                   alignItems: 'center',
                   height: 54,
                   padding: '0 8px',
@@ -439,14 +439,23 @@ export function WorkoutScreen() {
                 <span
                   className="sy-mono"
                   style={{
-                    fontSize: 11,
+                    fontSize: 10.5,
+                    lineHeight: 1.3,
                     color: 'rgba(243,241,236,0.5)',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    columnGap: 3,
+                    minWidth: 0,
                   }}
                 >
-                  {p ? `${fmtW(p.w, bw)} × ${p.r}` : '—'}
+                  {p ? (
+                    <>
+                      <span>{fmtW(p.w, bw)}</span>
+                      <span>× {p.r}</span>
+                    </>
+                  ) : (
+                    '—'
+                  )}
                 </span>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   {active ? (

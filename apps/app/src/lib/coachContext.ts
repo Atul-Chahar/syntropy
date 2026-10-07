@@ -3,7 +3,6 @@
 import type { CoachContext } from '@syntropy/ai'
 import { effectiveRoutines } from '@syntropy/core/history'
 import {
-  computeTargets,
   dayTotals,
   FOOD_BY_ID,
   FREQUENT_IDS,
@@ -15,7 +14,7 @@ import {
 import { useGoal, useNutrition, useProfile, useTraining, useWater } from '@/stores'
 import { waterOn } from '@/stores/water'
 import { addDays, today } from './dates'
-import { bodyOf, dayTargets, isTrainingDay, muscleRows, readinessOf } from './summary'
+import { bodyOf, dayTargets, isTrainingDay, muscleRows, readinessOf, targetsFor } from './summary'
 import { exTitle, muscleName } from './training'
 
 /** The allowlisted summary of the user's data that the coach may see (never raw logs). */
@@ -28,7 +27,7 @@ export function buildCoachContext(): CoachContext {
   const water = useWater.getState().days
   const t = today()
   const body = bodyOf(p, S)
-  const targets = computeTargets(body, g.type, g.pace, g.adjustKcal)
+  const targets = targetsFor(p, S, g, meals, t)
   const dt = dayTargets(targets, isTrainingDay(S, t))
   const todays = meals.filter((m) => m.date === t)
   const eaten = dayTotals(todays)

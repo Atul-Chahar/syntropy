@@ -21,10 +21,12 @@ type GoalStore = {
   pace: Pace
   /** Sum of accepted weekly check-in changes. */
   adjustKcal: number
+  /** The user's own target weight (null: use the suggestion for the goal). */
+  targetKg: number | null
   set: boolean
   updatedAt: number
   checkins: Checkin[]
-  choose: (type: GoalType, pace: Pace) => void
+  choose: (type: GoalType, pace: Pace, targetKg?: number | null) => void
   addCheckin: (c: Checkin) => void
   resolveCheckin: (id: string, accept: boolean) => void
 }
@@ -33,10 +35,12 @@ export const useGoal = persisted<GoalStore>('goal', (set, get) => ({
   type: 'cut',
   pace: 'steady',
   adjustKcal: 0,
+  targetKg: null,
   set: false,
   updatedAt: 0,
   checkins: [],
-  choose: (type, pace) => set({ type, pace, set: true, adjustKcal: 0, updatedAt: Date.now() }),
+  choose: (type, pace, targetKg = null) =>
+    set({ type, pace, targetKg, set: true, adjustKcal: 0, updatedAt: Date.now() }),
   addCheckin: (c) =>
     set({ checkins: [c, ...get().checkins.filter((x) => x.date !== c.date)].slice(0, 26) }),
   resolveCheckin: (id, accept) => {

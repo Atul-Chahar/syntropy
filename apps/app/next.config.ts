@@ -10,6 +10,8 @@ const config: NextConfig = {
   trailingSlash: true,
   images: { unoptimized: true },
   reactStrictMode: true,
+  // Next 16 dev writes AGENTS.md/CLAUDE.md here otherwise; the repo has its own at the root.
+  agentRules: false,
   transpilePackages: ['@syntropy/core', '@syntropy/ai', '@syntropy/ui'],
 }
 

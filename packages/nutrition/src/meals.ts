@@ -1,6 +1,9 @@
 import type { Food, Unit } from './foods'
 
-export type MealSlot = 'breakfast' | 'lunch' | 'snack' | 'dinner'
+/** 'extra' holds anything eaten between meals; each extra is its own timed entry. */
+export type MealSlot = 'breakfast' | 'lunch' | 'snack' | 'dinner' | 'extra'
+export type MainSlot = Exclude<MealSlot, 'extra'>
+export const MAIN_SLOTS: MainSlot[] = ['breakfast', 'lunch', 'snack', 'dinner']
 export type ItemSource = 'photo' | 'manual' | 'text'
 
 export interface MealItem {
@@ -66,10 +69,11 @@ export const SLOT_LABEL: Record<MealSlot, string> = {
   lunch: 'Lunch',
   snack: 'Snack',
   dinner: 'Dinner',
+  extra: 'Extras',
 }
 
 /** The slot a meal logged at this hour most likely belongs to. */
-export function slotForHour(h: number): MealSlot {
+export function slotForHour(h: number): MainSlot {
   if (h < 11) return 'breakfast'
   if (h < 16) return 'lunch'
   if (h < 19) return 'snack'

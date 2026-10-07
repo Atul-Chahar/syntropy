@@ -1,9 +1,9 @@
 'use client'
 
-import { computeTargets, dayTotals } from '@syntropy/nutrition'
+import { dayTotals } from '@syntropy/nutrition'
 import { useMemo } from 'react'
 import { useGoal, useNutrition, useProfile, useTraining } from '@/stores'
-import { bodyOf, dayTargets, isTrainingDay } from './summary'
+import { dayTargets, isTrainingDay, targetsFor } from './summary'
 
 export type DayStat = {
   date: string
@@ -22,7 +22,7 @@ export function useDayStats(dates: string[]): DayStat[] {
   const p = useProfile()
   const g = useGoal()
   return useMemo(() => {
-    const t = computeTargets(bodyOf(p, S), g.type, g.pace, g.adjustKcal)
+    const t = targetsFor(p, S, g, meals)
     const byDate = new Map<string, typeof meals>()
     for (const m of meals) byDate.set(m.date, [...(byDate.get(m.date) ?? []), m])
     return dates.map((date) => {

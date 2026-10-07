@@ -4,6 +4,7 @@ import { e1rmSeries } from '@syntropy/core/onerm'
 import { weightTrend } from '@syntropy/nutrition'
 import {
   BodyMap,
+  fitDot,
   GlassCard,
   IconButton,
   PillButton,
@@ -189,9 +190,9 @@ export function StatsScreen() {
           [MONTHS[parseIso(t).getMonth()], month, '', undefined],
           ['Streak', streakWeeks(S), 'wk', undefined],
           [
-            'Weight 30D',
+            'Weight',
             `${delta > 0 ? '+' : delta < 0 ? '−' : ''}${Math.abs(delta).toFixed(1)}`,
-            'kg',
+            'kg/30d',
             '/progress/',
           ],
         ].map(([k, v, u, href]) => (
@@ -213,12 +214,15 @@ export function StatsScreen() {
               {k}
             </span>
             <span
-              style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', columnGap: 2 }}
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                flexWrap: 'wrap',
+                columnGap: 2,
+                containerType: 'inline-size',
+              }}
             >
-              <span
-                className="sy-dot"
-                style={{ fontSize: String(v).length > 3 ? 21 : 25, lineHeight: 1 }}
-              >
+              <span className="sy-dot" style={{ fontSize: fitDot(String(v), 25), lineHeight: 1 }}>
                 {v}
               </span>
               <span style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.55)' }}>{u}</span>
@@ -285,13 +289,21 @@ export function StatsScreen() {
         />
         {tab === 'balance' ? (
           <>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: 12, color: 'rgba(243,241,236,0.6)' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              <span style={{ fontSize: 12, color: 'rgba(243,241,236,0.6)', minWidth: 0 }}>
                 Sets per week, by muscle
               </span>
               <Segmented
                 label="Range"
                 height={30}
+                padding={10}
                 value={range}
                 onChange={setRange}
                 options={[

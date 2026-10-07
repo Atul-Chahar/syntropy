@@ -48,7 +48,7 @@ const QUICK: [string, number, string][] = [
   ['dahi', 1, '1 katori dahi'],
   ['rice', 0.5, '½ rice'],
 ]
-const SLOTS: MealSlot[] = ['breakfast', 'lunch', 'snack', 'dinner']
+const SLOTS: MealSlot[] = ['breakfast', 'lunch', 'snack', 'dinner', 'extra']
 
 /**
  * Meal.dc.html. Two modes: reviewing a fresh scan (the draft; nothing saved until "Log to …")
@@ -106,7 +106,8 @@ export function MealReviewScreen() {
       store.updateMeal(logged.id, { items: kept, slot })
       toast('Meal updated')
     } else {
-      const existing = store.meals.find((m) => m.date === today() && m.slot === slot)
+      const existing =
+        slot !== 'extra' && store.meals.find((m) => m.date === today() && m.slot === slot)
       if (existing) store.addItems(today(), slot, kept, true)
       else store.saveMeal({ slot, items: kept, title: draft?.title, photoId: draft?.photoId })
       store.setDraft(null)

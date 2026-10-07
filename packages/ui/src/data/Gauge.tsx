@@ -2,6 +2,7 @@
 
 import { animate, motion, useMotionValue, useTransform } from 'motion/react'
 import { useEffect, useId, useMemo } from 'react'
+import { fitDotPx } from './Bits'
 
 type GaugeProps = {
   /** Net kcal: negative is a deficit (left), positive a surplus (right). */
@@ -56,6 +57,7 @@ export function Gauge({ net, label }: GaugeProps) {
   const mx = useTransform(mv, (v) => CX + R2 * Math.cos(Math.PI + v * Math.PI))
   const my = useTransform(mv, (v) => CY + R2 * Math.sin(Math.PI + v * Math.PI))
   const sign = net > 0 ? '+' : net < 0 ? '−' : ''
+  const numSize = fitDotPx(`${sign}${Math.abs(Math.round(net))}`, 54, 148)
 
   return (
     <div
@@ -63,14 +65,16 @@ export function Gauge({ net, label }: GaugeProps) {
         position: 'relative',
         width: 310,
         maxWidth: '100%',
-        height: 176,
+        aspectRatio: '310 / 176',
         margin: '8px auto 0',
+        // On narrow phones the dial scales down; the number scales with it (cqi = 1 % width).
+        containerType: 'inline-size',
       }}
     >
       <svg
         aria-hidden="true"
         width="100%"
-        height="176"
+        height="100%"
         viewBox="0 0 310 176"
         style={{ display: 'block', overflow: 'visible' }}
       >
@@ -124,18 +128,21 @@ export function Gauge({ net, label }: GaugeProps) {
           position: 'absolute',
           left: 0,
           right: 0,
-          top: 72,
+          // Bottom-aligned inside the inner arc; long values shrink so they never touch it.
+          top: `${((86 + 54 - numSize) / 176) * 100}%`,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: 2,
         }}
       >
-        <div className="sy-dot" style={{ fontSize: 58, lineHeight: 1, letterSpacing: '-0.02em' }}>
+        <div className="sy-dot" style={{ fontSize: `${numSize / 3.1}cqi`, lineHeight: 1 }}>
           {sign}
           {Math.abs(Math.round(net))}
         </div>
-        <div style={{ fontSize: 13, color: 'rgba(243,241,236,0.62)' }}>{label}</div>
+        <div style={{ fontSize: 'max(11px, 4.2cqi)', color: 'rgba(243,241,236,0.62)' }}>
+          {label}
+        </div>
       </div>
       <div
         style={{

@@ -1,11 +1,20 @@
 'use client'
 
-import { type Meal, type MealSlot, mealTotals, SLOT_LABEL } from '@syntropy/nutrition'
-import { GlassCard, Icon, IconButton, PillButton, ProgressBar, Ring, Screen } from '@syntropy/ui'
+import { MAIN_SLOTS, type MainSlot, type Meal, mealTotals, SLOT_LABEL } from '@syntropy/nutrition'
+import {
+  fitDotPx,
+  GlassCard,
+  Icon,
+  IconButton,
+  PillButton,
+  ProgressBar,
+  Ring,
+  Screen,
+} from '@syntropy/ui'
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 import { Header } from '@/components/BottomBar'
 import { addDays, fmt, kickerDate, today } from '@/lib/dates'
 import { dayColor, useDayStats } from '@/lib/foodHistory'
@@ -13,8 +22,6 @@ import { useToday } from '@/lib/summary'
 import { mondayOf } from '@/lib/training'
 import { tap } from '@/platform/haptics'
 import { useWater } from '@/stores'
-
-const SLOTS: MealSlot[] = ['breakfast', 'lunch', 'snack', 'dinner']
 
 function laterTag(m: Meal): string | null {
   const later = m.items
@@ -26,6 +33,62 @@ function laterTag(m: Meal): string | null {
     .slice(0, 2)
     .map(({ i, extra }) => `+${extra === 0.5 ? '½' : extra} ${i.name.toLowerCase().split(' ')[0]}`)
     .join(', ')} later`
+}
+
+// When a meal slot has nothing logged, its usual start time places the extras around it.
+const SLOT_START: Record<MainSlot, string> = {
+  breakfast: '00:00',
+  lunch: '11:00',
+  snack: '16:00',
+  dinner: '19:00',
+}
+
+/** The main meal an extra follows: the last one eaten (or due) at or before its time. */
+function extraAfter(x: Meal, meals: Meal[]): MainSlot {
+  let after: MainSlot = 'breakfast'
+  for (const slot of MAIN_SLOTS) {
+    const at = meals.find((m) => m.slot === slot)?.time ?? SLOT_START[slot]
+    if (at <= x.time) after = slot
+  }
+  return after
+}
+
+/** One extra eaten between meals: time, what, kcal. Sits under the meal it followed. */
+function ExtraRow({ m }: { m: Meal }) {
+  const tot = mealTotals(m)
+  return (
+    <Link
+      href={`/meal/?id=${m.id}`}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'auto minmax(0,1fr) auto',
+        alignItems: 'center',
+        gap: 10,
+        minHeight: 44,
+        margin: '0 4px 0 18px',
+        padding: '0 14px',
+        borderRadius: 16,
+        background: 'rgba(255,255,255,0.035)',
+        borderLeft: '2px solid rgba(255,199,176,0.35)',
+      }}
+    >
+      <span className="sy-mono" style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.5)' }}>
+        {m.time}
+      </span>
+      <span
+        style={{
+          fontSize: 13,
+          color: 'rgba(243,241,236,0.8)',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {summaryLine(m)}
+      </span>
+      <span style={{ fontSize: 13, fontWeight: 300 }}>{fmt(Math.round(tot.kcal))} kcal</span>
+    </Link>
+  )
 }
 
 function summaryLine(m: Meal): string {
@@ -89,7 +152,10 @@ export function FoodLogScreen() {
           glow
           label={`${Math.round(left)} kcal left`}
         >
-          <span className="sy-dot" style={{ fontSize: 36, lineHeight: 1 }}>
+          <span
+            className="sy-dot"
+            style={{ fontSize: fitDotPx(fmt(Math.abs(Math.round(left))), 36, 90), lineHeight: 1 }}
+          >
             {fmt(Math.abs(Math.round(left)))}
           </span>
           <span style={{ fontSize: 11, color: 'rgba(243,241,236,0.62)', marginTop: 3 }}>
@@ -243,103 +309,129 @@ export function FoodLogScreen() {
       </GlassCard>
 
       <section aria-label="Meals" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {SLOTS.map((slot) => {
+        {MAIN_SLOTS.map((slot) => {
           const m = t.meals.find((x) => x.slot === slot)
+          const extras = t.meals
+            .filter((x) => x.slot === 'extra' && extraAfter(x, t.meals) === slot)
+            .sort((a, b) => (a.time < b.time ? -1 : 1))
           const tot = m ? mealTotals(m) : null
           const tag = m ? laterTag(m) : null
           return (
-            <div
-              key={slot}
-              className="sy-glass"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'minmax(0,1fr) auto 44px',
-                alignItems: 'center',
-                gap: 8,
-                minHeight: 62,
-                padding: '8px 6px 8px 16px',
-                borderRadius: 22,
-              }}
-            >
-              <Link
-                href={m ? `/meal/?id=${m.id}` : `/meal/add/?slot=${slot}&d=${date}`}
-                style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}
+            <Fragment key={slot}>
+              <div
+                className="sy-glass"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'minmax(0,1fr) auto 44px',
+                  alignItems: 'center',
+                  gap: 8,
+                  minHeight: 62,
+                  padding: '8px 6px 8px 16px',
+                  borderRadius: 22,
+                }}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                  <span style={{ fontSize: 15 }}>{SLOT_LABEL[slot]}</span>
-                  {m ? (
-                    <span
-                      className="sy-mono"
-                      style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.5)' }}
-                    >
-                      {m.time}
-                    </span>
-                  ) : null}
-                  {tag ? (
-                    <span
-                      style={{
-                        height: 20,
-                        padding: '0 7px',
-                        borderRadius: 10,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        fontSize: 10.5,
-                        background: 'rgba(255,199,176,0.14)',
-                        color: '#FFD6C4',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ) : null}
-                </span>
-                <span
-                  style={{
-                    fontSize: 12,
-                    color: 'rgba(243,241,236,0.6)',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
+                <Link
+                  href={m ? `/meal/?id=${m.id}` : `/meal/add/?slot=${slot}&d=${date}`}
+                  style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}
                 >
-                  {m ? summaryLine(m) : 'Nothing logged yet'}
-                </span>
-              </Link>
-              {tot ? (
-                <span
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-end',
-                    gap: 2,
-                  }}
-                >
-                  <span style={{ fontSize: 16, fontWeight: 300, letterSpacing: '-0.02em' }}>
-                    {fmt(Math.round(tot.kcal))}
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                    <span style={{ fontSize: 15 }}>{SLOT_LABEL[slot]}</span>
+                    {m ? (
+                      <span
+                        className="sy-mono"
+                        style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.5)' }}
+                      >
+                        {m.time}
+                      </span>
+                    ) : null}
+                    {tag ? (
+                      <span
+                        style={{
+                          height: 20,
+                          lineHeight: '20px',
+                          padding: '0 7px',
+                          borderRadius: 10,
+                          display: 'inline-block',
+                          fontSize: 10.5,
+                          background: 'rgba(255,199,176,0.14)',
+                          color: '#FFD6C4',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          minWidth: 0,
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ) : null}
                   </span>
                   <span
-                    className="sy-mono"
-                    style={{ fontSize: 9.5, color: 'rgba(243,241,236,0.5)' }}
+                    style={{
+                      fontSize: 12,
+                      color: 'rgba(243,241,236,0.6)',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
                   >
-                    P {Math.round(tot.protein)} · C {Math.round(tot.carbs)} · F{' '}
-                    {Math.round(tot.fat)}
+                    {m ? summaryLine(m) : 'Nothing logged yet'}
                   </span>
-                </span>
-              ) : (
-                <span />
-              )}
-              <IconButton
-                icon="plus"
-                label={`Add food to ${slot}`}
-                href={`/meal/add/?slot=${slot}&d=${date}`}
-                variant="plain"
-                style={{ background: 'rgba(255,255,255,0.07)' }}
-                iconSize={18}
-              />
-            </div>
+                </Link>
+                {tot ? (
+                  <span
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end',
+                      gap: 2,
+                    }}
+                  >
+                    <span style={{ fontSize: 16, fontWeight: 300, letterSpacing: '-0.02em' }}>
+                      {fmt(Math.round(tot.kcal))}
+                    </span>
+                    <span
+                      className="sy-mono"
+                      style={{ fontSize: 9.5, color: 'rgba(243,241,236,0.5)' }}
+                    >
+                      P {Math.round(tot.protein)} · C {Math.round(tot.carbs)} · F{' '}
+                      {Math.round(tot.fat)}
+                    </span>
+                  </span>
+                ) : (
+                  <span />
+                )}
+                <IconButton
+                  icon="plus"
+                  label={`Add food to ${slot}`}
+                  href={`/meal/add/?slot=${slot}&d=${date}`}
+                  variant="plain"
+                  style={{ background: 'rgba(255,255,255,0.07)' }}
+                  iconSize={18}
+                />
+              </div>
+              {extras.map((x) => (
+                <ExtraRow key={x.id} m={x} />
+              ))}
+            </Fragment>
           )
         })}
+        <Link
+          href={`/meal/add/?slot=extra&d=${date}`}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            minHeight: 48,
+            borderRadius: 22,
+            border: '1px dashed rgba(255,255,255,0.16)',
+            fontSize: 13.5,
+            color: 'rgba(243,241,236,0.72)',
+          }}
+        >
+          <Icon name="plus" size={16} />
+          Add an extra between meals
+        </Link>
       </section>
       <WeekCard date={date} />
       <div style={{ display: 'flex', justifyContent: 'center', gap: 8 }}>

@@ -63,6 +63,7 @@
 }
 
 .tile {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -95,4 +96,16 @@
 .tilePlus {
   composes: rowBtn;
   background: rgba(255, 255, 255, 0.08);
+}
+
+/* Narrow tiles (two side by side on a 360 px phone): value on top, buttons below. */
+@container (max-width: 150px) {
+  .tileRow {
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+  .tileValue {
+    order: -1;
+    flex-basis: 100%;
+  }
 }

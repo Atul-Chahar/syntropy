@@ -4,9 +4,9 @@ import { buildDemoState } from '@syntropy/core/demoSeed'
 import {
   FOOD_BY_ID,
   itemFromFood,
+  type MainSlot,
   type Meal,
   type MealItem,
-  type MealSlot,
   newId,
 } from '@syntropy/nutrition'
 import {
@@ -45,7 +45,7 @@ const it = (
   extra: Partial<MealItem> = {},
 ) => itemFromFood(FOOD_BY_ID[id], qty, source, extra)
 
-const MENUS: Record<MealSlot, [string, number][][]> = {
+const MENUS: Record<MainSlot, [string, number][][]> = {
   breakfast: [
     [
       ['poha', 1],
@@ -158,7 +158,7 @@ const MENUS: Record<MealSlot, [string, number][][]> = {
   ],
 }
 
-const TIMES: Record<MealSlot, string> = {
+const TIMES: Record<MainSlot, string> = {
   breakfast: '08:40',
   lunch: '13:42',
   snack: '17:15',
@@ -190,7 +190,7 @@ export function buildSeed() {
   const meals: Meal[] = []
   for (let i = 30; i >= 1; i--) {
     const d = addDays(t, -i)
-    for (const slot of ['breakfast', 'lunch', 'snack', 'dinner'] as MealSlot[]) {
+    for (const slot of ['breakfast', 'lunch', 'snack', 'dinner'] as MainSlot[]) {
       if (slot === 'snack' && rnd() < 0.15) continue
       const menu = MENUS[slot][Math.floor(rnd() * MENUS[slot].length)]
       const extra: [string, number][] =
@@ -242,6 +242,14 @@ export function buildSeed() {
       slot: 'snack',
       time: '17:15',
       items: [it('whey', 1), it('banana', 1), it('chai', 1)],
+      createdAt: 0,
+    },
+    {
+      id: newId('meal'),
+      date: t,
+      slot: 'extra',
+      time: '11:20',
+      items: [it('apple', 1)],
       createdAt: 0,
     },
   )

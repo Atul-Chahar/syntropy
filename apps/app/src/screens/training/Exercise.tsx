@@ -163,6 +163,9 @@ export function ExerciseScreen() {
             left: 172,
             top: 20,
             right: 16,
+            // Stops above the Full guide button so long muscle lists never run under it.
+            bottom: 56,
+            overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
             gap: 12,
@@ -204,6 +207,9 @@ export function ExerciseScreen() {
                   fontSize: 13,
                   color: 'rgba(243,241,236,0.8)',
                   textTransform: 'capitalize',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 {secondary.join(' · ')}

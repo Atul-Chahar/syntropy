@@ -157,7 +157,8 @@ export function RecoveryScreen() {
             <span style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               <span style={{ fontSize: 15, letterSpacing: '-0.01em' }}>{muscleName(r.slug)}</span>
               <span className="sy-mono" style={{ fontSize: 11, color: 'rgba(243,241,236,0.55)' }}>
-                {r.sets} sets{r.last ? ` · ${relDay(r.last)}` : ''}
+                {r.sets ? `${r.sets} sets` : 'indirect work'}
+                {r.last ? ` · ${relDay(r.last)}` : ''}
               </span>
             </span>
             <span

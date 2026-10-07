@@ -72,3 +72,37 @@ export function carbBoost(yesterdayVolumeKg: number, legDay: boolean): number {
   if (yesterdayVolumeKg > 9000) return 30
   return 0
 }
+
+/**
+ * Maintenance measured from the user's own data: average logged intake minus the energy in the
+ * weight change over the same window (a fitted line through the weigh-ins) (energy balance, ~7,700 kcal per kg). Needs at least
+ * 10 fully logged days (800+ kcal) and a trend spanning 10+ days; returns null otherwise.
+ */
+export function measuredMaintenance(
+  intake: { d: string; kcal: number }[],
+  weighIns: WeighIn[],
+  endDate: string,
+  windowDays = 28,
+): { kcal: number; days: number; kgPerWeek: number } | null {
+  const end = t(endDate)
+  const start = end - windowDays * DAY
+  const logged = intake.filter((x) => t(x.d) >= start && t(x.d) < end && x.kcal >= 800)
+  if (logged.length < 10) return null
+  // Least-squares slope of the raw weigh-ins: unbiased, unlike the lagging EMA endpoints.
+  const pts = weighIns
+    .filter((x) => t(x.d) >= start && t(x.d) <= end)
+    .map((x) => [(t(x.d) - start) / DAY, x.w] as const)
+  if (pts.length < 4) return null
+  const xs = pts.map((p) => p[0])
+  if (Math.max(...xs) - Math.min(...xs) < 10) return null
+  const mx = xs.reduce((a, b) => a + b, 0) / pts.length
+  const my = pts.reduce((a, p) => a + p[1], 0) / pts.length
+  const sxx = pts.reduce((a, p) => a + (p[0] - mx) ** 2, 0)
+  const kgPerDay = pts.reduce((a, p) => a + (p[0] - mx) * (p[1] - my), 0) / sxx
+  const avgIn = logged.reduce((s, x) => s + x.kcal, 0) / logged.length
+  return {
+    kcal: Math.round(avgIn - kgPerDay * 7700),
+    days: logged.length,
+    kgPerWeek: Math.round(kgPerDay * 7 * 100) / 100,
+  }
+}

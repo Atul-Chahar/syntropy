@@ -10,6 +10,7 @@ import {
   macroSplit,
   matchFood,
   mealTotals,
+  measuredMaintenance,
   searchFoods,
   trendRate,
   weeklyAdjustment,
@@ -81,28 +82,46 @@ describe('targets', () => {
     expect(Math.round(bmr(atul))).toBe(Math.round(10 * 74.2 + 6.25 * 176 - 5 * 28 + 5))
   })
 
-  it('follows the Goal board shape: training day 200 above rest day, 2 g/kg protein', () => {
+  it('cuts at 0.75 % of body weight a week with the week total kept', () => {
     const t = computeTargets(atul, 'cut', 'steady')
-    expect(t.kcalTraining - t.kcalRest).toBe(200)
-    expect(t.protein).toBe(150)
-    expect(t.fat).toBe(65)
-    expect(t.waterMl).toBe(3500)
-    expect(t.targetWeightKg).toBe(71.5)
-    expect(t.weeks).toBe(7)
-    expect(t.kcalTraining).toBeGreaterThan(1900)
-    expect(t.kcalTraining).toBeLessThan(2700)
+    expect(t.rateKgPerWeek).toBeCloseTo(-0.56, 2)
+    expect(t.deltaKcal).toBe(Math.round((-74.2 * 0.0075 * 7700) / 7))
+    expect(t.targetWeightKg).toBeLessThan(74.2)
+    expect(t.weeks).toBeGreaterThan(0)
+    expect(t.targetBodyFatPct).toBeLessThan(16)
     expect(t.carbsTraining * 4 + t.protein * 4 + t.fat * 9).toBeLessThanOrEqual(t.kcalTraining + 20)
   })
 
-  it('maintain uses 1.8 g/kg and no deficit', () => {
+  it('uses a set target weight and never goes below resting energy', () => {
+    const t = computeTargets(atul, 'cut', 'faster', { targetKg: 70 })
+    expect(t.targetWeightKg).toBe(70)
+    expect(t.kcalRest).toBeGreaterThanOrEqual(Math.round(bmr(atul) / 10) * 10 - 10)
+  })
+
+  it('maintain has no deficit and no end date', () => {
     const t = computeTargets(atul, 'maintain', 'steady')
-    expect(t.protein).toBe(135)
     expect(t.deltaKcal).toBe(0)
     expect(t.weeks).toBeNull()
   })
 
-  it('estimates target body fat when body fat is known', () => {
-    expect(computeTargets(atul, 'cut', 'steady').targetBodyFatPct).toBeLessThan(16)
+  it('moves maintenance toward the measured value', () => {
+    const f = computeTargets(atul, 'maintain', 'steady')
+    const m = computeTargets(atul, 'maintain', 'steady', { measured: { kcal: 2200, days: 28 } })
+    expect(m.maintenanceSource).toBe('measured')
+    expect(Math.abs(m.maintenanceKcal - 2200)).toBeLessThan(Math.abs(f.maintenanceKcal - 2200))
+  })
+
+  it('measures maintenance from intake and the weight trend', () => {
+    const days = Array.from({ length: 28 }, (_, i) =>
+      new Date(Date.UTC(2026, 8, 1 + i)).toISOString().slice(0, 10),
+    )
+    // Eating 2,000 kcal a day while losing 0.5 kg a week: maintenance ~2,550.
+    const intake = days.map((d) => ({ d, kcal: 2000 }))
+    const weigh = days.map((d, i) => ({ d, w: 80 - (i * 0.5) / 7 }))
+    const r = measuredMaintenance(intake, weigh, '2026-09-29')
+    expect(r).not.toBeNull()
+    expect(r!.kcal).toBeGreaterThan(2400)
+    expect(r!.kcal).toBeLessThan(2700)
   })
 })
 

@@ -1,3 +1,4 @@
+import { join } from 'node:path'
 import { expect, type Page, test } from '@playwright/test'
 
 async function sample(page: Page) {
@@ -125,6 +126,21 @@ test('Coach demo thread renders with action chips', async ({ page }) => {
   await expect(page.getByText(/Logged 1 × Whey/)).toBeVisible()
 })
 
+test('Asks for a day-one photo, saves it from the gallery, then compares', async ({ page }) => {
+  await sample(page)
+  await page.getByRole('link', { name: /Take your day-one photo/ }).click()
+  await page.waitForURL('**/progress/photo/**')
+  await expect(page.getByText('NO FLEX', { exact: true })).toBeVisible()
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Choose from gallery' }).click()
+  await (await chooser).setFiles(join(__dirname, '../../../docs/banner.png'))
+  await page.getByRole('button', { name: 'Save photo' }).click()
+  await page.waitForURL('**/progress/')
+  await expect(page.getByText(/Take your day-one photo/)).toHaveCount(0)
+  await page.getByRole('link', { name: /Day one, .*Compare/ }).click()
+  await expect(page.getByText(/This is your starting point/)).toBeVisible()
+})
+
 test('Every screen renders without errors', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', (e) => errors.push(e.message))
@@ -144,6 +160,8 @@ test('Every screen renders without errors', async ({ page }) => {
     '/routine/',
     '/exercise/guide/?ex=2330',
     '/coach/checkin/',
+    '/progress/photo/',
+    '/progress/compare/',
   ]) {
     await page.goto(r)
     await page.waitForTimeout(250)

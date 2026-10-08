@@ -4,6 +4,7 @@ import { useCoach } from './coach'
 import { useGoal } from './goal'
 import { useNutrition } from './nutrition'
 import { hydrateAll } from './persist'
+import { usePhotos } from './photos'
 import { firstName, initials, useProfile } from './profile'
 import { useSettings } from './settings'
 import { useTraining } from './training'
@@ -17,10 +18,12 @@ export const PERSISTED = [
   useTraining,
   useCoach,
   useSettings,
+  usePhotos,
 ]
 
 export const hydrateStores = () => hydrateAll(PERSISTED)
 
+export type { Pose, ProgressPhoto } from './photos'
 export { toast, useUi } from './ui'
 export {
   firstName,
@@ -28,6 +31,7 @@ export {
   useCoach,
   useGoal,
   useNutrition,
+  usePhotos,
   useProfile,
   useSettings,
   useTraining,

@@ -38,7 +38,7 @@ screenshot, and wires real data after approval. The phase column says when each 
 | 18 | Exercise detail | History, PRs, e1RM trend, notes, instructions, outside a workout. | 5 |
 | 19 | Create custom exercise | Name, muscles, equipment. | 5 |
 | 20 | Recovery muscle detail | Recent sets for the muscle, fatigue level, time until ready. | 9 |
-| 21 | Milestone photo viewer | Full photo; compare two dates. | 9 |
+| 21 | Milestone photo viewer | Full photo; compare two dates. Built: `/progress/compare` (day one vs any later photo, slider or side by side, per pose) and `/progress/photo` (guided capture: no-flex rules, head/knee guides, day-one overlay, self-timer, 3:4 crop). Home and Body ask for a day-one photo, then every 28 days. | 9 |
 | 22 | Notifications / insights inbox | Coach insights and reminders behind the Home bell. | 8 |
 | 23 | Voice input states | Listening, transcribing, parsed result in Quick add. | 7 |
 | 24 | Sheets and menus | Meal slot picker; routine, exercise and session options; rest timer settings. | 5, 6 |

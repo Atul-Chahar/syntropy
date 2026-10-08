@@ -27,6 +27,46 @@ export async function captureFrame(video: HTMLVideoElement, max = 1280): Promise
   return compressImage(canvas.toDataURL('image/jpeg', 0.92), max)
 }
 
+/**
+ * Centre-crop an image or video frame to a portrait `aspect` (width / height) as a JPEG data URL,
+ * at most `max` px tall. `mirror` flips it horizontally, matching a mirrored selfie preview.
+ */
+export async function cropPortrait(
+  src: string | HTMLVideoElement,
+  { aspect = 3 / 4, max = 1600, mirror = false } = {},
+): Promise<string> {
+  let source: CanvasImageSource
+  let sw: number
+  let sh: number
+  if (typeof src === 'string') {
+    const img = new Image()
+    img.src = src
+    await img.decode()
+    source = img
+    sw = img.width
+    sh = img.height
+  } else {
+    source = src
+    sw = src.videoWidth
+    sh = src.videoHeight
+  }
+  const cw = Math.min(sw, sh * aspect)
+  const ch = cw / aspect
+  const h = Math.round(Math.min(max, ch))
+  const w = Math.round(h * aspect)
+  const canvas = document.createElement('canvas')
+  canvas.width = w
+  canvas.height = h
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return ''
+  if (mirror) {
+    ctx.translate(w, 0)
+    ctx.scale(-1, 1)
+  }
+  ctx.drawImage(source, (sw - cw) / 2, (sh - ch) / 2, cw, ch, 0, 0, w, h)
+  return canvas.toDataURL('image/jpeg', 0.85)
+}
+
 /** Pick a photo from the gallery (Android photo picker or a file input on the web). */
 export async function pickPhoto(): Promise<string | null> {
   if (isNative()) {

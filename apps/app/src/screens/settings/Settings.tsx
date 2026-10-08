@@ -28,6 +28,7 @@ import {
   useCoach,
   useGoal,
   useNutrition,
+  usePhotos,
   useProfile,
   useSettings,
   useTraining,
@@ -364,6 +365,8 @@ export function SettingsScreen() {
               useWater.getState().replaceAll({})
               useCoach.getState().replaceAll([])
               useGoal.setState({ checkins: [], adjustKcal: 0, set: false })
+              for (const ph of usePhotos.getState().photos) void deletePhoto(ph.id)
+              usePhotos.setState({ photos: [], snoozedUntil: null })
               setReset(false)
               router.replace('/welcome/')
             }}

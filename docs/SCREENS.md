@@ -60,6 +60,8 @@ Settings (`/settings`) opens from the Home avatar. The AI Coach (`/coach`) opens
 | `Stats.dc.html` | `/stats` | Four tiles, 26-week activity dot grid, muscle card with Balance (sets vs 10 to 20 range), Fatigue, Strength (e1RM with sparklines) tabs. |
 | `Recovery.dc.html` | `/recovery` | Front and back capsule body map coloured by state (ready, recovering, fatigued, detrained) and muscle rows. |
 | `Progress.dc.html` | `/progress` | Weight with exponential moving average line, 7D, 30D, 90D, tiles, private milestone photos. |
+| (no board) | `/progress/photo?pose=` | Guided progress photo: 3:4 viewfinder, NO FLEX tag, the three photo rules, front/side/back, self-timer, gallery, day-one overlay. Photos stay on the phone. |
+| (no board) | `/progress/compare?pose=&id=` | Then and now: day one against a later photo (slider or side by side), timeline, delete. |
 
 ## Brand and marketing
 

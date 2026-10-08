@@ -13,14 +13,16 @@ import {
   TileStepper,
 } from '@syntropy/ui'
 import { motion } from 'motion/react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { Header } from '@/components/BottomBar'
+import { PhotoPrompt } from '@/components/PhotoPrompt'
 import { addDays, fmt, shortDate, today } from '@/lib/dates'
+import { useProgressPhotos, weightNear } from '@/lib/photos'
 import { useToday, windowAverages } from '@/lib/summary'
-import { pickPhoto, takePhotoNative } from '@/platform/camera'
 import { success } from '@/platform/haptics'
-import { isNative } from '@/platform/native'
-import { loadPhoto, savePhoto } from '@/platform/storage'
+import { loadPhoto } from '@/platform/storage'
 import { toast, useNutrition, useTraining } from '@/stores'
 
 type Range = 'd7' | 'd30' | 'd90'
@@ -44,14 +46,17 @@ function smooth(pts: [number, number][]) {
   return d
 }
 
-function Photo({ id, w, d }: { id?: string; w: number; d: string }) {
+function Photo({ id, w, d, day1 }: { id?: string; w: number | null; d: string; day1?: boolean }) {
   const [src, setSrc] = useState<string | null>(null)
   useEffect(() => {
     if (id) void loadPhoto(id).then(setSrc)
   }, [id])
   return (
-    <div
+    <Link
+      href={id ? `/progress/compare/?pose=front&id=${id}` : '/progress/photo/?pose=front'}
+      aria-label={`${day1 ? 'Day one' : 'Progress photo'}, ${shortDate(d)}. Compare`}
       style={{
+        display: 'block',
         position: 'relative',
         height: 150,
         borderRadius: 22,
@@ -114,16 +119,17 @@ function Photo({ id, w, d }: { id?: string; w: number; d: string }) {
           textShadow: '0 1px 6px rgba(0,0,0,0.6)',
         }}
       >
-        <span style={{ fontSize: 13 }}>{w.toFixed(1)} kg</span>
+        {w != null ? <span style={{ fontSize: 13 }}>{w.toFixed(1)} kg</span> : null}
         <span className="sy-mono" style={{ fontSize: 10, color: 'rgba(243,241,236,0.7)' }}>
-          {shortDate(d).toUpperCase()}
+          {day1 ? 'DAY 1' : shortDate(d).toUpperCase()}
         </span>
       </div>
-    </div>
+    </Link>
   )
 }
 
 export function ProgressScreen() {
+  const router = useRouter()
   const S = useTraining((s) => s.S)
   const addWeighIn = useTraining((s) => s.addWeighIn)
   const meals = useNutrition((s) => s.meals)
@@ -132,7 +138,7 @@ export function ProgressScreen() {
   const [open, setOpen] = useState(false)
   const last = S.bodyweight[S.bodyweight.length - 1]
   const [w, setW] = useState(last?.w ?? 72)
-  const [photo, setPhoto] = useState<string | null>(null)
+  const photos = useProgressPhotos()
 
   const chart = useMemo(() => {
     const from = addDays(today(), -DAYS[range])
@@ -171,24 +177,24 @@ export function ProgressScreen() {
     () => windowAverages(S, meals, t.body, DAYS[range]),
     [S, meals, t.body, range],
   )
+  // Day one, the middle and the latest front photo.
   const milestones = useMemo(() => {
-    const withPhoto = S.bodyweight.filter((b) => b.photoId).slice(-3)
-    if (withPhoto.length) return withPhoto
-    const bw = S.bodyweight
-    if (bw.length < 3) return bw
-    return [bw[0], bw[Math.floor(bw.length / 2)], bw[bw.length - 1]]
-  }, [S.bodyweight])
+    const front = photos.filter((p) => p.pose === 'front')
+    const picks =
+      front.length <= 3
+        ? front
+        : [front[0], front[Math.floor(front.length / 2)], front[front.length - 1]]
+    return picks.map((p) => ({
+      ...p,
+      w: weightNear(S.bodyweight, p.d),
+      day1: p.id === front[0]?.id,
+    }))
+  }, [photos, S.bodyweight])
 
-  const save = async () => {
-    let photoId: string | undefined
-    if (photo) {
-      photoId = `pp_${Date.now().toString(36)}`
-      await savePhoto(photoId, photo)
-    }
-    addWeighIn(Math.round(w * 10) / 10, today(), photoId)
+  const save = () => {
+    addWeighIn(Math.round(w * 10) / 10, today())
     success()
     toast('Weigh-in saved')
-    setPhoto(null)
     setOpen(false)
   }
 
@@ -382,7 +388,13 @@ export function ProgressScreen() {
             padding: '0 4px',
           }}
         >
-          <span style={{ fontSize: 15 }}>Milestones</span>
+          {milestones.length > 1 ? (
+            <Link href="/progress/compare/?pose=front" style={{ fontSize: 15 }}>
+              Milestones
+            </Link>
+          ) : (
+            <span style={{ fontSize: 15 }}>Milestones</span>
+          )}
           <span
             style={{
               display: 'flex',
@@ -396,11 +408,16 @@ export function ProgressScreen() {
             On-device only
           </span>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 10 }}>
-          {milestones.map((m) => (
-            <Photo key={m.d} id={m.photoId} w={m.w} d={m.d} />
-          ))}
-        </div>
+        <PhotoPrompt rules={!milestones.length} />
+        {milestones.length ? (
+          <div
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 10 }}
+          >
+            {milestones.map((m) => (
+              <Photo key={m.id} id={m.id} w={m.w} d={m.d} day1={m.day1} />
+            ))}
+          </div>
+        ) : null}
       </section>
       <BottomSheet open={open} onClose={() => setOpen(false)} title="Weigh-in">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -414,28 +431,18 @@ export function ProgressScreen() {
             onChange={setW}
             display={w.toFixed(1)}
           />
-          <div style={{ display: 'flex', gap: 8 }}>
-            {isNative() ? (
-              <PillButton
-                variant="glass"
-                icon="camera"
-                height={48}
-                block
-                onClick={async () => setPhoto(await takePhotoNative())}
-              >
-                Photo
-              </PillButton>
-            ) : null}
-            <PillButton
-              variant="glass"
-              icon="gallery"
-              height={48}
-              block
-              onClick={async () => setPhoto(await pickPhoto())}
-            >
-              {photo ? 'Photo added' : 'Add a progress photo'}
-            </PillButton>
-          </div>
+          <PillButton
+            variant="glass"
+            icon="camera"
+            height={48}
+            block
+            onClick={() => {
+              setOpen(false)
+              router.push('/progress/photo/?pose=front')
+            }}
+          >
+            Take a progress photo
+          </PillButton>
           <p style={{ margin: 0, fontSize: 12.5, color: 'rgba(243,241,236,0.55)' }}>
             Photos stay on this phone and never go to Gemini.
           </p>

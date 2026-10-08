@@ -16,6 +16,7 @@ import {
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Avatar } from '@/components/Avatar'
+import { PhotoPrompt } from '@/components/PhotoPrompt'
 import { addDays, fmt, greeting, kickerDate, today } from '@/lib/dates'
 import { proteinIdea } from '@/lib/protein'
 import { primaryMusclesOf, readinessOf, useToday, windowAverages } from '@/lib/summary'
@@ -152,6 +153,8 @@ export function HomeScreen() {
           <Icon name="chevronRight" size={18} style={{ color: 'rgba(243,241,236,0.5)' }} />
         </GlassCard>
       ) : null}
+
+      <PhotoPrompt />
 
       <GlassCard as="section" aria-label="Energy balance" padding="20px 20px 18px">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

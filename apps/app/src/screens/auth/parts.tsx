@@ -40,7 +40,10 @@ export function AuthPage({
   )
 }
 
-/** "STEP 1 OF 3" with three segments. */
+/** Total onboarding steps: account, lock, body, eating, goal, training, plan. */
+export const ONBOARDING_STEPS = 7
+
+/** "STEP 1 OF 7" with one segment per step. */
 export function StepHeader({ step, back }: { step: number; back?: string }) {
   return (
     <div className={styles.top}>
@@ -50,14 +53,14 @@ export function StepHeader({ step, back }: { step: number; back?: string }) {
           className="sy-mono"
           style={{ fontSize: 11, letterSpacing: '0.06em', color: 'rgba(243,241,236,0.55)' }}
         >
-          STEP {step} OF 3
+          {step ? `STEP ${step} OF ${ONBOARDING_STEPS}` : 'EDIT'}
         </span>
         <span style={{ display: step ? 'flex' : 'none', gap: 4 }}>
-          {[1, 2, 3].map((i) => (
+          {Array.from({ length: ONBOARDING_STEPS }, (_, i) => i + 1).map((i) => (
             <span
               key={i}
               style={{
-                width: 22,
+                width: 14,
                 height: 4,
                 borderRadius: 2,
                 background: i <= step ? '#F3F1EC' : 'rgba(255,255,255,0.14)',

@@ -1,375 +1,167 @@
 'use client'
 
-import { BodyMap, Icon, IconButton, type MuscleStates, Screen, TrackSegmented } from '@syntropy/ui'
+import {
+  BodyMap,
+  GlassCard,
+  IconButton,
+  type MuscleStates,
+  Screen,
+  Tag,
+  TrackSegmented,
+} from '@syntropy/ui'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { FormFigure, isPullFamily, TEMPO_CSS } from '@/components/FormFigure'
+import { ExerciseMedia, hasAnimation } from '@/components/ExerciseMedia'
 import { EX, exTitle } from '@/lib/ex'
 import { primaryMusclesOf } from '@/lib/summary'
+import { tagsFor } from '@/lib/training'
 
-const CUES = [
-  'Drive your elbows down toward your ribs.',
-  'Chin clears the bar. Chest up, pause.',
-  'Lower slowly to a full, active hang.',
-]
-const AVOID = ['Kipping or swinging to reach the bar', 'Stopping short of a full hang between reps']
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
-/** FormGuide.dc.html: the full-screen loop with tempo bar and cues. */
+/** Exercise guide: the ExerciseDB animation (or the muscle map), what it works and how to do it. */
 export function FormGuideScreen() {
   const router = useRouter()
-  const id = useSearchParams().get('ex') ?? '2330'
-  const name = exTitle(id)
-  const pull = isPullFamily(name)
-  const [mode, setMode] = useState<'3d' | 'steps'>(pull ? '3d' : 'steps')
-  const [angle, setAngle] = useState<'side' | 'front'>('side')
-  const [speed, setSpeed] = useState<0.5 | 1>(1)
-  const [paused, setPaused] = useState(false)
-  const anim = ['mq-wrap', speed === 0.5 ? 'mq-slow' : '', paused ? 'mq-paused' : ''].join(' ')
-  const steps = EX[id]?.st ?? []
-  const states = Object.fromEntries(
-    primaryMusclesOf(id).map((m) => [m, 'fatigued']),
-  ) as MuscleStates
+  const id = useSearchParams().get('ex') ?? '0043'
+  const ex = EX[id]
+  const animated = hasAnimation(id)
+  const [mode, setMode] = useState<'demo' | 'muscles'>(animated ? 'demo' : 'muscles')
+  const tags = tagsFor(id)
+  const states = Object.fromEntries([
+    ...(ex?.sm ?? []).map((m) => [m.split(' ')[0], 'recovering']),
+    ...primaryMusclesOf(id).map((m) => [m, 'fatigued']),
+  ]) as MuscleStates
+  const steps = (ex?.st ?? []).filter((s) => !/^repeat for/i.test(s))
 
   return (
     <Screen
       orbs={[{ tone: 'ember', strength: 0.3, size: 520, right: -260, bottom: -220 }]}
-      contentClassName="fg"
+      contentClassName="pb-cta"
     >
-      <style>{`${TEMPO_CSS} .fg{padding-top:0 !important}`}</style>
-      <section
-        aria-label="Form demonstration"
+      <div
         style={{
-          position: 'relative',
-          margin: '0 -20px',
-          height: 486,
-          overflow: 'hidden',
-          borderRadius: '0 0 40px 40px',
-          background: 'linear-gradient(180deg, #151A17 0%, #0D110F 100%)',
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 10,
         }}
       >
-        {mode === '3d' && pull ? (
-          <div style={{ position: 'absolute', left: '50%', marginLeft: -165, top: 70 }}>
-            <FormFigure view={angle} width={330} speed={speed} paused={paused} />
+        <IconButton icon="close" label="Close guide" onClick={() => router.back()} />
+        {animated ? (
+          <TrackSegmented
+            label="Guide view"
+            value={mode}
+            onChange={setMode}
+            options={[
+              { value: 'demo', label: 'Demo' },
+              { value: 'muscles', label: 'Muscles' },
+            ]}
+          />
+        ) : null}
+        <span style={{ width: 44 }} />
+      </div>
+
+      <section
+        aria-label={mode === 'demo' ? 'Exercise animation' : 'Working muscles'}
+        style={{ display: 'flex', justifyContent: 'center' }}
+      >
+        {mode === 'demo' ? (
+          <div style={{ width: 'min(100%, 360px)' }}>
+            <ExerciseMedia exId={id} size="100%" radius={32} credit />
           </div>
         ) : (
           <div
             style={{
-              position: 'absolute',
-              inset: 0,
+              width: '100%',
               display: 'flex',
-              alignItems: 'center',
               justifyContent: 'center',
               gap: 18,
-              paddingTop: 40,
+              padding: '18px 0',
+              borderRadius: 32,
+              background: 'linear-gradient(180deg, #151A17 0%, #0D110F 100%)',
+              border: '1px solid rgba(255,255,255,0.08)',
             }}
           >
-            <BodyMap side="front" states={states} width={130} />
-            <BodyMap side="back" states={states} width={130} />
+            <BodyMap side="front" states={states} width={128} />
+            <BodyMap side="back" states={states} width={128} />
           </div>
         )}
-        <div
-          style={{
-            position: 'absolute',
-            left: 20,
-            right: 20,
-            top: 'max(var(--sy-top-pad), calc(var(--sy-safe-top) + 16px))',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <IconButton icon="close" label="Close form guide" onClick={() => router.back()} />
-          {pull ? (
-            <TrackSegmented
-              label="Demo type"
-              value={mode}
-              onChange={setMode}
-              options={[
-                { value: '3d', label: '3D model' },
-                { value: 'steps', label: 'Muscles' },
-              ]}
-            />
-          ) : (
-            <span
-              className="sy-glass-dark"
-              style={{
-                height: 36,
-                padding: '0 14px',
-                borderRadius: 18,
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: 13,
-              }}
-            >
-              Working muscles
-            </span>
-          )}
-          <IconButton icon="loop" label="Restart loop" onClick={() => setPaused(false)} />
-        </div>
-        <div
-          style={{
-            position: 'absolute',
-            left: 20,
-            right: 20,
-            bottom: 20,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          {mode === '3d' && pull ? (
-            <TrackSegmented
-              label="Camera angle"
-              value={angle}
-              onChange={setAngle}
-              options={[
-                { value: 'side', label: 'Side' },
-                { value: 'front', label: 'Front' },
-              ]}
-            />
-          ) : (
-            <span />
-          )}
-          <span
-            className="sy-glass-dark"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              height: 36,
-              padding: '0 12px',
-              borderRadius: 18,
-              fontSize: 11.5,
-              color: 'rgba(243,241,236,0.8)',
-            }}
-          >
-            <span
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: 4,
-                background: '#FF6B3D',
-                boxShadow: '0 0 8px rgba(255,107,61,0.9)',
-              }}
-            />
-            Working muscle
-          </span>
-        </div>
       </section>
 
-      <section
-        aria-label="Rep tempo"
-        className={anim}
-        style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 18 }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'baseline',
-            gap: 8,
-          }}
-        >
-          <span style={{ fontSize: 20, fontWeight: 300, letterSpacing: '-0.03em' }}>{name}</span>
-          <span
-            className="sy-mono"
-            style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.55)', whiteSpace: 'nowrap' }}
-          >
-            TEMPO 1.3 · 0.4 · 1.5 S
-          </span>
-        </div>
-        <div style={{ position: 'relative', height: 26 }}>
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              top: 0,
-              display: 'grid',
-              gridTemplateColumns: '40fr 12fr 48fr',
-              gap: 3,
-            }}
-          >
-            <span style={{ height: 6, borderRadius: 3, background: 'rgba(255,107,61,0.55)' }} />
-            <span style={{ height: 6, borderRadius: 3, background: 'rgba(255,199,176,0.55)' }} />
-            <span style={{ height: 6, borderRadius: 3, background: 'rgba(169,195,160,0.55)' }} />
-          </div>
-          <div
-            className="mq-playhead"
-            style={{ position: 'absolute', left: 0, top: -3, width: '100%', height: 12 }}
-          >
-            <span
-              style={{
-                position: 'absolute',
-                left: -6,
-                top: 0,
-                width: 12,
-                height: 12,
-                borderRadius: 6,
-                background: '#F3F1EC',
-                boxShadow: '0 0 10px rgba(243,241,236,0.8)',
-              }}
-            />
-          </div>
-          <div
-            className="sy-mono"
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              top: 14,
-              display: 'grid',
-              gridTemplateColumns: '40fr 12fr 48fr',
-              gap: 3,
-              fontSize: 10,
-              letterSpacing: '0.06em',
-              color: 'rgba(243,241,236,0.55)',
-            }}
-          >
-            <span>{pull ? 'PULL' : 'LIFT'}</span>
-            <span>HOLD</span>
-            <span>LOWER</span>
-          </div>
-        </div>
-        <div
-          style={{
-            position: 'relative',
-            height: 64,
-            borderRadius: 20,
-            background: 'rgba(255,199,176,0.06)',
-            border: '1px solid rgba(255,199,176,0.14)',
-          }}
-        >
-          {(pull
-            ? CUES
-            : [
-                steps[0] ?? 'Brace and move with control.',
-                'Pause briefly at the top.',
-                'Lower under control to the start.',
-              ]
-          ).map((c, k) => (
-            <div
-              key={c}
-              className={`mq-cue${k}`}
-              style={{
-                position: 'absolute',
-                left: 16,
-                right: 16,
-                top: 0,
-                bottom: 0,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                fontSize: 14.5,
-                lineHeight: 1.3,
-              }}
-            >
-              <Icon name="sparkle" size={15} style={{ color: '#FFC7B0' }} />
-              <span
-                style={{
-                  overflow: 'hidden',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: 'vertical',
-                }}
-              >
-                {c}
-              </span>
-            </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <h1 style={{ margin: 0, fontSize: 28, fontWeight: 300, letterSpacing: '-0.035em' }}>
+          {exTitle(id)}
+        </h1>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {tags.primary.map((m) => (
+            <Tag key={m} tone="ember">
+              {m}
+            </Tag>
           ))}
+          {tags.secondary
+            .filter(
+              (m) =>
+                !tags.primary.some(
+                  (x) => x.slice(0, 4).toLowerCase() === m.slice(0, 4).toLowerCase(),
+                ),
+            )
+            .slice(0, 3)
+            .map((m) => (
+              <Tag key={m}>{m}</Tag>
+            ))}
+          {ex?.eq ? <Tag tone="sage">{cap(ex.eq)}</Tag> : null}
         </div>
-      </section>
-
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <IconButton
-          icon={paused ? 'play' : 'pause'}
-          label={paused ? 'Play' : 'Pause'}
-          size={52}
-          variant="bone"
-          onClick={() => setPaused(!paused)}
-        />
-        <div
-          role="group"
-          aria-label="Playback speed"
-          style={{
-            display: 'flex',
-            gap: 2,
-            padding: 4,
-            borderRadius: 26,
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.08)',
-          }}
-        >
-          {([0.5, 1] as const).map((s) => (
-            <button
-              key={s}
-              type="button"
-              aria-pressed={speed === s}
-              onClick={() => setSpeed(s)}
-              style={{
-                height: 36,
-                padding: '0 14px',
-                borderRadius: 18,
-                border: 0,
-                font: 'inherit',
-                fontSize: 13,
-                fontWeight: 500,
-                cursor: 'pointer',
-                background: speed === s ? '#F3F1EC' : 'transparent',
-                color: speed === s ? '#0B0F0D' : 'rgba(243,241,236,0.75)',
-              }}
-            >
-              {s}×
-            </button>
-          ))}
-        </div>
-        <span style={{ marginLeft: 'auto', fontSize: 12, color: 'rgba(243,241,236,0.5)' }}>
-          Loops until you close
-        </span>
       </div>
 
-      <section
-        aria-label="Avoid"
-        style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 30 }}
-      >
-        <span
-          className="sy-mono"
-          style={{ fontSize: 11, letterSpacing: '0.06em', color: 'rgba(243,241,236,0.5)' }}
+      {steps.length ? (
+        <GlassCard
+          as="section"
+          aria-label="How to"
+          radius={26}
+          padding="16px 16px 8px"
+          style={{ display: 'flex', flexDirection: 'column' }}
         >
-          {pull ? 'AVOID' : 'HOW TO'}
-        </span>
-        {(pull ? AVOID : steps.slice(0, 6)).map((m) => (
-          <div
-            key={m}
-            style={{
-              display: 'flex',
-              gap: 10,
-              alignItems: 'flex-start',
-              fontSize: 13.5,
-              lineHeight: 1.45,
-              color: 'rgba(243,241,236,0.8)',
-            }}
+          <span
+            className="sy-mono"
+            style={{ fontSize: 10.5, letterSpacing: '0.06em', color: 'rgba(243,241,236,0.5)' }}
           >
-            <span
-              style={{
-                width: 22,
-                height: 22,
-                borderRadius: 11,
-                flexShrink: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: pull ? 'rgba(255,107,61,0.14)' : 'rgba(169,195,160,0.12)',
-                color: pull ? '#FFB79A' : '#C9DCBF',
-              }}
-            >
-              <Icon name={pull ? 'close' : 'check'} size={12} stroke={2} />
-            </span>
-            {m}
-          </div>
-        ))}
-      </section>
+            HOW TO
+          </span>
+          <ol style={{ listStyle: 'none', margin: '8px 0 0', padding: 0 }}>
+            {steps.map((s, i) => (
+              <li
+                key={s}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '28px minmax(0,1fr)',
+                  gap: 10,
+                  padding: '10px 0',
+                  borderTop: i ? '1px solid rgba(255,255,255,0.06)' : undefined,
+                }}
+              >
+                <span
+                  className="sy-mono"
+                  style={{
+                    width: 26,
+                    height: 26,
+                    borderRadius: 13,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 11,
+                    background: 'rgba(255,107,61,0.14)',
+                    color: '#FFB79A',
+                  }}
+                >
+                  {i + 1}
+                </span>
+                <span style={{ fontSize: 14, lineHeight: 1.5, color: 'rgba(243,241,236,0.84)' }}>
+                  {s}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </GlassCard>
+      ) : null}
     </Screen>
   )
 }

@@ -3,6 +3,7 @@
 import { weightTrend } from '@syntropy/nutrition'
 import {
   BottomSheet,
+  fitDot,
   GlassCard,
   Icon,
   IconButton,
@@ -352,8 +353,16 @@ export function ProgressScreen() {
             style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
           >
             <span style={{ fontSize: 11.5, color: 'rgba(243,241,236,0.6)' }}>{k}</span>
-            <span style={{ display: 'flex', alignItems: 'baseline', gap: 3 }}>
-              <span className="sy-dot" style={{ fontSize: 24, lineHeight: 1 }}>
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                flexWrap: 'wrap',
+                columnGap: 3,
+                containerType: 'inline-size',
+              }}
+            >
+              <span className="sy-dot" style={{ fontSize: fitDot(v, 24), lineHeight: 1 }}>
                 {v}
               </span>
               <span style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.55)' }}>{u}</span>

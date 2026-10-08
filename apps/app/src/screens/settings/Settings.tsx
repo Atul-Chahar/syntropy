@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Avatar, squareImage } from '@/components/Avatar'
 import { ModalHeader } from '@/components/BottomBar'
+import { GYM_PRESETS } from '@/lib/plan'
 import { loadSeed } from '@/lib/seed'
 import { biometryAvailable, unlock } from '@/platform/biometric'
 import { pickPhoto, takePhotoNative } from '@/platform/camera'
@@ -33,6 +34,14 @@ import {
   useWater,
 } from '@/stores'
 import { DEF } from '@/stores/training'
+
+const DIET_LABEL: Record<string, string> = {
+  veg: 'Vegetarian',
+  egg: 'Eggetarian',
+  nonveg: 'Non-vegetarian',
+  vegan: 'Vegan',
+  jain: 'Jain',
+}
 
 const VERSION = '1.0.0'
 
@@ -197,6 +206,20 @@ export function SettingsScreen() {
           title="Target physique"
           subtitle="Calories, protein, water"
           href="/goal/"
+        />
+        <ListRow
+          icon="dumbbell"
+          iconTone="ember"
+          title="Training setup"
+          subtitle={`${p.trainingDaysPerWeek} days · ${p.sessionMin} min · ${GYM_PRESETS.find((g) => g.id === p.gymType)?.label ?? 'Pick your gym'}`}
+          href="/onboarding/training/?edit=1"
+        />
+        <ListRow
+          icon="bowl"
+          iconTone="sage"
+          title="How you eat"
+          subtitle={DIET_LABEL[p.diet ?? 'nonveg']}
+          href="/onboarding/eating/?edit=1"
         />
         <ListRow
           icon="sparkle"

@@ -238,3 +238,15 @@ value is cited per food in `packages/nutrition/data/foods-sourced.json`, with th
 Geist Project Authors) and Doto (Copyright 2024 The Doto Project Authors), from
 <https://github.com/google/fonts>, under the SIL Open Font License 1.1
 (<https://openfontlicense.org>). The home-screen widgets draw their text with them.
+
+---
+
+## Exercise animations
+
+Exercise demos are animated GIFs from the **ExerciseDB free V1 API** by AscendAPI
+(<https://oss.exercisedb.dev>), offered for non-commercial use with attribution
+("Animation: ExerciseDB"). Syntropy is a free, non-commercial, open-source app. The GIFs are
+streamed from ExerciseDB's CDN at runtime and are not stored in this repository or in any build;
+`apps/app/src/lib/exercisedb-map.json` only links Syntropy's exercise ids to ExerciseDB V1 ids by
+name. These terms come from ExerciseDB's documentation and third-party summaries: the official
+terms page could not be fetched without a browser. Check them before any commercial use.

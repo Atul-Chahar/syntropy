@@ -90,7 +90,7 @@ Upstream JS keeps its own style and tests; `@syntropy/core` ships generated `.d.
 | CSS Modules + tokens, no Tailwind | Board values port 1:1 and stay readable |
 | TypeScript 6.0 | TypeScript 7 has no JavaScript API yet, which Next.js type checking uses |
 | Phone-only, no accounts, biometric lock | Personal app; passkeys need a server and do not work in a WebView origin |
-| No exercise images or GIFs in the repo or builds | Their licence is unresolved (see `NOTICE.md`) |
+| No third-party exercise media that isn't openly licensed (Syntropy draws its own figure) | ExerciseDB/Gym visual licence is unresolved (see `NOTICE.md`) |
 
 ## Risks
 

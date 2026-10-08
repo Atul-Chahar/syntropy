@@ -3,7 +3,6 @@
 import { registerCustom } from '@syntropy/core/exercises'
 import {
   BODY_MUSCLES,
-  BodyMap,
   BottomSheet,
   GlassCard,
   Icon,
@@ -14,6 +13,7 @@ import {
 } from '@syntropy/ui'
 import { useMemo, useState } from 'react'
 import { Header } from '@/components/BottomBar'
+import { ExerciseMedia } from '@/components/ExerciseMedia'
 import { ALL_EXERCISES, type Exercise } from '@/lib/ex'
 import { primaryMusclesOf } from '@/lib/summary'
 import { muscleName } from '@/lib/training'
@@ -37,34 +37,10 @@ const EQUIP: [string, string | null][] = [
   ['Machine', 'leverage machine'],
   ['Band', 'band'],
 ]
-const BACK = new Set(BODY_MUSCLES.back.filter((m) => !BODY_MUSCLES.front.includes(m)))
 const cap = (s: string) => s.replace(/(^|\s|-)\S/g, (c) => c.toUpperCase())
 
 function Thumb({ ex }: { ex: Exercise }) {
-  const prim = primaryMusclesOf(ex.id)
-  const side = prim.some((m) => BACK.has(m)) ? 'back' : 'front'
-  const states = Object.fromEntries([
-    ...(ex.sm ?? []).map((m) => [m.split(' ')[0], 'secondary']),
-    ...prim.map((m) => [m, 'primary']),
-  ])
-  return (
-    <div
-      aria-hidden="true"
-      style={{
-        width: 56,
-        height: 56,
-        borderRadius: 16,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background:
-          'radial-gradient(circle at 50% 30%, rgba(255,255,255,0.07), rgba(255,255,255,0.02))',
-        border: '1px solid rgba(255,255,255,0.07)',
-      }}
-    >
-      <BodyMap side={side} states={states} width={30} glow={false} />
-    </div>
-  )
+  return <ExerciseMedia exId={ex.id} size={56} />
 }
 
 export function LibraryScreen() {
@@ -111,7 +87,7 @@ export function LibraryScreen() {
       ]}
     >
       <Header
-        kicker={`${list.length.toLocaleString('en-IN')} EXERCISES`}
+        kicker={`${list.length.toLocaleString('en-IN')} EXERCISES · ANIMATIONS: EXERCISEDB`}
         title="Library"
         right={
           <PillButton

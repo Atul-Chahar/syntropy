@@ -27,6 +27,14 @@ export type RoutineEx = {
   weight: number
   mode?: string
   sg?: string
+  /** OpenGym progression policy ('double' = add weight once every set hits `reps`). */
+  prog?: string
+  repsMin?: number
+  inc?: number
+  /** mode 'time': seconds per set; mode 'cardio': minutes and speed. */
+  sec?: number
+  min?: number
+  speed?: number
 }
 export type Routine = { id: string; name: string; emoji?: string; ex: RoutineEx[] }
 export type Entry = {

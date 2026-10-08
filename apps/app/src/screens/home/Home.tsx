@@ -17,6 +17,7 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Avatar } from '@/components/Avatar'
 import { addDays, fmt, greeting, kickerDate, today } from '@/lib/dates'
+import { proteinIdea } from '@/lib/protein'
 import { primaryMusclesOf, readinessOf, useToday, windowAverages } from '@/lib/summary'
 import { firstName, useGoal, useNutrition, useProfile, useTraining } from '@/stores'
 
@@ -24,6 +25,7 @@ type Range = 'today' | 'd7' | 'd30' | 'd90'
 
 export function HomeScreen() {
   const name = useProfile((p) => p.name)
+  const diet = useProfile((p) => p.diet)
   const S = useTraining((s) => s.S)
   const meals = useNutrition((s) => s.meals)
   const checkins = useGoal((g) => g.checkins)
@@ -80,7 +82,7 @@ export function HomeScreen() {
   const insight = boost
     ? `Heavy leg session yesterday. Carbohydrate target raised by ${boost} g to support recovery.`
     : t.training
-      ? `Training day: ${fmt(t.dt.kcal)} kcal target. ${proteinLeft > 5 ? `${Math.round(proteinLeft)} g protein to go — a katori of paneer bhurji covers 16 g.` : 'Protein is covered. Nicely done.'}`
+      ? `Training day: ${fmt(t.dt.kcal)} kcal target. ${proteinLeft > 5 ? `${Math.round(proteinLeft)} g protein to go — ${proteinIdea(diet)}.` : 'Protein is covered. Nicely done.'}`
       : `Rest day: a little lower on carbs. ${proteinLeft > 5 ? `${Math.round(proteinLeft)} g protein still to go.` : 'Protein is covered.'}`
 
   return (
@@ -319,9 +321,10 @@ function Tile({
           flexWrap: 'wrap',
           columnGap: 3,
           minWidth: 0,
+          containerType: 'inline-size',
         }}
       >
-        <MetricNumber value={value} size={30} decimals={decimals} />
+        <MetricNumber value={value} size={30} decimals={decimals} fit={1} />
         <span style={{ fontSize: 11, color: 'rgba(243,241,236,0.5)' }}>{unit}</span>
       </div>
       <div style={{ marginTop: 'auto' }}>{children}</div>

@@ -91,7 +91,7 @@ export function PlanScreen() {
         }
       />
       <GlassCard
-        href="/coach/"
+        href="/onboarding/training/?edit=1"
         radius={26}
         padding="14px 16px 14px 14px"
         style={{ display: 'flex', alignItems: 'center', gap: 14, overflow: 'hidden' }}
@@ -134,9 +134,11 @@ export function PlanScreen() {
             flexGrow: 1,
           }}
         >
-          <span style={{ fontSize: 16, fontWeight: 500, letterSpacing: '-0.02em' }}>Coach</span>
+          <span style={{ fontSize: 16, fontWeight: 500, letterSpacing: '-0.02em' }}>
+            Plan builder
+          </span>
           <span style={{ fontSize: 12.5, lineHeight: 1.35, color: 'rgba(243,241,236,0.66)' }}>
-            Design, review and adjust your split from your own training data.
+            A new plan for your gym, days and time. Coach can refine it.
           </span>
         </span>
         <Icon

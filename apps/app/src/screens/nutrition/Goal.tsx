@@ -191,13 +191,9 @@ export function GoalScreen() {
 
   const save = () => {
     goal.choose(type, pace, paced ? targetKg : null)
-    if (onboarding) {
-      profile.set({ onboarded: true })
-      useTraining.getState().ensurePlan()
-    }
     success()
     toast('Targets saved')
-    router.replace(onboarding ? '/' : '/food/')
+    router.replace(onboarding ? '/onboarding/training/' : '/food/')
   }
 
   let targetTitle = `${t.targetWeightKg.toFixed(1)} kg`
@@ -219,7 +215,7 @@ export function GoalScreen() {
       contentClassName="pb-cta"
     >
       <Header
-        kicker={onboarding ? 'STEP 3 OF 3 · YOUR GOAL' : 'YOUR GOAL'}
+        kicker={onboarding ? 'STEP 5 OF 7 · YOUR GOAL' : 'YOUR GOAL'}
         title="Target physique"
         right={
           onboarding ? undefined : (

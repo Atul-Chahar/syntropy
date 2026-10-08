@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { BottomBar, ModalHeader } from '@/components/BottomBar'
+import { ExerciseMedia } from '@/components/ExerciseMedia'
 import { ALL_EXERCISES, exTitle } from '@/lib/ex'
 import { success } from '@/platform/haptics'
 import { toast, useTraining } from '@/stores'
@@ -75,13 +76,8 @@ export function RoutineScreen() {
                 padding="12px 12px 12px 16px"
                 style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span
-                    className="sy-mono"
-                    style={{ fontSize: 11, color: 'rgba(243,241,236,0.45)' }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <ExerciseMedia exId={e.id} size={44} radius={14} />
                   <span
                     style={{
                       flex: 1,

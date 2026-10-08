@@ -18,7 +18,17 @@ function NextLink({ href, ...rest }: LinkLikeProps) {
   return <Link href={href} {...rest} />
 }
 
-const OPEN_ROUTES = ['/welcome', '/signup', '/signup/lock', '/onboarding/body', '/goal', '/dev/ui']
+const OPEN_ROUTES = [
+  '/welcome',
+  '/signup',
+  '/signup/lock',
+  '/onboarding/body',
+  '/onboarding/eating',
+  '/onboarding/training',
+  '/plan/preview',
+  '/goal',
+  '/dev/ui',
+]
 const norm = (p: string) => p.replace(/\/+$/, '') || '/'
 
 export function Providers({ children }: { children: ReactNode }) {

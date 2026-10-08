@@ -103,5 +103,8 @@ Toolchain is pinned in `mise.toml` (Java 21, `ANDROID_HOME`). Node >= 22.12, pnp
   the owner a screenshot before wiring data.
 - After each phase: build, run all tests, screenshot changed screens, fix failures, summarise in
   plain language. Commit per phase when the owner agrees.
-- Licence: AGPL-3.0-or-later. Keep `LICENSE` and `NOTICE.md`. Never add exercise images or GIFs
-  to the repo or a build.
+- Licence: AGPL-3.0-or-later. Keep `LICENSE` and `NOTICE.md`. Never add third-party exercise
+  media that isn't openly licensed (ExerciseDB/Gym visual images and GIFs, free-exercise-db photos),
+  not even hotlinked. Exception: ExerciseDB's free V1 API animations (non-commercial, attribution
+  "Animation: ExerciseDB") are streamed at runtime by `components/ExerciseMedia.tsx` via the id map
+  in `lib/exercisedb-map.json`; never commit, bundle or cache those GIF files into the repo or APK.

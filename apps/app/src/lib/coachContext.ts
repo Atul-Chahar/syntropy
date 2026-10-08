@@ -14,6 +14,7 @@ import {
 import { useGoal, useNutrition, useProfile, useTraining, useWater } from '@/stores'
 import { waterOn } from '@/stores/water'
 import { addDays, today } from './dates'
+import { GYM_PRESETS } from './plan'
 import { bodyOf, dayTargets, isTrainingDay, muscleRows, readinessOf, targetsFor } from './summary'
 import { exTitle, muscleName } from './training'
 
@@ -53,6 +54,19 @@ export function buildCoachContext(): CoachContext {
       weightKg: body.weightKg,
       goal: GOAL_INFO[g.type].name,
       pace: g.pace,
+      diet: p.diet ?? undefined,
+      avoidFoods: p.avoidFoods.length ? p.avoidFoods : undefined,
+      training: p.trainingDone
+        ? {
+            focus: p.trainingGoal,
+            experience: p.experience,
+            daysPerWeek: p.trainingDaysPerWeek,
+            sessionMin: p.sessionMin,
+            gym: GYM_PRESETS.find((x) => x.id === p.gymType)?.label ?? 'custom equipment',
+            injuries: p.injuries,
+            cardio: p.cardio,
+          }
+        : undefined,
     },
     targets: {
       kcal: dt.kcal,

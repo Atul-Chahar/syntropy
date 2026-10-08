@@ -14,7 +14,7 @@ import {
 } from '@syntropy/ui'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { FormFigure, isPullFamily } from '@/components/FormFigure'
+import { ExerciseMedia, hasAnimation } from '@/components/ExerciseMedia'
 import { EX } from '@/lib/ex'
 import { startRest } from '@/lib/rest'
 import { primaryMusclesOf } from '@/lib/summary'
@@ -53,7 +53,6 @@ export function ExerciseScreen() {
   const [kg, setKg] = useState(row?.w ?? 0)
   const [reps, setReps] = useState(row?.r ?? 8)
   const [rpe, setRpe] = useState('8')
-  const [view, setView] = useState<'side' | 'front'>('side')
 
   if (!A || !entry) {
     router.replace('/workout/')
@@ -71,7 +70,6 @@ export function ExerciseScreen() {
   const muscles = primaryMusclesOf(entry.id)
   const secondary = (EX[entry.id]?.sm ?? []).slice(0, 2)
   const note = whyText((entry.plan as { why?: unknown[] } | undefined)?.why)
-  const pull = isPullFamily(name)
   const states = Object.fromEntries([
     ...muscles.map((m) => [m, 'primary']),
     ...secondary.map((m) => [m.split(' ')[0], 'secondary']),
@@ -147,11 +145,11 @@ export function ExerciseScreen() {
             background: 'radial-gradient(circle, rgba(255,107,61,0.18), rgba(255,107,61,0) 70%)',
           }}
         />
-        <div style={{ position: 'absolute', left: 6, top: 8 }}>
-          {pull ? (
-            <FormFigure view={view} width={158} />
+        <div style={{ position: 'absolute', left: 14, top: 14 }}>
+          {hasAnimation(entry.id) ? (
+            <ExerciseMedia exId={entry.id} size={150} radius={22} />
           ) : (
-            <div style={{ display: 'flex', gap: 2, padding: '6px 8px' }}>
+            <div style={{ display: 'flex', gap: 2, padding: '0 4px' }}>
               <BodyMap side="front" states={states} width={74} />
               <BodyMap side="back" states={states} width={74} />
             </div>
@@ -181,7 +179,7 @@ export function ExerciseScreen() {
                 animation: 'sy-pulse 1.4s ease-in-out infinite',
               }}
             />
-            {pull ? '3D form loop' : 'Muscle map'}
+            {hasAnimation(entry.id) ? 'Demo' : 'Muscle map'}
           </Tag>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <span
@@ -218,28 +216,6 @@ export function ExerciseScreen() {
           ) : null}
         </div>
         <div style={{ position: 'absolute', right: 12, bottom: 12, display: 'flex', gap: 6 }}>
-          {pull ? (
-            <button
-              type="button"
-              onClick={() => setView(view === 'side' ? 'front' : 'side')}
-              className="sy-glass-dark"
-              style={{
-                height: 36,
-                padding: '0 12px',
-                borderRadius: 18,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                fontSize: 12,
-                font: 'inherit',
-                color: '#F3F1EC',
-                cursor: 'pointer',
-              }}
-            >
-              <Icon name="loop" size={14} />
-              {view === 'side' ? 'Side' : 'Front'}
-            </button>
-          ) : null}
           <PillButton
             height={36}
             fontSize={12}

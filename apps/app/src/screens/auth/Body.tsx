@@ -7,11 +7,12 @@ import { useProfile, useTraining } from '@/stores'
 import { AuthPage, bottomClass, StepHeader } from './parts'
 
 const ACTS: Activity[] = ['sedentary', 'light', 'moderate', 'active']
+// Daily steps are the most reliable thing people know about their activity.
 const ACT_SUB: Record<Activity, string> = {
-  sedentary: 'Desk job, little walking',
-  light: '6–8k steps most days',
-  moderate: 'Teaching, retail, lots of walking',
-  active: 'Labour, delivery, sport',
+  sedentary: 'Under 5k steps · desk job',
+  light: '5–8k steps most days',
+  moderate: '8–12k steps · on your feet',
+  active: '12k+ steps · physical work',
 }
 
 /** Body profile (DESIGN_GAPS #1): the inputs Goal and energy maths need. */
@@ -25,7 +26,7 @@ export function BodyScreen() {
     if (edit) return router.back()
     const S = useTraining.getState()
     if (!S.S.bodyweight.length) S.addWeighIn(p.weightKg)
-    router.push('/goal/?onboarding=1')
+    router.push('/onboarding/eating/')
   }
   return (
     <AuthPage>
@@ -87,26 +88,25 @@ export function BodyScreen() {
             max={220}
             onChange={(heightCm) => p.set({ heightCm })}
           />
-          <TileStepper
-            kicker="WEIGHT · KG"
-            label="Weight"
-            value={p.weightKg}
-            min={35}
-            max={200}
-            step={0.5}
-            onChange={(weightKg) => p.set({ weightKg })}
-            display={p.weightKg.toFixed(1)}
-          />
-          <TileStepper
-            kicker="TRAINING DAYS"
-            label="Training days per week"
-            value={p.trainingDaysPerWeek}
-            min={0}
-            max={7}
-            onChange={(trainingDaysPerWeek) => p.set({ trainingDaysPerWeek })}
-            display={`${p.trainingDaysPerWeek}/wk`}
-          />
+          <div style={{ gridColumn: '1 / -1' }}>
+            <TileStepper
+              kicker="WEIGHT · KG"
+              label="Weight"
+              value={p.weightKg}
+              min={35}
+              max={200}
+              step={0.5}
+              onChange={(weightKg) => p.set({ weightKg })}
+              display={p.weightKg.toFixed(1)}
+            />
+          </div>
         </div>
+        <span
+          className="sy-mono"
+          style={{ fontSize: 10.5, letterSpacing: '0.06em', color: 'rgba(243,241,236,0.5)' }}
+        >
+          A NORMAL DAY, OUTSIDE THE GYM
+        </span>
         <div
           role="radiogroup"
           aria-label="Daily activity outside training"
@@ -196,7 +196,7 @@ export function BodyScreen() {
           block
           onClick={next}
         >
-          {edit ? 'Save' : 'Set your target physique'}
+          {edit ? 'Save' : 'Next: how you eat'}
         </PillButton>
       </div>
     </AuthPage>

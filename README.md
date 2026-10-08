@@ -200,6 +200,7 @@ PRs are welcome — especially **food data** (accurate per-unit values for dishe
 
 - **[OpenGym](https://github.com/DuarteSantos8/openGym)** by Duarte Santos — the training engine, exercise catalogue and coach pipeline this project stands on (AGPL-3.0).
 - Exercise metadata from ExerciseDB via [hasaneyldrm/exercises-dataset](https://github.com/hasaneyldrm/exercises-dataset) (MIT); body-map geometry from [MuscleMap](https://github.com/melihcolpan/MuscleMap) (MIT).
+- **Animation: [ExerciseDB](https://oss.exercisedb.dev)** — exercise demo GIFs from ExerciseDB's free V1 API (non-commercial use with attribution), streamed at runtime, never bundled.
 - Food values compiled from public references (ICMR–NIN IFCT 2017, Indian Nutrient Databank) — estimates, always confirmed by you.
 - Design boards made with Claude Design; built with Claude Code.
 

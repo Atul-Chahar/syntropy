@@ -11,6 +11,18 @@ export interface CoachContext {
     weightKg?: number
     goal?: string
     pace?: string
+    /** veg, egg (eggetarian), nonveg, vegan or jain. Never suggest foods outside it. */
+    diet?: string
+    avoidFoods?: string[]
+    training?: {
+      focus: string
+      experience: string
+      daysPerWeek: number
+      sessionMin: number
+      gym: string
+      injuries: string[]
+      cardio: string
+    }
   }
   targets?: {
     kcal: number
@@ -42,7 +54,8 @@ export const COACH_SYSTEM = `You are Coach, the assistant inside Syntropy — a 
 How you speak:
 - Warm, brief and specific. 2 to 6 short sentences or a few bullets. No lectures, no guilt, no red-flag language about going over targets.
 - Use the user's own numbers from CONTEXT. NEVER state a number that is not in CONTEXT or derived from it by simple arithmetic. If you do not have the data, say so and suggest how to log it.
-- Prefer Indian food suggestions in katori and piece units (roti, dal, paneer, dahi, eggs, chana, soya).
+- Prefer Indian food suggestions in katori and piece units (roti, dal, paneer, dahi, eggs, chana, soya), and only foods that fit profile.diet and avoid profile.avoidFoods (no eggs or meat for veg/jain, no dairy for vegan, no onion/garlic/potato for jain).
+- Training advice must fit profile.training: their gym's equipment, session length and any injuries.
 - Markdown allowed: **bold**, bullet lists. No tables, no headings.
 - You are not a doctor. For pain, injury, illness, medication or eating-disorder concerns, suggest seeing a professional.
 
@@ -157,4 +170,79 @@ export async function explainCheckin(gemini: Gemini, model: string, s: CheckinSu
     temperature: 0.5,
     contents: [{ role: 'user', parts: [{ text: JSON.stringify(s) }] }],
   })
+}
+
+export const REFINE_SCHEMA = {
+  type: 'object',
+  properties: {
+    summary: { type: 'string' },
+    changes: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          routine: { type: 'string' },
+          replace: { type: 'string' },
+          with: { type: 'string' },
+          sets: { type: 'integer' },
+          reps: { type: 'integer' },
+          why: { type: 'string' },
+        },
+        required: ['routine', 'replace', 'why'],
+      },
+    },
+  },
+  required: ['summary', 'changes'],
+}
+
+export type RefineInput = {
+  request: string
+  profile: Record<string, unknown>
+  routines: {
+    id: string
+    name: string
+    exercises: {
+      id: string
+      name: string
+      sets: number
+      reps: number
+      options: { id: string; name: string }[]
+    }[]
+  }[]
+}
+
+export type RefineChange = {
+  routine: string
+  replace: string
+  with?: string
+  sets?: number
+  reps?: number
+  why: string
+}
+
+/**
+ * Coach review of a generated plan. The model may only swap an exercise for one of that
+ * exercise's listed `options` and nudge sets/reps; anything else is dropped here, and the
+ * user accepts each change before it is applied.
+ */
+export async function refinePlan(gemini: Gemini, model: string, input: RefineInput) {
+  const raw = await gemini.generateJSON<{ summary: string; changes: RefineChange[] }>({
+    model,
+    system:
+      'You are Coach inside Syntropy, reviewing a weekly strength plan the app generated. Suggest at most 5 changes that make it better for this person (their request first, then balance, injuries, equipment and time). A change either swaps an exercise for one of ITS OWN listed options (use the option id), or adjusts sets (1-6) or reps (3-20). Never invent ids. Keep the reason to one short sentence. If the plan is already good, return no changes and say why in the summary.',
+    schema: REFINE_SCHEMA,
+    temperature: 0.4,
+    contents: [{ role: 'user', parts: [{ text: JSON.stringify(input) }] }],
+  })
+  const byRoutine = new Map(input.routines.map((r) => [r.id, r]))
+  const changes = (raw.changes ?? []).filter((c) => {
+    const r = byRoutine.get(c.routine)
+    const ex = r?.exercises.find((e) => e.id === c.replace)
+    if (!ex) return false
+    if (c.with && !ex.options.some((o) => o.id === c.with)) return false
+    if (c.sets != null && (c.sets < 1 || c.sets > 6)) return false
+    if (c.reps != null && (c.reps < 3 || c.reps > 20)) return false
+    return !!(c.with || c.sets || c.reps)
+  })
+  return { summary: raw.summary ?? '', changes: changes.slice(0, 5) }
 }

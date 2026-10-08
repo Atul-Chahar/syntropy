@@ -12,6 +12,10 @@ export interface BodyProfile {
   activity: Activity
   bodyFatPct?: number
   trainingDaysPerWeek?: number
+  /** Typical lifting session length in minutes (default 60). */
+  sessionMin?: number
+  /** Cardio on top of lifting: 10-min finishers, or two 30-min sessions a week. */
+  cardio?: 'none' | 'finishers' | 'separate'
 }
 
 export const ACTIVITY_FACTOR: Record<Activity, number> = {
@@ -39,8 +43,12 @@ export const sessionKcal = (weightKg: number, minutes = 60) =>
 /** Maintenance: BMR x daily-life factor + the average daily share of training. */
 export function maintenance(p: BodyProfile): number {
   const daily = bmr(p) * ACTIVITY_FACTOR[p.activity]
-  const training = (sessionKcal(p.weightKg) * (p.trainingDaysPerWeek ?? 3)) / 7
-  return daily + training
+  const days = p.trainingDaysPerWeek ?? 3
+  const training = (sessionKcal(p.weightKg, p.sessionMin ?? 60) * days) / 7
+  // Moderate cardio at ~7 MET: finishers are 10 min per session, separate is 2 x 30 min a week.
+  const cardioMin = p.cardio === 'finishers' ? days * 10 : p.cardio === 'separate' ? 60 : 0
+  const cardio = (7 * p.weightKg * (cardioMin / 60)) / 7
+  return daily + training + cardio
 }
 
 export const GOAL_INFO: Record<GoalType, { name: string; sub: string; dot: string }> = {

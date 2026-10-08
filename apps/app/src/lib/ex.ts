@@ -21,4 +21,10 @@ export const ALL_EXERCISES = CATALOGUE as Exercise[]
 const cap = (s: string) =>
   s.replace(/(^|[\s(\-/])(\p{Ll})/gu, (_m, pre: string, ch: string) => pre + ch.toUpperCase())
 
-export const exTitle = (id: string) => cap(EX[id]?.n ?? 'Exercise')
+// Catalogue names carry production tags such as "(male)" or "v. 2" that mean nothing to a user.
+const clean = (n: string) =>
+  n
+    .replace(/\s*\((male|female|side pov|back pov|front pov)\)/gi, '')
+    .replace(/\s+v\.\s?\d+$/i, '')
+    .trim()
+export const exTitle = (id: string) => cap(clean(EX[id]?.n ?? 'Exercise'))

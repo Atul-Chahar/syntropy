@@ -36,6 +36,8 @@ export function bodyOf(p: ReturnType<typeof useProfile.getState>, S: TrainingSta
     activity: p.activity,
     bodyFatPct: p.bodyFatPct ?? undefined,
     trainingDaysPerWeek: Math.max(1, Object.keys(S.week).length || p.trainingDaysPerWeek),
+    sessionMin: p.sessionMin ?? 60,
+    cardio: p.cardio ?? 'none',
   }
 }
 

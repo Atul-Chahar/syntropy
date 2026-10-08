@@ -538,8 +538,8 @@ export function GoalScreen() {
             : ''}
         </Callout>
         <span className="sy-mono" style={{ ...kicker, fontSize: 9.5, lineHeight: 1.5 }}>
-          PROTEIN {type === 'cut' || type === 'recomp' ? '2.6' : '2.2'} G / KG LEAN MASS · RATES:
-          HELMS 2014, ARAGON · 7,700 KCAL / KG
+          PROTEIN {t.protein} G IS ENOUGH · ABOVE {t.proteinMax} G ADDS NO MUSCLE (MORTON 2018,
+          HELMS 2025) · RATES: HELMS 2014, ARAGON · 7,700 KCAL / KG
         </span>
       </section>
       <div style={{ height: 90 }} />

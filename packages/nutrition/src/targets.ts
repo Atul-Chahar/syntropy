@@ -125,6 +125,8 @@ export interface Targets {
   kcalTraining: number
   kcalRest: number
   protein: number
+  /** Upper end of the useful range: more than this adds no expected muscle. */
+  proteinMax: number
   carbsTraining: number
   carbsRest: number
   fat: number
@@ -210,9 +212,20 @@ export function computeTargets(
   const weekAvg = (kcalTraining * days + kcalRest * (7 - days)) / 7
   const rate = floored && paced ? ((weekAvg - m) * 7) / KCAL_PER_KG : rateKgPerWeek
 
-  // Protein from lean mass so high body fat does not inflate it: 2.6 g/kg lean while cutting
-  // (Helms 2014: 2.3-3.1), 2.2 g/kg lean otherwise (~1.8-2.0 g/kg body weight; Morton 2018).
-  const protein = r5(leanKg * (type === 'cut' || type === 'recomp' ? 2.6 : 2.2))
+  // Protein per kg of lean mass, so body fat does not inflate it.
+  // - Gaining or maintaining: 1.9 g/kg lean ~= 1.6 g/kg body weight, where muscle gains plateau
+  //   (Morton 2018 meta-analysis; ISSN 2017: 1.4-2.0 g/kg).
+  // - Cutting or recomp: 2.2 g/kg lean; 2.4 when already lean (Helms 2014: 2.3-3.1 for lean
+  //   athletes; Refalo, Trexler & Helms 2025: the benefit is larger when leaner), 2.0 with more
+  //   body fat (~1.2-1.5 g/kg of body weight, the obesity guidance).
+  // - Never above 2.2 g/kg body weight: past that, no extra muscle is expected.
+  const lean = p.sex === 'male' ? bf <= 15 : bf <= 23
+  const high = p.sex === 'male' ? bf > 25 : bf > 33
+  const perLean =
+    type === 'cut' || type === 'recomp' ? (lean ? 2.4 : high ? 2.0 : 2.2) : high ? 1.7 : 1.9
+  const protein = r5(Math.min(leanKg * perLean, p.weightKg * 2.2))
+  /** Above this, extra protein adds no expected muscle (only calories and satiety). */
+  const proteinMax = Math.max(protein, r5(Math.min(p.weightKg * 2.2, leanKg * 2.7)))
   const fat = Math.max(45, r5(p.weightKg * 0.9))
   const carbs = (k: number) => Math.max(50, r5((k - protein * 4 - fat * 9) / 4))
   const waterMl = Math.round((p.weightKg * 35 + 900) / 250) * 250
@@ -238,6 +251,7 @@ export function computeTargets(
     kcalTraining,
     kcalRest,
     protein,
+    proteinMax,
     carbsTraining: carbs(kcalTraining),
     carbsRest: carbs(kcalRest),
     fat,

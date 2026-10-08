@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root" android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/widget_bg" android:orientation="vertical" android:padding="14dp">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="QUICK ADD"
-            android:textColor="#8CF3F1EC" android:textSize="10sp" android:letterSpacing="0.08" android:fontFamily="monospace" />
-        <TextView android:id="@+id/session" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Open plan"
-            android:textColor="#FFB79A" android:textSize="11sp" android:maxLines="1" android:ellipsize="end" />
+<!-- Tap targets mirror QuickAddWidget's drawing: 54 dp header, 10 dp edges, 6 dp gaps. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root" android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView android:id="@+id/art" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:scaleType="fitXY" android:src="@drawable/widget_preview_quick" android:contentDescription="Quick add" />
+    <FrameLayout android:id="@+id/session" android:layout_width="160dp" android:layout_height="48dp" android:layout_gravity="top|end"
+        android:contentDescription="Open plan" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal"
+        android:layout_marginTop="54dp" android:layout_marginStart="10dp" android:layout_marginEnd="10dp" android:layout_marginBottom="10dp">
+        <FrameLayout android:id="@+id/roti" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+            android:contentDescription="Add 1 roti" />
+        <FrameLayout android:id="@+id/dahi" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+            android:layout_marginStart="6dp" android:contentDescription="Add 1 katori dahi" />
+        <FrameLayout android:id="@+id/chai" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+            android:layout_marginStart="6dp" android:contentDescription="Add 1 masala chai" />
+        <FrameLayout android:id="@+id/dal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+            android:layout_marginStart="6dp" android:contentDescription="Add 1 katori dal" />
     </LinearLayout>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="10dp" android:orientation="horizontal">
-        <TextView android:id="@+id/roti" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@drawable/widget_chip"
-            android:gravity="center" android:text="+ Roti\n105" android:textColor="#FFD6C4" android:textSize="12sp" />
-        <TextView android:id="@+id/dahi" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="6dp" android:background="@drawable/widget_chip"
-            android:gravity="center" android:text="+ Dahi\n95" android:textColor="#FFD6C4" android:textSize="12sp" />
-        <TextView android:id="@+id/chai" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="6dp" android:background="@drawable/widget_chip"
-            android:gravity="center" android:text="+ Chai\n80" android:textColor="#FFD6C4" android:textSize="12sp" />
-        <TextView android:id="@+id/dal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="6dp" android:background="@drawable/widget_chip"
-            android:gravity="center" android:text="+ Dal\n170" android:textColor="#FFD6C4" android:textSize="12sp" />
-    </LinearLayout>
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-        android:text="Adds to your current meal in one tap" android:textColor="#80F3F1EC" android:textSize="10.5sp" />
-</LinearLayout>
+</FrameLayout>

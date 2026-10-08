@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root" android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/widget_bg" android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
-    <FrameLayout android:layout_width="104dp" android:layout_height="104dp">
-        <ProgressBar android:id="@+id/kcal_ring" style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent" android:layout_height="match_parent"
-            android:indeterminate="false" android:max="100" android:progress="60" android:progressDrawable="@drawable/widget_ring" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-            <TextView android:id="@+id/kcal" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="80" android:textColor="#F3F1EC" android:textSize="24sp" android:fontFamily="sans-serif-light" />
-            <TextView android:id="@+id/kcal_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="kcal left" android:textColor="#9EF3F1EC" android:textSize="10sp" />
-        </LinearLayout>
-    </FrameLayout>
-    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-        android:layout_marginStart="16dp" android:orientation="vertical">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TODAY"
-            android:textColor="#8CF3F1EC" android:textSize="10sp" android:letterSpacing="0.08" android:fontFamily="monospace" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal">
-            <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Protein" android:textColor="#CCF3F1EC" android:textSize="12sp" />
-            <TextView android:id="@+id/protein_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="115 / 150 g" android:textColor="#99F3F1EC" android:textSize="11sp" android:fontFamily="monospace" />
-        </LinearLayout>
-        <ProgressBar android:id="@+id/protein_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="5dp"
-            android:layout_marginTop="5dp" android:max="100" android:progress="77" android:progressDrawable="@drawable/widget_bar_sage" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal">
-            <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Water" android:textColor="#CCF3F1EC" android:textSize="12sp" />
-            <TextView android:id="@+id/water_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2.25 / 3.5 L" android:textColor="#99F3F1EC" android:textSize="11sp" android:fontFamily="monospace" />
-        </LinearLayout>
-        <ProgressBar android:id="@+id/water_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="5dp"
-            android:layout_marginTop="5dp" android:max="100" android:progress="64" android:progressDrawable="@drawable/widget_bar_water" />
-        <TextView android:id="@+id/next" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp"
-            android:text="" android:textColor="#FFB79A" android:textSize="11sp" android:maxLines="1" android:ellipsize="end" />
-    </LinearLayout>
-</LinearLayout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root" android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView android:id="@+id/art" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:scaleType="fitXY" android:src="@drawable/widget_preview_today" android:contentDescription="Today" />
+</FrameLayout>

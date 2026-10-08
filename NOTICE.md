@@ -229,3 +229,12 @@ value is cited per food in `packages/nutrition/data/foods-sourced.json`, with th
 - Longvah T, Ananthan R, Bhaskarachary K, Venkaiah K. *Indian Food Composition Tables 2017*.
   ICMR–National Institute of Nutrition, Hyderabad.
 - USDA FoodData Central (SR Legacy), public domain.
+
+---
+
+## Widget fonts
+
+`apps/app/android/app/src/main/assets/fonts/` bundles Geist and Geist Mono (Copyright 2024 The
+Geist Project Authors) and Doto (Copyright 2024 The Doto Project Authors), from
+<https://github.com/google/fonts>, under the SIL Open Font License 1.1
+(<https://openfontlicense.org>). The home-screen widgets draw their text with them.

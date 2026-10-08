@@ -523,8 +523,14 @@ function describeKit(equipment: string[]): string {
   if (kit.has('barbell')) parts.push('a barbell')
   if (kit.has('dumbbell')) parts.push('dumbbells')
   if (kit.has('kettlebell')) parts.push('kettlebells')
-  if (kit.has('cable')) parts.push('cables')
-  if (kit.has('leverage machine') || kit.has('smith machine')) parts.push('machines')
+  const ids = [...kit]
+  if (kit.has('cable') || ids.some((k) => k.startsWith('c:'))) parts.push('cables')
+  if (
+    kit.has('leverage machine') ||
+    kit.has('smith machine') ||
+    ids.some((k) => k.startsWith('m:'))
+  )
+    parts.push('machines')
   if (kit.has('band') || kit.has('resistance band')) parts.push('bands')
   if (kit.has('pull-up bar')) parts.push('a pull-up bar')
   if (!parts.length) return 'body weight only'

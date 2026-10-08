@@ -19,6 +19,7 @@ import { aiToast, gemini, withAi } from '@/lib/ai'
 import { EX, exTitle } from '@/lib/ex'
 import {
   alternatives,
+  catalogueEq,
   estimateMinutes,
   type GeneratedPlan,
   GYM_PRESETS,
@@ -167,7 +168,7 @@ export function PlanPreviewScreen() {
       s.week = { ...plan.week }
       // OpenGym's equipment profile, so Library and swaps follow the same gym.
       const S = s as typeof s & Record<string, unknown>
-      S.equipProfiles = [{ id: 'syn-gym', name: gym, equipment: eq }]
+      S.equipProfiles = [{ id: 'syn-gym', name: gym, equipment: catalogueEq(eq) }]
       S.activeEquipId = 'syn-gym'
       S.equipFilterOn = true
     })

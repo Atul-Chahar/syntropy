@@ -1,4 +1,16 @@
 export {
+  ALL_ITEM_IDS,
+  catalogueEq,
+  EQUIPMENT_ITEMS,
+  type EquipmentGroup,
+  type EquipmentItem,
+  GROUP_LABEL,
+  ITEM_BY_ID,
+  kitAllows,
+  machineTag,
+  sampleId,
+} from './equipment'
+export {
   alternatives,
   estimateMinutes,
   type GeneratedPlan,

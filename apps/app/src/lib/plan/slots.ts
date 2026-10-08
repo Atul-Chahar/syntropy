@@ -4,6 +4,7 @@
  * candidates per slot (curated staples first, then the simplest remaining exercises).
  */
 import { ALL_EXERCISES, EX, type Exercise } from '@/lib/ex'
+import { kitAllows } from './equipment'
 
 export type Slot =
   | 'squat'
@@ -496,7 +497,6 @@ export function needs(idOrEx: string | Exercise): string[] {
     out.push('dip station')
   if (/\bbox\b|step-?up|stepbox/.test(n)) out.push('box')
   if (/inverted row/.test(n) && !/with straps/.test(n)) out.push('low bar')
-  if (ex.bp === 'cardio' && ex.eq === 'leverage machine') out.push('cardio machine')
   return out
 }
 
@@ -541,7 +541,7 @@ export function available(
   if (!ex) return false
   const kit = equipment instanceof Set ? equipment : new Set(equipment)
   const eq = EQ_OVERRIDE[ex.id] ?? ex.eq
-  if (eq !== 'body weight' && !kit.has(eq)) return false
+  if (eq !== ex.eq ? eq !== 'body weight' && !kit.has(eq) : !kitAllows(ex, kit)) return false
   if (!needs(ex).every((t) => allows(kit, t))) return false
   const n = lower(ex)
   for (const inj of injuries) {

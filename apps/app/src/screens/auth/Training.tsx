@@ -1,10 +1,11 @@
 'use client'
 
-import { PillButton, Segmented } from '@syntropy/ui'
+import { BottomSheet, Icon, PillButton, Segmented } from '@syntropy/ui'
 import { AnimatePresence, motion } from 'motion/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { EQUIPMENT_OPTIONS, FOCUS_MUSCLES, GYM_PRESETS, INJURIES } from '@/lib/plan'
+import { EquipmentPicker, exercisesFor } from '@/components/EquipmentPicker'
+import { FOCUS_MUSCLES, GYM_PRESETS, INJURIES } from '@/lib/plan'
 import { tap } from '@/platform/haptics'
 import { useProfile, useTraining } from '@/stores'
 import type { Cardio, Experience, TrainingGoal } from '@/stores/profile'
@@ -79,15 +80,6 @@ export function TrainingSetupScreen() {
       window.scrollTo({ top: 0 })
     } else finish()
   }
-
-  const eqOn = (values: string[]) => values.every((v) => p.equipment.includes(v))
-  const eqToggle = (values: string[]) =>
-    p.set({
-      gymType: 'custom',
-      equipment: eqOn(values)
-        ? p.equipment.filter((v) => !values.includes(v))
-        : [...new Set([...p.equipment, ...values])],
-    })
 
   return (
     <AuthPage>
@@ -272,34 +264,32 @@ export function TrainingSetupScreen() {
               </div>
               <button
                 type="button"
-                onClick={() => setCustom(!custom)}
-                aria-expanded={custom}
+                onClick={() => setCustom(true)}
+                className="sy-glass"
                 style={{
-                  alignSelf: 'flex-start',
-                  minHeight: 44,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  minHeight: 64,
+                  padding: '10px 14px',
+                  borderRadius: 22,
                   font: 'inherit',
-                  fontSize: 13.5,
-                  background: 'none',
-                  border: 0,
-                  padding: 0,
-                  color: '#FFC7B0',
+                  textAlign: 'left',
+                  color: '#F3F1EC',
                   cursor: 'pointer',
+                  border: '1px solid rgba(255,199,176,0.35)',
                 }}
               >
-                {custom ? 'Hide equipment list' : 'Fine-tune the equipment list ›'}
+                <span style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
+                  <span style={{ fontSize: 14.5, fontWeight: 500 }}>Choose your equipment</span>
+                  <span style={{ fontSize: 11.5, color: 'rgba(243,241,236,0.62)' }}>
+                    {p.equipment.length
+                      ? `${p.equipment.length} items · ${exercisesFor(p.equipment).toLocaleString('en-IN')} exercises available`
+                      : 'Pick a gym above, then tick the exact machines you have'}
+                  </span>
+                </span>
+                <Icon name="chevronRight" size={18} />
               </button>
-              {custom ? (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {EQUIPMENT_OPTIONS.map((o) => {
-                    const values = Array.isArray(o.value) ? o.value : [o.value]
-                    return (
-                      <ChipToggle key={o.label} on={eqOn(values)} onClick={() => eqToggle(values)}>
-                        {o.label}
-                      </ChipToggle>
-                    )
-                  })}
-                </div>
-              ) : null}
             </>
           ) : null}
 
@@ -399,6 +389,13 @@ export function TrainingSetupScreen() {
           ) : null}
         </motion.div>
       </AnimatePresence>
+      <BottomSheet open={custom} onClose={() => setCustom(false)} title="Your equipment">
+        <EquipmentPicker
+          value={p.equipment}
+          onChange={(equipment) => p.set({ equipment, gymType: 'custom' })}
+          onDone={() => setCustom(false)}
+        />
+      </BottomSheet>
       <div
         className={bottomClass}
         style={{ paddingTop: 20, flexDirection: 'row', alignItems: 'center', gap: 10 }}

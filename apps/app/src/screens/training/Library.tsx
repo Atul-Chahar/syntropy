@@ -15,9 +15,10 @@ import { useMemo, useState } from 'react'
 import { Header } from '@/components/BottomBar'
 import { ExerciseMedia } from '@/components/ExerciseMedia'
 import { ALL_EXERCISES, type Exercise } from '@/lib/ex'
+import { kitAllows } from '@/lib/plan'
 import { primaryMusclesOf } from '@/lib/summary'
 import { muscleName } from '@/lib/training'
-import { toast, useTraining } from '@/stores'
+import { toast, useProfile, useTraining } from '@/stores'
 
 const GROUPS: [string, string[]][] = [
   ['All', []],
@@ -28,7 +29,9 @@ const GROUPS: [string, string[]][] = [
   ['Arms', ['upper arms', 'lower arms']],
   ['Core', ['waist']],
 ]
+const MINE = '__mine'
 const EQUIP: [string, string | null][] = [
+  ['My gym', MINE],
   ['Any equipment', null],
   ['Bodyweight', 'body weight'],
   ['Barbell', 'barbell'],
@@ -49,7 +52,10 @@ export function LibraryScreen() {
   const saveRoutine = useTraining((s) => s.saveRoutine)
   const [q, setQ] = useState('')
   const [group, setGroup] = useState('All')
-  const [eq, setEq] = useState<string | null>(null)
+  const myKit = useProfile((p) => p.equipment)
+  const kit = useMemo(() => new Set(myKit), [myKit])
+  // Default to "My gym" once the user has picked their equipment.
+  const [eq, setEq] = useState<string | null>(myKit.length ? MINE : null)
   const [muscle, setMuscle] = useState<string | null>(null)
   const [limit, setLimit] = useState(40)
   const [adding, setAdding] = useState<Exercise | null>(null)
@@ -72,11 +78,11 @@ export function LibraryScreen() {
     return ordered.filter(
       (e) =>
         (!parts.length || parts.includes(e.bp)) &&
-        (!eq || e.eq === eq) &&
+        (!eq || (eq === MINE ? !kit.size || kitAllows(e, kit) : e.eq === eq)) &&
         (!muscle || primaryMusclesOf(e.id).includes(muscle)) &&
         (!qq || e.n.toLowerCase().includes(qq) || e.tg.toLowerCase().includes(qq)),
     )
-  }, [q, group, eq, muscle, custom, S.routines, S.workouts])
+  }, [q, group, eq, muscle, custom, S.routines, S.workouts, kit])
 
   return (
     <Screen
@@ -87,7 +93,7 @@ export function LibraryScreen() {
       ]}
     >
       <Header
-        kicker={`${list.length.toLocaleString('en-IN')} EXERCISES · ANIMATIONS: EXERCISEDB`}
+        kicker={`${list.length.toLocaleString('en-IN')} EXERCISES`}
         title="Library"
         right={
           <PillButton
@@ -153,7 +159,7 @@ export function LibraryScreen() {
         className="hide-scroll"
         style={{ display: 'flex', gap: 8, overflowX: 'auto', margin: '0 -20px', padding: '0 20px' }}
       >
-        {EQUIP.map(([label, v]) => {
+        {EQUIP.filter(([, v]) => v !== MINE || myKit.length > 0).map(([label, v]) => {
           const on = eq === v
           return (
             <button
@@ -295,6 +301,12 @@ export function LibraryScreen() {
             Show more
           </PillButton>
         ) : null}
+        <span
+          className="sy-mono"
+          style={{ fontSize: 10, textAlign: 'center', color: 'rgba(243,241,236,0.4)' }}
+        >
+          ANIMATIONS: EXERCISEDB
+        </span>
         {!list.length ? (
           <p style={{ textAlign: 'center', color: 'rgba(243,241,236,0.55)', fontSize: 13.5 }}>
             No exercise matches. Try another word or create your own.

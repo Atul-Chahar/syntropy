@@ -1,0 +1,2871 @@
+[
+  {
+    "id": "pancakes",
+    "name": "Pancakes",
+    "unit": "pc",
+    "unitLabel": "1 medium · 50 g",
+    "gramsPerUnit": 50,
+    "kcal": 141,
+    "protein": 3.7,
+    "carbs": 17.7,
+    "fat": 6.0,
+    "per100g": {
+      "kcal": 282.0,
+      "protein": 7.41,
+      "carbs": 35.32,
+      "fat": 12.07
+    },
+    "source": "USDA FDC 2708304 (FNDDS 2021-2023) Pancakes, plain. Portion: 1 medium pancake.",
+    "confidence": "high"
+  },
+  {
+    "id": "waffle",
+    "name": "Waffle",
+    "unit": "pc",
+    "unitLabel": "1 large · 125 g",
+    "gramsPerUnit": 125,
+    "kcal": 466,
+    "protein": 10.9,
+    "carbs": 51.9,
+    "fat": 23.5,
+    "per100g": {
+      "kcal": 373.0,
+      "protein": 8.7,
+      "carbs": 41.5,
+      "fat": 18.82
+    },
+    "source": "USDA FDC 2708325 (FNDDS 2021-2023) Waffle, plain. Portion: 1 large waffle.",
+    "confidence": "high"
+  },
+  {
+    "id": "french-toast",
+    "name": "French toast",
+    "unit": "pc",
+    "unitLabel": "1 slice · 65 g",
+    "gramsPerUnit": 65,
+    "kcal": 177,
+    "protein": 6.7,
+    "carbs": 21.0,
+    "fat": 7.4,
+    "per100g": {
+      "kcal": 273.0,
+      "protein": 10.36,
+      "carbs": 32.34,
+      "fat": 11.38
+    },
+    "source": "USDA FDC 2708335 (FNDDS 2021-2023) French toast, plain. Portion: 1 slice, any size.",
+    "confidence": "high"
+  },
+  {
+    "id": "bagel",
+    "name": "Bagel",
+    "unit": "pc",
+    "unitLabel": "1 regular · 105 g",
+    "gramsPerUnit": 105,
+    "kcal": 277,
+    "protein": 11.1,
+    "carbs": 55.0,
+    "fat": 1.4,
+    "per100g": {
+      "kcal": 264.0,
+      "protein": 10.56,
+      "carbs": 52.38,
+      "fat": 1.32
+    },
+    "source": "USDA FDC 2707684 (FNDDS 2021-2023) Bagel. Portion: 1 regular.",
+    "confidence": "high"
+  },
+  {
+    "id": "croissant",
+    "name": "Croissant",
+    "unit": "pc",
+    "unitLabel": "1 medium · 57 g",
+    "gramsPerUnit": 57,
+    "kcal": 231,
+    "protein": 4.7,
+    "carbs": 26.1,
+    "fat": 12.0,
+    "per100g": {
+      "kcal": 406.0,
+      "protein": 8.2,
+      "carbs": 45.8,
+      "fat": 21.0
+    },
+    "source": "USDA FDC 2707678 (FNDDS 2021-2023) Croissant. Portion: 1 medium croissant.",
+    "confidence": "high"
+  },
+  {
+    "id": "blueberry-muffin",
+    "name": "Blueberry muffin",
+    "unit": "pc",
+    "unitLabel": "1 small · 71 g",
+    "gramsPerUnit": 71,
+    "kcal": 181,
+    "protein": 3.0,
+    "carbs": 35.5,
+    "fat": 3.0,
+    "per100g": {
+      "kcal": 255.0,
+      "protein": 4.23,
+      "carbs": 50.05,
+      "fat": 4.22
+    },
+    "source": "USDA FDC 167929 (SR Legacy) Muffin, blueberry, commercially prepared, low-fat. Portion: 1 muffin small.",
+    "confidence": "high"
+  },
+  {
+    "id": "granola",
+    "name": "Granola",
+    "unit": "serving",
+    "unitLabel": "½ cup · 55 g",
+    "gramsPerUnit": 55,
+    "kcal": 231,
+    "protein": 5.4,
+    "carbs": 37.0,
+    "fat": 7.2,
+    "per100g": {
+      "kcal": 420.0,
+      "protein": 9.82,
+      "carbs": 67.35,
+      "fat": 13.01
+    },
+    "source": "USDA FDC 2708461 (FNDDS 2021-2023) Cereal, granola. Portion: 1 cup = 110 g, halved.",
+    "confidence": "high"
+  },
+  {
+    "id": "oatmeal",
+    "name": "Oatmeal (cooked)",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 240 g",
+    "gramsPerUnit": 240,
+    "kcal": 154,
+    "protein": 5.3,
+    "carbs": 27.3,
+    "fat": 2.6,
+    "per100g": {
+      "kcal": 64.0,
+      "protein": 2.21,
+      "carbs": 11.36,
+      "fat": 1.09
+    },
+    "source": "USDA FDC 2708381 (FNDDS 2021-2023) Oatmeal, regular or quick, made with water, no added fat. Portion: 1 cup, cooked.",
+    "confidence": "high"
+  },
+  {
+    "id": "scrambled-eggs",
+    "name": "Scrambled eggs",
+    "unit": "serving",
+    "unitLabel": "2 eggs · 110 g",
+    "gramsPerUnit": 110,
+    "kcal": 200,
+    "protein": 12.8,
+    "carbs": 1.0,
+    "fat": 16.1,
+    "per100g": {
+      "kcal": 182.0,
+      "protein": 11.61,
+      "carbs": 0.9,
+      "fat": 14.64
+    },
+    "source": "USDA FDC 2707201 (FNDDS 2021-2023) Egg omelet or scrambled egg, made with butter. Portion: 1 egg = 55 g, x2.",
+    "confidence": "high"
+  },
+  {
+    "id": "bacon",
+    "name": "Bacon",
+    "unit": "pc",
+    "unitLabel": "1 medium slice · 8 g",
+    "gramsPerUnit": 8,
+    "kcal": 37,
+    "protein": 2.7,
+    "carbs": 0.1,
+    "fat": 2.8,
+    "per100g": {
+      "kcal": 468.0,
+      "protein": 33.92,
+      "carbs": 1.7,
+      "fat": 35.09
+    },
+    "source": "USDA FDC 2705889 (FNDDS 2021-2023) Pork bacon, smoked or cured, cooked. Portion: 1 medium slice (yield after cooking).",
+    "confidence": "high"
+  },
+  {
+    "id": "sausage",
+    "name": "Sausage",
+    "unit": "pc",
+    "unitLabel": "1 link · 35 g",
+    "gramsPerUnit": 35,
+    "kcal": 114,
+    "protein": 6.5,
+    "carbs": 0.5,
+    "fat": 9.5,
+    "per100g": {
+      "kcal": 325.0,
+      "protein": 18.53,
+      "carbs": 1.42,
+      "fat": 27.25
+    },
+    "source": "USDA FDC 2706190 (FNDDS 2021-2023) Sausage, NFS. Portion: 1 piece.",
+    "confidence": "medium"
+  },
+  {
+    "id": "hash-browns",
+    "name": "Hash browns",
+    "unit": "pc",
+    "unitLabel": "1 patty · 55 g",
+    "gramsPerUnit": 55,
+    "kcal": 119,
+    "protein": 1.4,
+    "carbs": 15.5,
+    "fat": 6.3,
+    "per100g": {
+      "kcal": 217.0,
+      "protein": 2.62,
+      "carbs": 28.23,
+      "fat": 11.48
+    },
+    "source": "USDA FDC 2709477 (FNDDS 2021-2023) Potato, hash brown, NFS. Portion: 1 patty.",
+    "confidence": "medium"
+  },
+  {
+    "id": "egg-muffin",
+    "name": "Egg muffin sandwich",
+    "unit": "pc",
+    "unitLabel": "1 regular · 135 g",
+    "gramsPerUnit": 135,
+    "kcal": 310,
+    "protein": 15.8,
+    "carbs": 27.9,
+    "fat": 15.1,
+    "per100g": {
+      "kcal": 230.0,
+      "protein": 11.74,
+      "carbs": 20.63,
+      "fat": 11.2
+    },
+    "source": "USDA FDC 2707315 (FNDDS 2021-2023) Egg sandwich on English muffin. Portion: 1 regular.",
+    "confidence": "high"
+  },
+  {
+    "id": "toast",
+    "name": "Toast (white)",
+    "unit": "pc",
+    "unitLabel": "1 slice · 25 g",
+    "gramsPerUnit": 25,
+    "kcal": 73,
+    "protein": 2.6,
+    "carbs": 13.5,
+    "fat": 1.0,
+    "per100g": {
+      "kcal": 293.0,
+      "protein": 10.36,
+      "carbs": 54.07,
+      "fat": 3.94
+    },
+    "source": "USDA FDC 2707599 (FNDDS 2021-2023) Bread, white, toasted. Portion: 1 medium or regular slice.",
+    "confidence": "high"
+  },
+  {
+    "id": "wholewheat-bread",
+    "name": "Whole wheat bread",
+    "unit": "pc",
+    "unitLabel": "1 slice · 28 g",
+    "gramsPerUnit": 28,
+    "kcal": 71,
+    "protein": 3.4,
+    "carbs": 12.1,
+    "fat": 1.0,
+    "per100g": {
+      "kcal": 254.0,
+      "protein": 12.3,
+      "carbs": 43.1,
+      "fat": 3.55
+    },
+    "source": "USDA FDC 2707709 (FNDDS 2021-2023) Bread, whole wheat. Portion: 1 medium or regular slice.",
+    "confidence": "high"
+  },
+  {
+    "id": "avocado",
+    "name": "Avocado",
+    "unit": "pc",
+    "unitLabel": "½ fruit · 75 g",
+    "gramsPerUnit": 75,
+    "kcal": 120,
+    "protein": 1.5,
+    "carbs": 6.4,
+    "fat": 11.0,
+    "per100g": {
+      "kcal": 160.0,
+      "protein": 2.0,
+      "carbs": 8.53,
+      "fat": 14.66
+    },
+    "source": "USDA FDC 2709223 (FNDDS 2021-2023) Avocado, raw. Portion: 1 fruit = 150 g, halved.",
+    "confidence": "high"
+  },
+  {
+    "id": "greek-yogurt-plain",
+    "name": "Greek yogurt, nonfat",
+    "unit": "serving",
+    "unitLabel": "1 pot · 170 g",
+    "gramsPerUnit": 170,
+    "kcal": 100,
+    "protein": 17.3,
+    "carbs": 6.1,
+    "fat": 0.7,
+    "per100g": {
+      "kcal": 59.0,
+      "protein": 10.19,
+      "carbs": 3.6,
+      "fat": 0.39
+    },
+    "source": "USDA FDC 170894 (SR Legacy) Yogurt, Greek, plain, nonfat (Includes foods for USDA's Food Distribution Program). Portion: 1 container.",
+    "confidence": "high"
+  },
+  {
+    "id": "cottage-cheese",
+    "name": "Cottage cheese",
+    "unit": "serving",
+    "unitLabel": "½ cup · 105 g",
+    "gramsPerUnit": 105,
+    "kcal": 155,
+    "protein": 11.5,
+    "carbs": 4.5,
+    "fat": 10.2,
+    "per100g": {
+      "kcal": 148.0,
+      "protein": 10.96,
+      "carbs": 4.33,
+      "fat": 9.73
+    },
+    "source": "USDA FDC 2705749 (FNDDS 2021-2023) Cottage cheese, farmer's. Portion: 1 cup = 210 g, halved.",
+    "confidence": "high"
+  },
+  {
+    "id": "cream-cheese",
+    "name": "Cream cheese",
+    "unit": "tbsp",
+    "unitLabel": "1 tbsp · 15 g",
+    "gramsPerUnit": 15,
+    "kcal": 44,
+    "protein": 1.1,
+    "carbs": 0.5,
+    "fat": 4.3,
+    "per100g": {
+      "kcal": 295.0,
+      "protein": 7.1,
+      "carbs": 3.5,
+      "fat": 28.6
+    },
+    "source": "USDA FDC 2705775 (FNDDS 2021-2023) Cheese spread, cream cheese. Portion: 1 tablespoon.",
+    "confidence": "high"
+  },
+  {
+    "id": "cheddar",
+    "name": "Cheddar cheese",
+    "unit": "pc",
+    "unitLabel": "1 slice · 21 g",
+    "gramsPerUnit": 21,
+    "kcal": 86,
+    "protein": 4.9,
+    "carbs": 0.5,
+    "fat": 7.1,
+    "per100g": {
+      "kcal": 409.0,
+      "protein": 23.3,
+      "carbs": 2.44,
+      "fat": 34.0
+    },
+    "source": "USDA FDC 2705709 (FNDDS 2021-2023) Cheese, Cheddar. Portion: 1 slice.",
+    "confidence": "high"
+  },
+  {
+    "id": "mozzarella",
+    "name": "Mozzarella",
+    "unit": "serving",
+    "unitLabel": "1 stick · 28 g",
+    "gramsPerUnit": 28.35,
+    "kcal": 84,
+    "protein": 6.7,
+    "carbs": 1.3,
+    "fat": 5.8,
+    "per100g": {
+      "kcal": 296.0,
+      "protein": 23.7,
+      "carbs": 4.44,
+      "fat": 20.4
+    },
+    "source": "USDA FDC 2705723 (FNDDS 2021-2023) Cheese, Mozzarella, part skim. Portion: 1 stick.",
+    "confidence": "high"
+  },
+  {
+    "id": "milk-2",
+    "name": "Milk, 2 %",
+    "unit": "glass",
+    "unitLabel": "1 cup · 244 g",
+    "gramsPerUnit": 244,
+    "kcal": 122,
+    "protein": 8.2,
+    "carbs": 12.0,
+    "fat": 4.6,
+    "per100g": {
+      "kcal": 50.0,
+      "protein": 3.36,
+      "carbs": 4.9,
+      "fat": 1.9
+    },
+    "source": "USDA FDC 2705386 (FNDDS 2021-2023) Milk, reduced fat (2%). Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "almond-milk",
+    "name": "Almond milk",
+    "unit": "glass",
+    "unitLabel": "1 cup · 244 g",
+    "gramsPerUnit": 244,
+    "kcal": 73,
+    "protein": 1.3,
+    "carbs": 10.5,
+    "fat": 2.9,
+    "per100g": {
+      "kcal": 30.0,
+      "protein": 0.53,
+      "carbs": 4.31,
+      "fat": 1.18
+    },
+    "source": "USDA FDC 2705407 (FNDDS 2021-2023) Almond milk, sweetened. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "soy-milk",
+    "name": "Soy milk",
+    "unit": "glass",
+    "unitLabel": "1 cup · 244 g",
+    "gramsPerUnit": 244,
+    "kcal": 129,
+    "protein": 8.3,
+    "carbs": 12.7,
+    "fat": 5.0,
+    "per100g": {
+      "kcal": 53.0,
+      "protein": 3.41,
+      "carbs": 5.22,
+      "fat": 2.05
+    },
+    "source": "USDA FDC 2705404 (FNDDS 2021-2023) Soy milk, sweetened. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "oat-milk",
+    "name": "Oat milk",
+    "unit": "glass",
+    "unitLabel": "1 cup · 244 g",
+    "gramsPerUnit": 244,
+    "kcal": 110,
+    "protein": 1.6,
+    "carbs": 13.1,
+    "fat": 5.7,
+    "per100g": {
+      "kcal": 45.0,
+      "protein": 0.66,
+      "carbs": 5.37,
+      "fat": 2.33
+    },
+    "source": "USDA FDC 2705412 (FNDDS 2021-2023) Oat milk. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "ice-cream",
+    "name": "Ice cream",
+    "unit": "serving",
+    "unitLabel": "1 scoop · 120 g",
+    "gramsPerUnit": 120,
+    "kcal": 265,
+    "protein": 4.3,
+    "carbs": 31.6,
+    "fat": 13.6,
+    "per100g": {
+      "kcal": 221.0,
+      "protein": 3.57,
+      "carbs": 26.36,
+      "fat": 11.3
+    },
+    "source": "USDA FDC 2705629 (FNDDS 2021-2023) Ice cream, NFS. Portion: 1 scoop.",
+    "confidence": "medium"
+  },
+  {
+    "id": "cheeseburger",
+    "name": "Cheeseburger",
+    "unit": "pc",
+    "unitLabel": "1 burger · 165 g",
+    "gramsPerUnit": 165,
+    "kcal": 488,
+    "protein": 29.5,
+    "carbs": 30.9,
+    "fat": 26.6,
+    "per100g": {
+      "kcal": 296.0,
+      "protein": 17.87,
+      "carbs": 18.71,
+      "fat": 16.15
+    },
+    "source": "USDA FDC 2706888 (FNDDS 2021-2023) Cheeseburger, NFS. Portion: 1 cheeseburger.",
+    "confidence": "medium"
+  },
+  {
+    "id": "hamburger",
+    "name": "Hamburger",
+    "unit": "pc",
+    "unitLabel": "1 burger · 145 g",
+    "gramsPerUnit": 145,
+    "kcal": 418,
+    "protein": 25.4,
+    "carbs": 30.0,
+    "fat": 20.9,
+    "per100g": {
+      "kcal": 288.0,
+      "protein": 17.51,
+      "carbs": 20.68,
+      "fat": 14.38
+    },
+    "source": "USDA FDC 2706920 (FNDDS 2021-2023) Hamburger, NFS. Portion: 1 hamburger.",
+    "confidence": "medium"
+  },
+  {
+    "id": "veggie-burger",
+    "name": "Veggie burger",
+    "unit": "pc",
+    "unitLabel": "1 burger · 160 g",
+    "gramsPerUnit": 160,
+    "kcal": 358,
+    "protein": 20.7,
+    "carbs": 49.3,
+    "fat": 8.3,
+    "per100g": {
+      "kcal": 224.0,
+      "protein": 12.96,
+      "carbs": 30.82,
+      "fat": 5.2
+    },
+    "source": "USDA FDC 2707481 (FNDDS 2021-2023) Veggie burger, on bun. Portion: 1 sandwich.",
+    "confidence": "high"
+  },
+  {
+    "id": "fries",
+    "name": "French fries",
+    "unit": "serving",
+    "unitLabel": "1 medium · 110 g",
+    "gramsPerUnit": 110,
+    "kcal": 343,
+    "protein": 3.8,
+    "carbs": 45.6,
+    "fat": 16.2,
+    "per100g": {
+      "kcal": 312.0,
+      "protein": 3.43,
+      "carbs": 41.44,
+      "fat": 14.73
+    },
+    "source": "USDA FDC 2709461 (FNDDS 2021-2023) Potato, french fries, fast food. Portion: Quantity not specified.",
+    "confidence": "high"
+  },
+  {
+    "id": "pizza-cheese",
+    "name": "Cheese pizza",
+    "unit": "pc",
+    "unitLabel": "1 slice · 119 g",
+    "gramsPerUnit": 119,
+    "kcal": 317,
+    "protein": 13.6,
+    "carbs": 39.7,
+    "fat": 11.5,
+    "per100g": {
+      "kcal": 266.0,
+      "protein": 11.39,
+      "carbs": 33.33,
+      "fat": 9.69
+    },
+    "source": "USDA FDC 2708616 (FNDDS 2021-2023) Pizza, cheese, from restaurant or fast food, medium crust. Portion: 1 piece, large pizza.",
+    "confidence": "high"
+  },
+  {
+    "id": "pizza-pepperoni",
+    "name": "Pepperoni pizza",
+    "unit": "pc",
+    "unitLabel": "1 slice · 79 g",
+    "gramsPerUnit": 79,
+    "kcal": 261,
+    "protein": 11.1,
+    "carbs": 22.9,
+    "fat": 13.9,
+    "per100g": {
+      "kcal": 331.0,
+      "protein": 14.01,
+      "carbs": 29.0,
+      "fat": 17.61
+    },
+    "source": "USDA FDC 170762 (SR Legacy) Fast Food, Pizza Chain, 14\" pizza, pepperoni topping, thin crust. Portion: 1 slice.",
+    "confidence": "high"
+  },
+  {
+    "id": "hot-dog",
+    "name": "Hot dog (sausage only)",
+    "unit": "pc",
+    "unitLabel": "1 regular · 57 g",
+    "gramsPerUnit": 57,
+    "kcal": 177,
+    "protein": 6.7,
+    "carbs": 1.6,
+    "fat": 16.0,
+    "per100g": {
+      "kcal": 310.0,
+      "protein": 11.7,
+      "carbs": 2.89,
+      "fat": 28.0
+    },
+    "source": "USDA FDC 2706166 (FNDDS 2021-2023) Hot dog, NFS. Portion: 1 regular.",
+    "confidence": "medium"
+  },
+  {
+    "id": "fried-chicken",
+    "name": "Fried chicken drumstick",
+    "unit": "pc",
+    "unitLabel": "1 medium · 85 g",
+    "gramsPerUnit": 85,
+    "kcal": 205,
+    "protein": 16.2,
+    "carbs": 5.1,
+    "fat": 12.8,
+    "per100g": {
+      "kcal": 241.0,
+      "protein": 19.08,
+      "carbs": 5.98,
+      "fat": 15.07
+    },
+    "source": "USDA FDC 2706018 (FNDDS 2021-2023) Chicken drumstick, fried, coated, skin / coating eaten, from raw. Portion: 1 medium drumstick.",
+    "confidence": "high"
+  },
+  {
+    "id": "nuggets",
+    "name": "Chicken nuggets",
+    "unit": "serving",
+    "unitLabel": "6 pcs · 96 g",
+    "gramsPerUnit": 96,
+    "kcal": 295,
+    "protein": 15.3,
+    "carbs": 14.3,
+    "fat": 19.5,
+    "per100g": {
+      "kcal": 307.0,
+      "protein": 15.92,
+      "carbs": 14.93,
+      "fat": 20.36
+    },
+    "source": "USDA FDC 2706093 (FNDDS 2021-2023) Chicken nuggets, from fast food. Portion: 1 nugget = 16 g, x6.",
+    "confidence": "high"
+  },
+  {
+    "id": "chicken-sandwich",
+    "name": "Chicken sandwich",
+    "unit": "pc",
+    "unitLabel": "1 sandwich · 187 g",
+    "gramsPerUnit": 187,
+    "kcal": 466,
+    "protein": 30.4,
+    "carbs": 39.1,
+    "fat": 20.9,
+    "per100g": {
+      "kcal": 249.0,
+      "protein": 16.28,
+      "carbs": 20.89,
+      "fat": 11.19
+    },
+    "source": "USDA FDC 170790 (SR Legacy) CHICK-FIL-A, chicken sandwich. Portion: 1 sandwich.",
+    "confidence": "high"
+  },
+  {
+    "id": "fish-sandwich",
+    "name": "Fish sandwich",
+    "unit": "pc",
+    "unitLabel": "1 sandwich · 151 g",
+    "gramsPerUnit": 151,
+    "kcal": 381,
+    "protein": 23.1,
+    "carbs": 34.5,
+    "fat": 16.5,
+    "per100g": {
+      "kcal": 252.0,
+      "protein": 15.27,
+      "carbs": 22.85,
+      "fat": 10.95
+    },
+    "source": "USDA FDC 2707026 (FNDDS 2021-2023) Fish sandwich, NFS. Portion: 1 sandwich, any size.",
+    "confidence": "medium"
+  },
+  {
+    "id": "sub-sandwich",
+    "name": "Sub sandwich (6 inch)",
+    "unit": "pc",
+    "unitLabel": "6 inch · 184 g",
+    "gramsPerUnit": 184,
+    "kcal": 278,
+    "protein": 16.8,
+    "carbs": 42.2,
+    "fat": 4.7,
+    "per100g": {
+      "kcal": 151.0,
+      "protein": 9.12,
+      "carbs": 22.91,
+      "fat": 2.53
+    },
+    "source": "USDA FDC 170707 (SR Legacy) Fast foods, submarine sandwich, ham on white bread with lettuce and tomato. Portion: 6 inch sub.",
+    "confidence": "high"
+  },
+  {
+    "id": "club-sandwich",
+    "name": "Club sandwich",
+    "unit": "pc",
+    "unitLabel": "1 sandwich · 130 g",
+    "gramsPerUnit": 130,
+    "kcal": 289,
+    "protein": 19.6,
+    "carbs": 30.0,
+    "fat": 9.7,
+    "per100g": {
+      "kcal": 222.0,
+      "protein": 15.08,
+      "carbs": 23.09,
+      "fat": 7.48
+    },
+    "source": "USDA FDC 2706993 (FNDDS 2021-2023) Club sandwich on white. Portion: 1 sandwich, any size.",
+    "confidence": "high"
+  },
+  {
+    "id": "grilled-cheese",
+    "name": "Grilled cheese sandwich",
+    "unit": "pc",
+    "unitLabel": "1 sandwich · 116 g",
+    "gramsPerUnit": 116,
+    "kcal": 398,
+    "protein": 12.8,
+    "carbs": 32.6,
+    "fat": 24.1,
+    "per100g": {
+      "kcal": 343.0,
+      "protein": 11.03,
+      "carbs": 28.09,
+      "fat": 20.78
+    },
+    "source": "USDA FDC 2705801 (FNDDS 2021-2023) Grilled cheese sandwich, NFS. Portion: 1 sandwich.",
+    "confidence": "medium"
+  },
+  {
+    "id": "pbj",
+    "name": "Peanut butter & jelly sandwich",
+    "unit": "pc",
+    "unitLabel": "1 sandwich · 112 g",
+    "gramsPerUnit": 112,
+    "kcal": 404,
+    "protein": 12.8,
+    "carbs": 50.6,
+    "fat": 18.6,
+    "per100g": {
+      "kcal": 361.0,
+      "protein": 11.42,
+      "carbs": 45.22,
+      "fat": 16.6
+    },
+    "source": "USDA FDC 2707554 (FNDDS 2021-2023) Peanut butter and jelly sandwich, NFS. Portion: 1 sandwich.",
+    "confidence": "medium"
+  },
+  {
+    "id": "turkey-sandwich",
+    "name": "Turkey sandwich",
+    "unit": "pc",
+    "unitLabel": "1 regular · 115 g",
+    "gramsPerUnit": 115,
+    "kcal": 217,
+    "protein": 13.8,
+    "carbs": 30.5,
+    "fat": 4.2,
+    "per100g": {
+      "kcal": 189.0,
+      "protein": 12.03,
+      "carbs": 26.51,
+      "fat": 3.68
+    },
+    "source": "USDA FDC 2706981 (FNDDS 2021-2023) Turkey sandwich on white. Portion: 1 regular.",
+    "confidence": "high"
+  },
+  {
+    "id": "burrito",
+    "name": "Burrito",
+    "unit": "pc",
+    "unitLabel": "1 regular · 220 g",
+    "gramsPerUnit": 220,
+    "kcal": 482,
+    "protein": 24.5,
+    "carbs": 52.5,
+    "fat": 18.8,
+    "per100g": {
+      "kcal": 219.0,
+      "protein": 11.12,
+      "carbs": 23.87,
+      "fat": 8.54
+    },
+    "source": "USDA FDC 2708534 (FNDDS 2021-2023) Burrito, NFS. Portion: 1 small/regular.",
+    "confidence": "medium"
+  },
+  {
+    "id": "burrito-bowl",
+    "name": "Burrito bowl",
+    "unit": "bowl",
+    "unitLabel": "1 bowl · 270 g",
+    "gramsPerUnit": 270,
+    "kcal": 392,
+    "protein": 35.2,
+    "carbs": 28.6,
+    "fat": 14.7,
+    "per100g": {
+      "kcal": 145.0,
+      "protein": 13.03,
+      "carbs": 10.58,
+      "fat": 5.44
+    },
+    "source": "USDA FDC 2708555 (FNDDS 2021-2023) Burrito bowl, NFS. Portion: 1 item, any size.",
+    "confidence": "medium"
+  },
+  {
+    "id": "taco",
+    "name": "Taco",
+    "unit": "pc",
+    "unitLabel": "1 regular · 105 g",
+    "gramsPerUnit": 105,
+    "kcal": 258,
+    "protein": 16.1,
+    "carbs": 16.4,
+    "fat": 14.2,
+    "per100g": {
+      "kcal": 246.0,
+      "protein": 15.31,
+      "carbs": 15.62,
+      "fat": 13.56
+    },
+    "source": "USDA FDC 2708514 (FNDDS 2021-2023) Taco, NFS. Portion: 1 small/regular.",
+    "confidence": "medium"
+  },
+  {
+    "id": "quesadilla",
+    "name": "Quesadilla",
+    "unit": "pc",
+    "unitLabel": "½ round · 70 g",
+    "gramsPerUnit": 70,
+    "kcal": 221,
+    "protein": 9.4,
+    "carbs": 20.0,
+    "fat": 11.3,
+    "per100g": {
+      "kcal": 316.0,
+      "protein": 13.36,
+      "carbs": 28.62,
+      "fat": 16.21
+    },
+    "source": "USDA FDC 2708590 (FNDDS 2021-2023) Quesadilla, NFS. Portion: 1 half circle.",
+    "confidence": "medium"
+  },
+  {
+    "id": "nachos",
+    "name": "Nachos",
+    "unit": "plate",
+    "unitLabel": "1 order · 250 g",
+    "gramsPerUnit": 250,
+    "kcal": 662,
+    "protein": 19.0,
+    "carbs": 59.6,
+    "fat": 39.6,
+    "per100g": {
+      "kcal": 265.0,
+      "protein": 7.6,
+      "carbs": 23.85,
+      "fat": 15.85
+    },
+    "source": "USDA FDC 2708576 (FNDDS 2021-2023) Nachos, NFS. Portion: 1 order.",
+    "confidence": "medium"
+  },
+  {
+    "id": "mac-cheese",
+    "name": "Mac and cheese",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 230 g",
+    "gramsPerUnit": 230,
+    "kcal": 513,
+    "protein": 20.0,
+    "carbs": 53.1,
+    "fat": 24.1,
+    "per100g": {
+      "kcal": 223.0,
+      "protein": 8.68,
+      "carbs": 23.08,
+      "fat": 10.5
+    },
+    "source": "USDA FDC 2708811 (FNDDS 2021-2023) Macaroni or noodles with cheese. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "spaghetti-bolognese",
+    "name": "Spaghetti bolognese",
+    "unit": "plate",
+    "unitLabel": "1 plate · 525 g",
+    "gramsPerUnit": 525,
+    "kcal": 635,
+    "protein": 30.4,
+    "carbs": 90.2,
+    "fat": 17.2,
+    "per100g": {
+      "kcal": 121.0,
+      "protein": 5.8,
+      "carbs": 17.19,
+      "fat": 3.28
+    },
+    "source": "USDA FDC 168085 (SR Legacy) OLIVE GARDEN, spaghetti with meat sauce. Portion: 1 serving (Olive Garden).",
+    "confidence": "high"
+  },
+  {
+    "id": "pasta-tomato",
+    "name": "Pasta in tomato sauce",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 250 g",
+    "gramsPerUnit": 250,
+    "kcal": 265,
+    "protein": 9.2,
+    "carbs": 49.7,
+    "fat": 3.0,
+    "per100g": {
+      "kcal": 106.0,
+      "protein": 3.69,
+      "carbs": 19.88,
+      "fat": 1.2
+    },
+    "source": "USDA FDC 2708831 (FNDDS 2021-2023) Pasta with tomato-based sauce, home recipe. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "pasta",
+    "name": "Pasta, plain cooked",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 140 g",
+    "gramsPerUnit": 140,
+    "kcal": 220,
+    "protein": 8.1,
+    "carbs": 43.0,
+    "fat": 1.3,
+    "per100g": {
+      "kcal": 157.0,
+      "protein": 5.76,
+      "carbs": 30.68,
+      "fat": 0.92
+    },
+    "source": "USDA FDC 2708357 (FNDDS 2021-2023) Pasta, cooked. Portion: 1 cup, cooked.",
+    "confidence": "high"
+  },
+  {
+    "id": "lasagna",
+    "name": "Lasagna",
+    "unit": "pc",
+    "unitLabel": "1 piece · 232 g",
+    "gramsPerUnit": 232,
+    "kcal": 322,
+    "protein": 17.3,
+    "carbs": 37.5,
+    "fat": 11.5,
+    "per100g": {
+      "kcal": 139.0,
+      "protein": 7.45,
+      "carbs": 16.17,
+      "fat": 4.97
+    },
+    "source": "USDA FDC 2708750 (FNDDS 2021-2023) Lasagna with meat. Portion: 1 piece (1/8 of 7\" x 12\").",
+    "confidence": "high"
+  },
+  {
+    "id": "caesar-salad",
+    "name": "Caesar salad",
+    "unit": "bowl",
+    "unitLabel": "1 bowl · 113 g",
+    "gramsPerUnit": 113,
+    "kcal": 87,
+    "protein": 4.5,
+    "carbs": 8.5,
+    "fat": 3.9,
+    "per100g": {
+      "kcal": 77.0,
+      "protein": 4.0,
+      "carbs": 7.49,
+      "fat": 3.41
+    },
+    "source": "USDA FDC 2709591 (FNDDS 2021-2023) Caesar salad, with romaine, no dressing. Portion: 1 Wendy's side salad.",
+    "confidence": "high"
+  },
+  {
+    "id": "greek-salad",
+    "name": "Greek salad",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 105 g",
+    "gramsPerUnit": 105,
+    "kcal": 50,
+    "protein": 2.9,
+    "carbs": 4.6,
+    "fat": 2.4,
+    "per100g": {
+      "kcal": 48.0,
+      "protein": 2.75,
+      "carbs": 4.35,
+      "fat": 2.26
+    },
+    "source": "USDA FDC 2709830 (FNDDS 2021-2023) Greek Salad, no dressing. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "grilled-chicken",
+    "name": "Grilled chicken breast",
+    "unit": "pc",
+    "unitLabel": "1 breast · 165 g",
+    "gramsPerUnit": 165,
+    "kcal": 294,
+    "protein": 40.1,
+    "carbs": 12.1,
+    "fat": 8.1,
+    "per100g": {
+      "kcal": 178.0,
+      "protein": 24.33,
+      "carbs": 7.34,
+      "fat": 4.93
+    },
+    "source": "USDA FDC 2705970 (FNDDS 2021-2023) Chicken breast, grilled with sauce, skin not eaten. Portion: 1 breast, NS as to size.",
+    "confidence": "high"
+  },
+  {
+    "id": "salmon",
+    "name": "Salmon fillet",
+    "unit": "pc",
+    "unitLabel": "1 fillet · 140 g",
+    "gramsPerUnit": 140,
+    "kcal": 384,
+    "protein": 35.6,
+    "carbs": 0.0,
+    "fat": 25.8,
+    "per100g": {
+      "kcal": 274.0,
+      "protein": 25.4,
+      "carbs": 0.01,
+      "fat": 18.4
+    },
+    "source": "USDA FDC 2706286 (FNDDS 2021-2023) Fish, salmon, baked or broiled. Portion: 1 small/regular fillet.",
+    "confidence": "high"
+  },
+  {
+    "id": "cod",
+    "name": "White fish (cod)",
+    "unit": "pc",
+    "unitLabel": "1 fillet · 140 g",
+    "gramsPerUnit": 140,
+    "kcal": 176,
+    "protein": 26.6,
+    "carbs": 0.0,
+    "fat": 7.1,
+    "per100g": {
+      "kcal": 126.0,
+      "protein": 18.98,
+      "carbs": 0.01,
+      "fat": 5.04
+    },
+    "source": "USDA FDC 2706241 (FNDDS 2021-2023) Fish, cod, baked or broiled. Portion: 1 small/regular fillet.",
+    "confidence": "high"
+  },
+  {
+    "id": "tuna",
+    "name": "Tuna, canned",
+    "unit": "serving",
+    "unitLabel": "1 small can · 75 g",
+    "gramsPerUnit": 75,
+    "kcal": 64,
+    "protein": 14.2,
+    "carbs": 0.1,
+    "fat": 0.7,
+    "per100g": {
+      "kcal": 85.0,
+      "protein": 19.0,
+      "carbs": 0.08,
+      "fat": 0.94
+    },
+    "source": "USDA FDC 2706311 (FNDDS 2021-2023) Fish, tuna, canned. Portion: 1 small can.",
+    "confidence": "high"
+  },
+  {
+    "id": "steak",
+    "name": "Beef steak",
+    "unit": "pc",
+    "unitLabel": "1 regular · 160 g",
+    "gramsPerUnit": 160,
+    "kcal": 366,
+    "protein": 43.2,
+    "carbs": 0.0,
+    "fat": 20.6,
+    "per100g": {
+      "kcal": 229.0,
+      "protein": 27.0,
+      "carbs": 0.0,
+      "fat": 12.88
+    },
+    "source": "USDA FDC 2705824 (FNDDS 2021-2023) Beef, steak, NFS. Portion: 1 regular.",
+    "confidence": "medium"
+  },
+  {
+    "id": "beef-patty",
+    "name": "Beef patty",
+    "unit": "pc",
+    "unitLabel": "1 quarter-pound · 85 g",
+    "gramsPerUnit": 85,
+    "kcal": 231,
+    "protein": 21.6,
+    "carbs": 0.0,
+    "fat": 15.5,
+    "per100g": {
+      "kcal": 272.0,
+      "protein": 25.45,
+      "carbs": 0.0,
+      "fat": 18.18
+    },
+    "source": "USDA FDC 2705855 (FNDDS 2021-2023) Beef, ground, patty. Portion: 1 quarter lb patty.",
+    "confidence": "high"
+  },
+  {
+    "id": "pork-chop",
+    "name": "Pork chop",
+    "unit": "pc",
+    "unitLabel": "1 regular · 120 g",
+    "gramsPerUnit": 120,
+    "kcal": 220,
+    "protein": 33.0,
+    "carbs": 0.0,
+    "fat": 9.1,
+    "per100g": {
+      "kcal": 183.0,
+      "protein": 27.5,
+      "carbs": 0.0,
+      "fat": 7.55
+    },
+    "source": "USDA FDC 2705866 (FNDDS 2021-2023) Pork, chop, NS as to fat eaten. Portion: 1 regular.",
+    "confidence": "high"
+  },
+  {
+    "id": "lamb-chop",
+    "name": "Lamb chop",
+    "unit": "pc",
+    "unitLabel": "1 chop · 90 g",
+    "gramsPerUnit": 90,
+    "kcal": 238,
+    "protein": 24.6,
+    "carbs": 0.0,
+    "fat": 14.6,
+    "per100g": {
+      "kcal": 264.0,
+      "protein": 27.36,
+      "carbs": 0.0,
+      "fat": 16.27
+    },
+    "source": "USDA FDC 2705906 (FNDDS 2021-2023) Lamb, chop. Portion: 1 chop, any size.",
+    "confidence": "high"
+  },
+  {
+    "id": "turkey-breast",
+    "name": "Turkey breast",
+    "unit": "serving",
+    "unitLabel": "2 slices · 120 g",
+    "gramsPerUnit": 120,
+    "kcal": 167,
+    "protein": 34.6,
+    "carbs": 0.0,
+    "fat": 2.5,
+    "per100g": {
+      "kcal": 139.0,
+      "protein": 28.81,
+      "carbs": 0.0,
+      "fat": 2.06
+    },
+    "source": "USDA FDC 2706109 (FNDDS 2021-2023) Turkey, light meat, roasted, skin not eaten. Portion: 1 medium slice = 60 g, x2.",
+    "confidence": "high"
+  },
+  {
+    "id": "chicken-thigh",
+    "name": "Chicken thigh, baked",
+    "unit": "pc",
+    "unitLabel": "1 thigh · 70 g",
+    "gramsPerUnit": 70,
+    "kcal": 134,
+    "protein": 16.8,
+    "carbs": 0.0,
+    "fat": 6.9,
+    "per100g": {
+      "kcal": 192.0,
+      "protein": 24.07,
+      "carbs": 0.0,
+      "fat": 9.91
+    },
+    "source": "USDA FDC 2706055 (FNDDS 2021-2023) Chicken thigh, baked, coated, skin / coating not eaten. Portion: 1 medium thigh.",
+    "confidence": "high"
+  },
+  {
+    "id": "shrimp",
+    "name": "Shrimp, steamed",
+    "unit": "serving",
+    "unitLabel": "1 serving · 85 g",
+    "gramsPerUnit": 85,
+    "kcal": 76,
+    "protein": 14.6,
+    "carbs": 1.0,
+    "fat": 1.1,
+    "per100g": {
+      "kcal": 90.0,
+      "protein": 17.19,
+      "carbs": 1.15,
+      "fat": 1.28
+    },
+    "source": "USDA FDC 2706363 (FNDDS 2021-2023) Shrimp, steamed or boiled. Portion: Quantity not specified.",
+    "confidence": "high"
+  },
+  {
+    "id": "baked-potato",
+    "name": "Baked potato",
+    "unit": "pc",
+    "unitLabel": "1 medium · 285 g",
+    "gramsPerUnit": 285,
+    "kcal": 265,
+    "protein": 5.6,
+    "carbs": 61.1,
+    "fat": 0.3,
+    "per100g": {
+      "kcal": 93.0,
+      "protein": 1.95,
+      "carbs": 21.45,
+      "fat": 0.1
+    },
+    "source": "USDA FDC 2709383 (FNDDS 2021-2023) Potato, baked, NFS. Portion: 1 medium.",
+    "confidence": "medium"
+  },
+  {
+    "id": "sweet-potato",
+    "name": "Sweet potato, baked",
+    "unit": "pc",
+    "unitLabel": "1 medium · 150 g",
+    "gramsPerUnit": 150,
+    "kcal": 123,
+    "protein": 2.5,
+    "carbs": 27.0,
+    "fat": 0.6,
+    "per100g": {
+      "kcal": 82.0,
+      "protein": 1.64,
+      "carbs": 17.98,
+      "fat": 0.39
+    },
+    "source": "USDA FDC 2709699 (FNDDS 2021-2023) Sweet potato, baked, no added fat. Portion: 1 medium.",
+    "confidence": "high"
+  },
+  {
+    "id": "mashed-potato",
+    "name": "Mashed potatoes",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 210 g",
+    "gramsPerUnit": 210,
+    "kcal": 174,
+    "protein": 4.0,
+    "carbs": 36.9,
+    "fat": 1.2,
+    "per100g": {
+      "kcal": 83.0,
+      "protein": 1.91,
+      "carbs": 17.57,
+      "fat": 0.57
+    },
+    "source": "USDA FDC 170493 (SR Legacy) Potatoes, mashed, home-prepared, whole milk added. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "quinoa",
+    "name": "Quinoa, cooked",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 170 g",
+    "gramsPerUnit": 170,
+    "kcal": 204,
+    "protein": 7.4,
+    "carbs": 36.1,
+    "fat": 3.2,
+    "per100g": {
+      "kcal": 120.0,
+      "protein": 4.38,
+      "carbs": 21.21,
+      "fat": 1.91
+    },
+    "source": "USDA FDC 2708400 (FNDDS 2021-2023) Quinoa, no added fat. Portion: 1 cup, cooked.",
+    "confidence": "high"
+  },
+  {
+    "id": "couscous",
+    "name": "Couscous, cooked",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 160 g",
+    "gramsPerUnit": 160,
+    "kcal": 178,
+    "protein": 6.0,
+    "carbs": 37.0,
+    "fat": 0.3,
+    "per100g": {
+      "kcal": 111.0,
+      "protein": 3.77,
+      "carbs": 23.11,
+      "fat": 0.16
+    },
+    "source": "USDA FDC 2708441 (FNDDS 2021-2023) Couscous, plain, cooked. Portion: 1 cup, cooked.",
+    "confidence": "high"
+  },
+  {
+    "id": "white-rice-cup",
+    "name": "White rice, cooked (cup)",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 158 g",
+    "gramsPerUnit": 158,
+    "kcal": 204,
+    "protein": 4.2,
+    "carbs": 44.2,
+    "fat": 0.4,
+    "per100g": {
+      "kcal": 129.0,
+      "protein": 2.67,
+      "carbs": 27.99,
+      "fat": 0.28
+    },
+    "source": "USDA FDC 2708408 (FNDDS 2021-2023) Rice, white, cooked, no added fat. Portion: 1 cup, cooked.",
+    "confidence": "high"
+  },
+  {
+    "id": "flour-tortilla",
+    "name": "Flour tortilla",
+    "unit": "pc",
+    "unitLabel": "1 medium · 45 g",
+    "gramsPerUnit": 45,
+    "kcal": 138,
+    "protein": 3.7,
+    "carbs": 22.2,
+    "fat": 3.6,
+    "per100g": {
+      "kcal": 306.0,
+      "protein": 8.2,
+      "carbs": 49.38,
+      "fat": 7.99
+    },
+    "source": "USDA FDC 2707824 (FNDDS 2021-2023) Tortilla, flour. Portion: 1 medium.",
+    "confidence": "high"
+  },
+  {
+    "id": "corn-tortilla",
+    "name": "Corn tortilla",
+    "unit": "pc",
+    "unitLabel": "1 medium · 28 g",
+    "gramsPerUnit": 28,
+    "kcal": 61,
+    "protein": 1.6,
+    "carbs": 12.5,
+    "fat": 0.8,
+    "per100g": {
+      "kcal": 218.0,
+      "protein": 5.7,
+      "carbs": 44.64,
+      "fat": 2.85
+    },
+    "source": "USDA FDC 2707823 (FNDDS 2021-2023) Tortilla, corn. Portion: 1 medium.",
+    "confidence": "high"
+  },
+  {
+    "id": "black-beans",
+    "name": "Black beans",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 185 g",
+    "gramsPerUnit": 185,
+    "kcal": 335,
+    "protein": 15.2,
+    "carbs": 40.8,
+    "fat": 13.0,
+    "per100g": {
+      "kcal": 181.0,
+      "protein": 8.23,
+      "carbs": 22.04,
+      "fat": 7.01
+    },
+    "source": "USDA FDC 2707359 (FNDDS 2021-2023) Black beans, NFS. Portion: 1 cup.",
+    "confidence": "medium"
+  },
+  {
+    "id": "chickpeas",
+    "name": "Chickpeas, cooked",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 185 g",
+    "gramsPerUnit": 185,
+    "kcal": 390,
+    "protein": 15.2,
+    "carbs": 47.1,
+    "fat": 16.5,
+    "per100g": {
+      "kcal": 211.0,
+      "protein": 8.23,
+      "carbs": 25.48,
+      "fat": 8.91
+    },
+    "source": "USDA FDC 2707414 (FNDDS 2021-2023) Chickpeas, NFS. Portion: 1 cup.",
+    "confidence": "medium"
+  },
+  {
+    "id": "lentils",
+    "name": "Lentils, cooked",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 185 g",
+    "gramsPerUnit": 185,
+    "kcal": 307,
+    "protein": 15.5,
+    "carbs": 34.6,
+    "fat": 12.7,
+    "per100g": {
+      "kcal": 166.0,
+      "protein": 8.38,
+      "carbs": 18.71,
+      "fat": 6.86
+    },
+    "source": "USDA FDC 2707423 (FNDDS 2021-2023) Lentils, NFS. Portion: 1 cup.",
+    "confidence": "medium"
+  },
+  {
+    "id": "sushi-california",
+    "name": "California roll",
+    "unit": "pc",
+    "unitLabel": "1 piece · 30 g",
+    "gramsPerUnit": 30,
+    "kcal": 28,
+    "protein": 0.9,
+    "carbs": 5.5,
+    "fat": 0.2,
+    "per100g": {
+      "kcal": 94.0,
+      "protein": 2.92,
+      "carbs": 18.39,
+      "fat": 0.67
+    },
+    "source": "USDA FDC 2708961 (FNDDS 2021-2023) Sushi roll, California. Portion: 1 piece.",
+    "confidence": "high"
+  },
+  {
+    "id": "sushi-salmon",
+    "name": "Salmon sushi roll",
+    "unit": "pc",
+    "unitLabel": "1 piece · 30 g",
+    "gramsPerUnit": 30,
+    "kcal": 31,
+    "protein": 2.1,
+    "carbs": 4.6,
+    "fat": 0.4,
+    "per100g": {
+      "kcal": 103.0,
+      "protein": 6.88,
+      "carbs": 15.3,
+      "fat": 1.28
+    },
+    "source": "USDA FDC 2708963 (FNDDS 2021-2023) Sushi roll, salmon. Portion: 1 piece.",
+    "confidence": "high"
+  },
+  {
+    "id": "ramen",
+    "name": "Ramen",
+    "unit": "bowl",
+    "unitLabel": "2 cups · 490 g",
+    "gramsPerUnit": 490,
+    "kcal": 622,
+    "protein": 34.9,
+    "carbs": 68.4,
+    "fat": 22.4,
+    "per100g": {
+      "kcal": 127.0,
+      "protein": 7.13,
+      "carbs": 13.95,
+      "fat": 4.57
+    },
+    "source": "USDA FDC 2709153 (FNDDS 2021-2023) Ramen bowl, NFS. Portion: 1 cup = 245 g, x2.",
+    "confidence": "medium"
+  },
+  {
+    "id": "pho",
+    "name": "Pho",
+    "unit": "bowl",
+    "unitLabel": "2 cups · 490 g",
+    "gramsPerUnit": 490,
+    "kcal": 377,
+    "protein": 28.5,
+    "carbs": 27.4,
+    "fat": 16.3,
+    "per100g": {
+      "kcal": 77.0,
+      "protein": 5.81,
+      "carbs": 5.6,
+      "fat": 3.33
+    },
+    "source": "USDA FDC 2707124 (FNDDS 2021-2023) Soup, pho, with meat. Portion: 1 cup = 245 g, x2.",
+    "confidence": "high"
+  },
+  {
+    "id": "pad-thai",
+    "name": "Pad thai",
+    "unit": "plate",
+    "unitLabel": "1½ cups · 300 g",
+    "gramsPerUnit": 300,
+    "kcal": 480,
+    "protein": 24.5,
+    "carbs": 44.2,
+    "fat": 23.8,
+    "per100g": {
+      "kcal": 160.0,
+      "protein": 8.18,
+      "carbs": 14.73,
+      "fat": 7.92
+    },
+    "source": "USDA FDC 2708808 (FNDDS 2021-2023) Pad Thai with meat. Portion: 1 cup = 200 g, x1.5.",
+    "confidence": "high"
+  },
+  {
+    "id": "lo-mein",
+    "name": "Lo mein",
+    "unit": "plate",
+    "unitLabel": "1½ cups · 300 g",
+    "gramsPerUnit": 300,
+    "kcal": 363,
+    "protein": 14.3,
+    "carbs": 60.5,
+    "fat": 7.1,
+    "per100g": {
+      "kcal": 121.0,
+      "protein": 4.77,
+      "carbs": 20.16,
+      "fat": 2.35
+    },
+    "source": "USDA FDC 2708798 (FNDDS 2021-2023) Lo mein, NFS. Portion: 1 cup = 200 g, x1.5.",
+    "confidence": "medium"
+  },
+  {
+    "id": "chinese-fried-rice",
+    "name": "Egg fried rice",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 198 g",
+    "gramsPerUnit": 198,
+    "kcal": 345,
+    "protein": 7.6,
+    "carbs": 64.3,
+    "fat": 6.3,
+    "per100g": {
+      "kcal": 174.0,
+      "protein": 3.84,
+      "carbs": 32.5,
+      "fat": 3.19
+    },
+    "source": "USDA FDC 2708952 (FNDDS 2021-2023) Rice, fried, NFS. Portion: 1 cup.",
+    "confidence": "medium"
+  },
+  {
+    "id": "potstickers",
+    "name": "Dumplings, fried",
+    "unit": "serving",
+    "unitLabel": "4 pcs · 100 g",
+    "gramsPerUnit": 100,
+    "kcal": 192,
+    "protein": 8.8,
+    "carbs": 14.1,
+    "fat": 11.1,
+    "per100g": {
+      "kcal": 192.0,
+      "protein": 8.76,
+      "carbs": 14.05,
+      "fat": 11.13
+    },
+    "source": "USDA FDC 2708705 (FNDDS 2021-2023) Wonton, dumpling or pot sticker, fried. Portion: 1 item = 25 g, x4.",
+    "confidence": "high"
+  },
+  {
+    "id": "egg-roll",
+    "name": "Egg roll",
+    "unit": "pc",
+    "unitLabel": "1 roll · 64 g",
+    "gramsPerUnit": 64,
+    "kcal": 174,
+    "protein": 4.9,
+    "carbs": 17.3,
+    "fat": 9.4,
+    "per100g": {
+      "kcal": 272.0,
+      "protein": 7.58,
+      "carbs": 27.02,
+      "fat": 14.7
+    },
+    "source": "USDA FDC 2708702 (FNDDS 2021-2023) Egg roll, with beef and/or pork. Portion: 1 egg roll.",
+    "confidence": "high"
+  },
+  {
+    "id": "general-tso",
+    "name": "General Tso's chicken",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 146 g",
+    "gramsPerUnit": 146,
+    "kcal": 431,
+    "protein": 18.8,
+    "carbs": 35.0,
+    "fat": 23.9,
+    "per100g": {
+      "kcal": 295.0,
+      "protein": 12.9,
+      "carbs": 23.99,
+      "fat": 16.36
+    },
+    "source": "USDA FDC 2706794 (FNDDS 2021-2023) General Tso chicken. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "orange-chicken",
+    "name": "Orange chicken",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 252 g",
+    "gramsPerUnit": 252,
+    "kcal": 660,
+    "protein": 36.4,
+    "carbs": 56.6,
+    "fat": 32.0,
+    "per100g": {
+      "kcal": 262.0,
+      "protein": 14.46,
+      "carbs": 22.46,
+      "fat": 12.68
+    },
+    "source": "USDA FDC 2706443 (FNDDS 2021-2023) Orange chicken. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "sweet-sour-chicken",
+    "name": "Sweet and sour chicken",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 252 g",
+    "gramsPerUnit": 252,
+    "kcal": 630,
+    "protein": 25.5,
+    "carbs": 60.1,
+    "fat": 31.9,
+    "per100g": {
+      "kcal": 250.0,
+      "protein": 10.1,
+      "carbs": 23.86,
+      "fat": 12.65
+    },
+    "source": "USDA FDC 2706435 (FNDDS 2021-2023) Sweet and sour chicken or turkey. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "teriyaki-steak",
+    "name": "Beef teriyaki",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 244 g",
+    "gramsPerUnit": 244,
+    "kcal": 483,
+    "protein": 70.4,
+    "carbs": 4.7,
+    "fat": 20.1,
+    "per100g": {
+      "kcal": 198.0,
+      "protein": 28.86,
+      "carbs": 1.94,
+      "fat": 8.25
+    },
+    "source": "USDA FDC 2706387 (FNDDS 2021-2023) Steak teriyaki. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "bibimbap",
+    "name": "Bibimbap",
+    "unit": "bowl",
+    "unitLabel": "2 cups · 324 g",
+    "gramsPerUnit": 324,
+    "kcal": 246,
+    "protein": 17.8,
+    "carbs": 26.3,
+    "fat": 7.9,
+    "per100g": {
+      "kcal": 76.0,
+      "protein": 5.5,
+      "carbs": 8.11,
+      "fat": 2.44
+    },
+    "source": "USDA FDC 2708950 (FNDDS 2021-2023) Bibimbap, Korean. Portion: 1 cup = 162 g, x2.",
+    "confidence": "high"
+  },
+  {
+    "id": "kimchi",
+    "name": "Kimchi",
+    "unit": "serving",
+    "unitLabel": "½ cup · 75 g",
+    "gramsPerUnit": 75,
+    "kcal": 11,
+    "protein": 0.8,
+    "carbs": 1.8,
+    "fat": 0.4,
+    "per100g": {
+      "kcal": 15.0,
+      "protein": 1.1,
+      "carbs": 2.4,
+      "fat": 0.5
+    },
+    "source": "USDA FDC 2710077 (FNDDS 2021-2023) Kimchi. Portion: 1 cup = 150 g, halved.",
+    "confidence": "high"
+  },
+  {
+    "id": "miso-soup",
+    "name": "Miso soup",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 245 g",
+    "gramsPerUnit": 245,
+    "kcal": 59,
+    "protein": 5.4,
+    "carbs": 5.6,
+    "fat": 2.1,
+    "per100g": {
+      "kcal": 24.0,
+      "protein": 2.21,
+      "carbs": 2.3,
+      "fat": 0.85
+    },
+    "source": "USDA FDC 2707455 (FNDDS 2021-2023) Soup, miso or tofu. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "edamame",
+    "name": "Edamame",
+    "unit": "serving",
+    "unitLabel": "1 cup · 160 g",
+    "gramsPerUnit": 160,
+    "kcal": 224,
+    "protein": 18.5,
+    "carbs": 13.8,
+    "fat": 12.1,
+    "per100g": {
+      "kcal": 140.0,
+      "protein": 11.54,
+      "carbs": 8.63,
+      "fat": 7.58
+    },
+    "source": "USDA FDC 2707436 (FNDDS 2021-2023) Edamame, cooked. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "veg-tempura",
+    "name": "Vegetable tempura",
+    "unit": "serving",
+    "unitLabel": "1 cup · 63 g",
+    "gramsPerUnit": 63,
+    "kcal": 151,
+    "protein": 2.4,
+    "carbs": 12.9,
+    "fat": 10.0,
+    "per100g": {
+      "kcal": 239.0,
+      "protein": 3.81,
+      "carbs": 20.45,
+      "fat": 15.81
+    },
+    "source": "USDA FDC 2710065 (FNDDS 2021-2023) Vegetable tempura. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "hummus",
+    "name": "Hummus",
+    "unit": "tbsp",
+    "unitLabel": "2 tbsp · 30 g",
+    "gramsPerUnit": 30,
+    "kcal": 73,
+    "protein": 2.2,
+    "carbs": 4.5,
+    "fat": 5.1,
+    "per100g": {
+      "kcal": 243.0,
+      "protein": 7.35,
+      "carbs": 14.9,
+      "fat": 17.1
+    },
+    "source": "USDA FDC 2707402 (FNDDS 2021-2023) Hummus, plain. Portion: 1 tablespoon = 15 g, x2.",
+    "confidence": "high"
+  },
+  {
+    "id": "falafel",
+    "name": "Falafel",
+    "unit": "serving",
+    "unitLabel": "4 pcs · 68 g",
+    "gramsPerUnit": 68,
+    "kcal": 350,
+    "protein": 5.6,
+    "carbs": 19.7,
+    "fat": 28.0,
+    "per100g": {
+      "kcal": 514.0,
+      "protein": 8.28,
+      "carbs": 28.96,
+      "fat": 41.19
+    },
+    "source": "USDA FDC 2707408 (FNDDS 2021-2023) Falafel. Portion: 1 patty = 17 g, x4.",
+    "confidence": "high"
+  },
+  {
+    "id": "falafel-wrap",
+    "name": "Falafel wrap",
+    "unit": "pc",
+    "unitLabel": "1 sandwich · 215 g",
+    "gramsPerUnit": 215,
+    "kcal": 570,
+    "protein": 13.4,
+    "carbs": 58.1,
+    "fat": 31.7,
+    "per100g": {
+      "kcal": 265.0,
+      "protein": 6.22,
+      "carbs": 27.04,
+      "fat": 14.76
+    },
+    "source": "USDA FDC 2707483 (FNDDS 2021-2023) Falafel sandwich. Portion: 1 sandwich, any size.",
+    "confidence": "high"
+  },
+  {
+    "id": "pita",
+    "name": "Pita bread",
+    "unit": "pc",
+    "unitLabel": "1 medium · 57 g",
+    "gramsPerUnit": 57,
+    "kcal": 157,
+    "protein": 5.2,
+    "carbs": 31.7,
+    "fat": 0.7,
+    "per100g": {
+      "kcal": 275.0,
+      "protein": 9.1,
+      "carbs": 55.7,
+      "fat": 1.2
+    },
+    "source": "USDA FDC 2707616 (FNDDS 2021-2023) Bread, pita. Portion: 1 medium pita.",
+    "confidence": "high"
+  },
+  {
+    "id": "tabbouleh",
+    "name": "Tabbouleh",
+    "unit": "bowl",
+    "unitLabel": "½ cup · 80 g",
+    "gramsPerUnit": 80,
+    "kcal": 102,
+    "protein": 1.3,
+    "carbs": 7.7,
+    "fat": 7.7,
+    "per100g": {
+      "kcal": 127.0,
+      "protein": 1.64,
+      "carbs": 9.65,
+      "fat": 9.66
+    },
+    "source": "USDA FDC 2709131 (FNDDS 2021-2023) Tabbouleh. Portion: Quantity not specified.",
+    "confidence": "high"
+  },
+  {
+    "id": "gyro",
+    "name": "Gyro",
+    "unit": "pc",
+    "unitLabel": "1 sandwich · 200 g",
+    "gramsPerUnit": 200,
+    "kcal": 368,
+    "protein": 22.5,
+    "carbs": 37.6,
+    "fat": 13.5,
+    "per100g": {
+      "kcal": 184.0,
+      "protein": 11.24,
+      "carbs": 18.78,
+      "fat": 6.76
+    },
+    "source": "USDA FDC 2706962 (FNDDS 2021-2023) Gyro sandwich. Portion: 1 sandwich, any size.",
+    "confidence": "high"
+  },
+  {
+    "id": "shish-kebab",
+    "name": "Lamb shish kebab",
+    "unit": "pc",
+    "unitLabel": "1 skewer · 202 g",
+    "gramsPerUnit": 202,
+    "kcal": 327,
+    "protein": 24.3,
+    "carbs": 10.2,
+    "fat": 20.8,
+    "per100g": {
+      "kcal": 162.0,
+      "protein": 12.02,
+      "carbs": 5.06,
+      "fat": 10.28
+    },
+    "source": "USDA FDC 2706780 (FNDDS 2021-2023) Lamb shish kabob with vegetables, excluding potatoes. Portion: 1 shishkabob.",
+    "confidence": "high"
+  },
+  {
+    "id": "baba-ganoush",
+    "name": "Baba ganoush",
+    "unit": "tbsp",
+    "unitLabel": "2 tbsp · 30 g",
+    "gramsPerUnit": 30,
+    "kcal": 55,
+    "protein": 1.4,
+    "carbs": 2.4,
+    "fat": 4.5,
+    "per100g": {
+      "kcal": 183.0,
+      "protein": 4.8,
+      "carbs": 8.15,
+      "fat": 14.98
+    },
+    "source": "USDA FDC 2710049 (FNDDS 2021-2023) Eggplant dip. Portion: 1 tablespoon = 15 g, x2.",
+    "confidence": "high"
+  },
+  {
+    "id": "lentil-soup",
+    "name": "Lentil soup",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 255 g",
+    "gramsPerUnit": 255,
+    "kcal": 153,
+    "protein": 9.7,
+    "carbs": 26.0,
+    "fat": 1.8,
+    "per100g": {
+      "kcal": 60.0,
+      "protein": 3.82,
+      "carbs": 10.2,
+      "fat": 0.69
+    },
+    "source": "USDA FDC 2707462 (FNDDS 2021-2023) Soup, lentil. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "broccoli",
+    "name": "Broccoli, boiled",
+    "unit": "serving",
+    "unitLabel": "1 cup · 156 g",
+    "gramsPerUnit": 156,
+    "kcal": 55,
+    "protein": 3.7,
+    "carbs": 11.2,
+    "fat": 0.6,
+    "per100g": {
+      "kcal": 35.0,
+      "protein": 2.38,
+      "carbs": 7.18,
+      "fat": 0.41
+    },
+    "source": "USDA FDC 168510 (SR Legacy) Broccoli, cooked, boiled, drained, with salt. Portion: 0.5 cup, chopped = 78 g, x2.",
+    "confidence": "high"
+  },
+  {
+    "id": "spinach",
+    "name": "Spinach, raw",
+    "unit": "serving",
+    "unitLabel": "2 cups · 60 g",
+    "gramsPerUnit": 60,
+    "kcal": 14,
+    "protein": 1.7,
+    "carbs": 2.2,
+    "fat": 0.2,
+    "per100g": {
+      "kcal": 23.0,
+      "protein": 2.86,
+      "carbs": 3.63,
+      "fat": 0.39
+    },
+    "source": "USDA FDC 168462 (SR Legacy) Spinach, raw. Portion: 1 cup = 30 g, x2.",
+    "confidence": "high"
+  },
+  {
+    "id": "carrot",
+    "name": "Carrot",
+    "unit": "pc",
+    "unitLabel": "1 regular · 60 g",
+    "gramsPerUnit": 60,
+    "kcal": 26,
+    "protein": 0.5,
+    "carbs": 5.8,
+    "fat": 0.1,
+    "per100g": {
+      "kcal": 44.0,
+      "protein": 0.87,
+      "carbs": 9.68,
+      "fat": 0.24
+    },
+    "source": "USDA FDC 2709660 (FNDDS 2021-2023) Carrots, raw. Portion: 1 regular carrot.",
+    "confidence": "high"
+  },
+  {
+    "id": "tomato",
+    "name": "Tomato",
+    "unit": "pc",
+    "unitLabel": "1 whole · 125 g",
+    "gramsPerUnit": 125,
+    "kcal": 25,
+    "protein": 1.0,
+    "carbs": 5.0,
+    "fat": 0.4,
+    "per100g": {
+      "kcal": 20.0,
+      "protein": 0.82,
+      "carbs": 4.04,
+      "fat": 0.31
+    },
+    "source": "USDA FDC 2709719 (FNDDS 2021-2023) Tomatoes, raw. Portion: 1 whole.",
+    "confidence": "high"
+  },
+  {
+    "id": "cucumber",
+    "name": "Cucumber",
+    "unit": "pc",
+    "unitLabel": "1 regular · 200 g",
+    "gramsPerUnit": 200,
+    "kcal": 32,
+    "protein": 1.2,
+    "carbs": 5.9,
+    "fat": 0.4,
+    "per100g": {
+      "kcal": 16.0,
+      "protein": 0.62,
+      "carbs": 2.95,
+      "fat": 0.18
+    },
+    "source": "USDA FDC 2709784 (FNDDS 2021-2023) Cucumber, raw. Portion: 1 regular.",
+    "confidence": "high"
+  },
+  {
+    "id": "corn-cob",
+    "name": "Corn on the cob",
+    "unit": "pc",
+    "unitLabel": "1 ear · 108 g",
+    "gramsPerUnit": 108,
+    "kcal": 129,
+    "protein": 3.4,
+    "carbs": 19.1,
+    "fat": 5.9,
+    "per100g": {
+      "kcal": 119.0,
+      "protein": 3.11,
+      "carbs": 17.73,
+      "fat": 5.43
+    },
+    "source": "USDA FDC 2709909 (FNDDS 2021-2023) Corn, cooked, from restaurant. Portion: 1 regular ear.",
+    "confidence": "high"
+  },
+  {
+    "id": "mixed-veg",
+    "name": "Mixed vegetables",
+    "unit": "bowl",
+    "unitLabel": "1 cup · 185 g",
+    "gramsPerUnit": 185,
+    "kcal": 159,
+    "protein": 5.1,
+    "carbs": 23.5,
+    "fat": 5.0,
+    "per100g": {
+      "kcal": 86.0,
+      "protein": 2.78,
+      "carbs": 12.68,
+      "fat": 2.69
+    },
+    "source": "USDA FDC 2710015 (FNDDS 2021-2023) Classic mixed vegetables, NS as to form, cooked. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "strawberries",
+    "name": "Strawberries",
+    "unit": "serving",
+    "unitLabel": "1 cup · 150 g",
+    "gramsPerUnit": 150,
+    "kcal": 54,
+    "protein": 1.0,
+    "carbs": 11.9,
+    "fat": 0.3,
+    "per100g": {
+      "kcal": 36.0,
+      "protein": 0.64,
+      "carbs": 7.96,
+      "fat": 0.22
+    },
+    "source": "USDA FDC 2709283 (FNDDS 2021-2023) Strawberries, raw. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "blueberries",
+    "name": "Blueberries",
+    "unit": "serving",
+    "unitLabel": "1 cup · 150 g",
+    "gramsPerUnit": 150,
+    "kcal": 96,
+    "protein": 1.0,
+    "carbs": 21.9,
+    "fat": 0.5,
+    "per100g": {
+      "kcal": 64.0,
+      "protein": 0.7,
+      "carbs": 14.57,
+      "fat": 0.31
+    },
+    "source": "USDA FDC 2709275 (FNDDS 2021-2023) Blueberries, raw. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "raspberries",
+    "name": "Raspberries",
+    "unit": "serving",
+    "unitLabel": "1 cup · 150 g",
+    "gramsPerUnit": 150,
+    "kcal": 86,
+    "protein": 1.5,
+    "carbs": 19.4,
+    "fat": 0.3,
+    "per100g": {
+      "kcal": 57.0,
+      "protein": 1.01,
+      "carbs": 12.9,
+      "fat": 0.19
+    },
+    "source": "USDA FDC 2709281 (FNDDS 2021-2023) Raspberries, raw. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "pear",
+    "name": "Pear",
+    "unit": "pc",
+    "unitLabel": "1 fruit · 180 g",
+    "gramsPerUnit": 180,
+    "kcal": 106,
+    "protein": 0.7,
+    "carbs": 27.3,
+    "fat": 0.3,
+    "per100g": {
+      "kcal": 59.0,
+      "protein": 0.37,
+      "carbs": 15.18,
+      "fat": 0.15
+    },
+    "source": "USDA FDC 2709254 (FNDDS 2021-2023) Pear, raw. Portion: 1 fruit.",
+    "confidence": "high"
+  },
+  {
+    "id": "peach",
+    "name": "Peach",
+    "unit": "pc",
+    "unitLabel": "1 fruit · 150 g",
+    "gramsPerUnit": 150,
+    "kcal": 69,
+    "protein": 1.4,
+    "carbs": 15.1,
+    "fat": 0.4,
+    "per100g": {
+      "kcal": 46.0,
+      "protein": 0.91,
+      "carbs": 10.1,
+      "fat": 0.27
+    },
+    "source": "USDA FDC 2709249 (FNDDS 2021-2023) Peach, raw. Portion: 1 fruit.",
+    "confidence": "high"
+  },
+  {
+    "id": "kiwi",
+    "name": "Kiwi",
+    "unit": "pc",
+    "unitLabel": "1 fruit · 75 g",
+    "gramsPerUnit": 75,
+    "kcal": 48,
+    "protein": 0.8,
+    "carbs": 10.5,
+    "fat": 0.3,
+    "per100g": {
+      "kcal": 64.0,
+      "protein": 1.06,
+      "carbs": 14.0,
+      "fat": 0.44
+    },
+    "source": "USDA FDC 2709239 (FNDDS 2021-2023) Kiwi fruit, raw. Portion: 1 fruit.",
+    "confidence": "high"
+  },
+  {
+    "id": "cherries",
+    "name": "Cherries",
+    "unit": "serving",
+    "unitLabel": "1 cup · 150 g",
+    "gramsPerUnit": 150,
+    "kcal": 106,
+    "protein": 1.6,
+    "carbs": 24.2,
+    "fat": 0.3,
+    "per100g": {
+      "kcal": 71.0,
+      "protein": 1.04,
+      "carbs": 16.16,
+      "fat": 0.19
+    },
+    "source": "USDA FDC 2709231 (FNDDS 2021-2023) Cherries, raw. Portion: 1 cup.",
+    "confidence": "high"
+  },
+  {
+    "id": "grapefruit",
+    "name": "Grapefruit",
+    "unit": "pc",
+    "unitLabel": "½ fruit · 154 g",
+    "gramsPerUnit": 154,
+    "kcal": 65,
+    "protein": 1.2,
+    "carbs": 16.4,
+    "fat": 0.2,
+    "per100g": {
+      "kcal": 42.0,
+      "protein": 0.77,
+      "carbs": 10.66,
+      "fat": 0.14
+    },
+    "source": "USDA FDC 2709165 (FNDDS 2021-2023) Grapefruit, raw. Portion: 1 half.",
+    "confidence": "high"
+  },
+  {
+    "id": "plum",
+    "name": "Plum",
+    "unit": "pc",
+    "unitLabel": "1 fruit · 75 g",
+    "gramsPerUnit": 75,
+    "kcal": 34,
+    "protein": 0.5,
+    "carbs": 8.6,
+    "fat": 0.2,
+    "per100g": {
+      "kcal": 46.0,
+      "protein": 0.7,
+      "carbs": 11.42,
+      "fat": 0.28
+    },
+    "source": "USDA FDC 2709265 (FNDDS 2021-2023) Plum, raw. Portion: 1 fruit.",
+    "confidence": "high"
+  },
+  {
+    "id": "cantaloupe",
+    "name": "Cantaloupe",
+    "unit": "serving",
+    "unitLabel": "1 cup · 160 g",
+    "gramsPerUnit": 160,
+    "kcal": 54,
+    "protein": 1.3,
+    "carbs": 13.1,
+    "fat": 0.3,
+    "per100g": {
+      "kcal": 34.0,
+      "protein": 0.84,
+      "carbs": 8.16,
+      "fat": 0.19
+    },
+    "source": "USDA FDC 169092 (SR Legacy) Melons, cantaloupe, raw. Portion: 1 cup, cubes.",
+    "confidence": "high"
+  },
+  {
+    "id": "protein-bar",
+    "name": "Protein bar",
+    "unit": "pc",
+    "unitLabel": "1 bar · 60 g",
+    "gramsPerUnit": 60,
+    "kcal": 249,
+    "protein": 15.0,
+    "carbs": 30.3,
+    "fat": 7.5,
+    "per100g": {
+      "kcal": 415.0,
+      "protein": 25.0,
+      "carbs": 50.5,
+      "fat": 12.5
+    },
+    "source": "USDA FDC 2708122 (FNDDS 2021-2023) Nutrition bar (Snickers Marathon Protein Bar). Portion: Snickers Marathon bar 80 g, scaled to a 60 g bar.",
+    "confidence": "high"
+  },
+  {
+    "id": "granola-bar",
+    "name": "Granola bar",
+    "unit": "pc",
+    "unitLabel": "1 bar · 43 g",
+    "gramsPerUnit": 43,
+    "kcal": 203,
+    "protein": 4.3,
+    "carbs": 27.7,
+    "fat": 8.5,
+    "per100g": {
+      "kcal": 471.0,
+      "protein": 10.1,
+      "carbs": 64.4,
+      "fat": 19.8
+    },
+    "source": "USDA FDC 2708101 (FNDDS 2021-2023) Cereal or Granola bar, NFS. Portion: 1 bar.",
+    "confidence": "medium"
+  },
+  {
+    "id": "potato-chips",
+    "name": "Potato chips",
+    "unit": "serving",
+    "unitLabel": "1 small bag · 28 g",
+    "gramsPerUnit": 28,
+    "kcal": 149,
+    "protein": 1.8,
+    "carbs": 15.1,
+    "fat": 9.5,
+    "per100g": {
+      "kcal": 532.0,
+      "protein": 6.39,
+      "carbs": 53.83,
+      "fat": 33.98
+    },
+    "source": "USDA FDC 2709422 (FNDDS 2021-2023) Potato chips, plain. Portion: 1 small single serving bag.",
+    "confidence": "high"
+  },
+  {
+    "id": "tortilla-chips",
+    "name": "Tortilla chips",
+    "unit": "serving",
+    "unitLabel": "1 small bag · 28 g",
+    "gramsPerUnit": 28,
+    "kcal": 132,
+    "protein": 2.0,
+    "carbs": 19.0,
+    "fat": 5.8,
+    "per100g": {
+      "kcal": 472.0,
+      "protein": 7.1,
+      "carbs": 67.78,
+      "fat": 20.68
+    },
+    "source": "USDA FDC 2708202 (FNDDS 2021-2023) Tortilla chips, plain. Portion: 1 oz (1 small bag).",
+    "confidence": "high"
+  },
+  {
+    "id": "crackers",
+    "name": "Crackers (saltine)",
+    "unit": "serving",
+    "unitLabel": "6 crackers · 18 g",
+    "gramsPerUnit": 18,
+    "kcal": 75,
+    "protein": 1.7,
+    "carbs": 13.3,
+    "fat": 1.6,
+    "per100g": {
+      "kcal": 418.0,
+      "protein": 9.46,
+      "carbs": 74.05,
+      "fat": 8.64
+    },
+    "source": "USDA FDC 2708167 (FNDDS 2021-2023) Crackers, saltine. Portion: 1 cracker = 3 g, x6.",
+    "confidence": "high"
+  },
+  {
+    "id": "popcorn",
+    "name": "Popcorn",
+    "unit": "serving",
+    "unitLabel": "1 small bag · 28 g",
+    "gramsPerUnit": 28,
+    "kcal": 145,
+    "protein": 2.6,
+    "carbs": 15.4,
+    "fat": 8.6,
+    "per100g": {
+      "kcal": 518.0,
+      "protein": 9.13,
+      "carbs": 54.99,
+      "fat": 30.57
+    },
+    "source": "USDA FDC 2708216 (FNDDS 2021-2023) Popcorn, NFS. Portion: 1 small single serving bag.",
+    "confidence": "medium"
+  },
+  {
+    "id": "pretzels",
+    "name": "Pretzels",
+    "unit": "serving",
+    "unitLabel": "1 small bag · 28 g",
+    "gramsPerUnit": 28,
+    "kcal": 108,
+    "protein": 2.8,
+    "carbs": 22.5,
+    "fat": 0.8,
+    "per100g": {
+      "kcal": 384.0,
+      "protein": 10.04,
+      "carbs": 80.39,
+      "fat": 2.93
+    },
+    "source": "USDA FDC 2708248 (FNDDS 2021-2023) Pretzels, hard, NFS. Portion: 1 small single serving bag.",
+    "confidence": "medium"
+  },
+  {
+    "id": "dark-chocolate",
+    "name": "Dark chocolate 70–85 %",
+    "unit": "serving",
+    "unitLabel": "2 squares · 20 g",
+    "gramsPerUnit": 20,
+    "kcal": 120,
+    "protein": 1.6,
+    "carbs": 9.2,
+    "fat": 8.5,
+    "per100g": {
+      "kcal": 598.0,
+      "protein": 7.79,
+      "carbs": 45.9,
+      "fat": 42.63
+    },
+    "source": "USDA FDC 170273 (SR Legacy) Chocolate, dark, 70-85% cacao solids. Portion: 1 oz = 28.35 g, scaled to 20 g.",
+    "confidence": "high"
+  },
+  {
+    "id": "milk-chocolate",
+    "name": "Milk chocolate bar",
+    "unit": "pc",
+    "unitLabel": "1 bar · 44 g",
+    "gramsPerUnit": 44,
+    "kcal": 235,
+    "protein": 3.4,
+    "carbs": 26.1,
+    "fat": 13.1,
+    "per100g": {
+      "kcal": 535.0,
+      "protein": 7.65,
+      "carbs": 59.4,
+      "fat": 29.66
+    },
+    "source": "USDA FDC 167587 (SR Legacy) Candies, milk chocolate. Portion: 1 bar (1.55 oz).",
+    "confidence": "high"
+  },
+  {
+    "id": "choc-chip-cookie",
+    "name": "Chocolate chip cookie",
+    "unit": "pc",
+    "unitLabel": "1 medium · 30 g",
+    "gramsPerUnit": 30,
+    "kcal": 148,
+    "protein": 1.5,
+    "carbs": 19.6,
+    "fat": 7.4,
+    "per100g": {
+      "kcal": 492.0,
+      "protein": 5.1,
+      "carbs": 65.36,
+      "fat": 24.72
+    },
+    "source": "USDA FDC 2707909 (FNDDS 2021-2023) Cookie, chocolate chip. Portion: 1 medium cookie.",
+    "confidence": "high"
+  },
+  {
+    "id": "donut",
+    "name": "Doughnut",
+    "unit": "pc",
+    "unitLabel": "1 doughnut · 75 g",
+    "gramsPerUnit": 75,
+    "kcal": 320,
+    "protein": 4.1,
+    "carbs": 37.1,
+    "fat": 17.1,
+    "per100g": {
+      "kcal": 426.0,
+      "protein": 5.52,
+      "carbs": 49.52,
+      "fat": 22.86
+    },
+    "source": "USDA FDC 2708062 (FNDDS 2021-2023) Doughnut, NFS. Portion: 1 doughnut.",
+    "confidence": "medium"
+  },
+  {
+    "id": "brownie",
+    "name": "Brownie",
+    "unit": "pc",
+    "unitLabel": "1 medium · 50 g",
+    "gramsPerUnit": 50,
+    "kcal": 202,
+    "protein": 2.4,
+    "carbs": 31.9,
+    "fat": 8.2,
+    "per100g": {
+      "kcal": 405.0,
+      "protein": 4.8,
+      "carbs": 63.9,
+      "fat": 16.3
+    },
+    "source": "USDA FDC 2707904 (FNDDS 2021-2023) Cookie, brownie, without icing. Portion: 1 medium.",
+    "confidence": "high"
+  },
+  {
+    "id": "cheesecake",
+    "name": "Cheesecake (chocolate)",
+    "unit": "pc",
+    "unitLabel": "1 slice · 175 g",
+    "gramsPerUnit": 175,
+    "kcal": 690,
+    "protein": 10.0,
+    "carbs": 62.2,
+    "fat": 45.7,
+    "per100g": {
+      "kcal": 394.0,
+      "protein": 5.72,
+      "carbs": 35.52,
+      "fat": 26.14
+    },
+    "source": "USDA FDC 2707863 (FNDDS 2021-2023) Cheesecake, chocolate. Portion: 1 piece/slice, any size.",
+    "confidence": "high"
+  },
+  {
+    "id": "almonds",
+    "name": "Almonds",
+    "unit": "serving",
+    "unitLabel": "1 handful · 28 g",
+    "gramsPerUnit": 28.35,
+    "kcal": 172,
+    "protein": 5.8,
+    "carbs": 5.8,
+    "fat": 15.3,
+    "per100g": {
+      "kcal": 607.0,
+      "protein": 20.33,
+      "carbs": 20.38,
+      "fat": 53.96
+    },
+    "source": "USDA FDC 2707489 (FNDDS 2021-2023) Almonds, unsalted. Portion: 1 oz.",
+    "confidence": "high"
+  },
+  {
+    "id": "walnuts",
+    "name": "Walnuts",
+    "unit": "serving",
+    "unitLabel": "1 handful · 28 g",
+    "gramsPerUnit": 28.35,
+    "kcal": 207,
+    "protein": 4.1,
+    "carbs": 3.1,
+    "fat": 19.8,
+    "per100g": {
+      "kcal": 730.0,
+      "protein": 14.56,
+      "carbs": 10.91,
+      "fat": 69.74
+    },
+    "source": "USDA FDC 2707531 (FNDDS 2021-2023) Walnuts, excluding honey roasted. Portion: 1 oz.",
+    "confidence": "high"
+  },
+  {
+    "id": "cashews",
+    "name": "Cashews",
+    "unit": "serving",
+    "unitLabel": "1 handful · 28 g",
+    "gramsPerUnit": 28.35,
+    "kcal": 163,
+    "protein": 4.3,
+    "carbs": 9.3,
+    "fat": 13.1,
+    "per100g": {
+      "kcal": 574.0,
+      "protein": 15.31,
+      "carbs": 32.69,
+      "fat": 46.35
+    },
+    "source": "USDA FDC 2707493 (FNDDS 2021-2023) Cashews, NFS. Portion: 1 oz.",
+    "confidence": "medium"
+  },
+  {
+    "id": "mixed-nuts",
+    "name": "Mixed nuts",
+    "unit": "serving",
+    "unitLabel": "1 handful · 28 g",
+    "gramsPerUnit": 28,
+    "kcal": 171,
+    "protein": 5.5,
+    "carbs": 5.9,
+    "fat": 15.1,
+    "per100g": {
+      "kcal": 610.0,
+      "protein": 19.59,
+      "carbs": 20.9,
+      "fat": 53.82
+    },
+    "source": "USDA FDC 2707504 (FNDDS 2021-2023) Mixed nuts, NFS. Portion: Quantity not specified.",
+    "confidence": "medium"
+  },
+  {
+    "id": "olive-oil",
+    "name": "Olive oil",
+    "unit": "tbsp",
+    "unitLabel": "1 tbsp · 14 g",
+    "gramsPerUnit": 14,
+    "kcal": 126,
+    "protein": 0.0,
+    "carbs": 0.0,
+    "fat": 14.0,
+    "per100g": {
+      "kcal": 900.0,
+      "protein": 0.0,
+      "carbs": 0.0,
+      "fat": 100.0
+    },
+    "source": "USDA FDC 2710186 (FNDDS 2021-2023) Olive oil. Portion: 1 tablespoon.",
+    "confidence": "high"
+  },
+  {
+    "id": "mayonnaise",
+    "name": "Mayonnaise",
+    "unit": "tbsp",
+    "unitLabel": "1 tbsp · 14 g",
+    "gramsPerUnit": 14,
+    "kcal": 95,
+    "protein": 0.1,
+    "carbs": 0.1,
+    "fat": 10.5,
+    "per100g": {
+      "kcal": 680.0,
+      "protein": 0.96,
+      "carbs": 0.57,
+      "fat": 74.85
+    },
+    "source": "USDA FDC 2710204 (FNDDS 2021-2023) Mayonnaise, regular. Portion: Guideline amount on regular sandwich.",
+    "confidence": "high"
+  },
+  {
+    "id": "honey",
+    "name": "Honey",
+    "unit": "tbsp",
+    "unitLabel": "1 tbsp · 20 g",
+    "gramsPerUnit": 20,
+    "kcal": 61,
+    "protein": 0.1,
+    "carbs": 16.5,
+    "fat": 0.0,
+    "per100g": {
+      "kcal": 304.0,
+      "protein": 0.3,
+      "carbs": 82.4,
+      "fat": 0.0
+    },
+    "source": "USDA FDC 2710281 (FNDDS 2021-2023) Honey. Portion: 1 tablespoon.",
+    "confidence": "high"
+  },
+  {
+    "id": "jam",
+    "name": "Jam",
+    "unit": "tbsp",
+    "unitLabel": "1 tbsp · 20 g",
+    "gramsPerUnit": 20,
+    "kcal": 56,
+    "protein": 0.1,
+    "carbs": 13.8,
+    "fat": 0.0,
+    "per100g": {
+      "kcal": 278.0,
+      "protein": 0.37,
+      "carbs": 68.86,
+      "fat": 0.07
+    },
+    "source": "USDA FDC 2710301 (FNDDS 2021-2023) Jam. Portion: 1 tablespoon.",
+    "confidence": "high"
+  },
+  {
+    "id": "ketchup",
+    "name": "Ketchup",
+    "unit": "tbsp",
+    "unitLabel": "1 tbsp · 17 g",
+    "gramsPerUnit": 17,
+    "kcal": 19,
+    "protein": 0.2,
+    "carbs": 4.6,
+    "fat": 0.1,
+    "per100g": {
+      "kcal": 109.0,
+      "protein": 1.08,
+      "carbs": 27.1,
+      "fat": 0.32
+    },
+    "source": "USDA FDC 2709733 (FNDDS 2021-2023) Ketchup. Portion: 1 tablespoon.",
+    "confidence": "high"
+  },
+  {
+    "id": "orange-juice",
+    "name": "Orange juice",
+    "unit": "glass",
+    "unitLabel": "1 cup · 248 g",
+    "gramsPerUnit": 248,
+    "kcal": 117,
+    "protein": 1.9,
+    "carbs": 25.2,
+    "fat": 0.8,
+    "per100g": {
+      "kcal": 47.0,
+      "protein": 0.77,
+      "carbs": 10.17,
+      "fat": 0.34
+    },
+    "source": "USDA FDC 2709186 (FNDDS 2021-2023) Orange juice, 100%, NFS. Portion: Quantity not specified (1 cup).",
+    "confidence": "medium"
+  },
+  {
+    "id": "apple-juice",
+    "name": "Apple juice",
+    "unit": "glass",
+    "unitLabel": "1 cup · 248 g",
+    "gramsPerUnit": 248,
+    "kcal": 119,
+    "protein": 0.2,
+    "carbs": 28.1,
+    "fat": 0.6,
+    "per100g": {
+      "kcal": 48.0,
+      "protein": 0.09,
+      "carbs": 11.34,
+      "fat": 0.25
+    },
+    "source": "USDA FDC 2709320 (FNDDS 2021-2023) Apple juice, 100%. Portion: Quantity not specified (1 cup).",
+    "confidence": "high"
+  },
+  {
+    "id": "latte",
+    "name": "Latte",
+    "unit": "cup",
+    "unitLabel": "1 small (12 fl oz) · 360 g",
+    "gramsPerUnit": 360,
+    "kcal": 155,
+    "protein": 10.1,
+    "carbs": 15.7,
+    "fat": 5.8,
+    "per100g": {
+      "kcal": 43.0,
+      "protein": 2.81,
+      "carbs": 4.35,
+      "fat": 1.61
+    },
+    "source": "USDA FDC 2710386 (FNDDS 2021-2023) Coffee, Latte. Portion: 1 small.",
+    "confidence": "high"
+  },
+  {
+    "id": "cappuccino",
+    "name": "Cappuccino",
+    "unit": "cup",
+    "unitLabel": "1 small (12 fl oz) · 360 g",
+    "gramsPerUnit": 360,
+    "kcal": 97,
+    "protein": 6.2,
+    "carbs": 9.9,
+    "fat": 3.6,
+    "per100g": {
+      "kcal": 27.0,
+      "protein": 1.71,
+      "carbs": 2.75,
+      "fat": 0.99
+    },
+    "source": "USDA FDC 2710472 (FNDDS 2021-2023) Coffee, Cappuccino. Portion: 1 small.",
+    "confidence": "high"
+  },
+  {
+    "id": "beer",
+    "name": "Beer",
+    "unit": "glass",
+    "unitLabel": "1 can (12 fl oz) · 360 g",
+    "gramsPerUnit": 360,
+    "kcal": 155,
+    "protein": 1.7,
+    "carbs": 12.8,
+    "fat": 0.0,
+    "per100g": {
+      "kcal": 43.0,
+      "protein": 0.46,
+      "carbs": 3.55,
+      "fat": 0.0
+    },
+    "source": "USDA FDC 2710616 (FNDDS 2021-2023) Beer. Portion: 1 can or bottle (12 fl oz).",
+    "confidence": "high"
+  },
+  {
+    "id": "red-wine",
+    "name": "Red wine",
+    "unit": "glass",
+    "unitLabel": "1 glass · 180 g",
+    "gramsPerUnit": 180,
+    "kcal": 153,
+    "protein": 0.1,
+    "carbs": 4.7,
+    "fat": 0.0,
+    "per100g": {
+      "kcal": 85.0,
+      "protein": 0.07,
+      "carbs": 2.61,
+      "fat": 0.0
+    },
+    "source": "USDA FDC 2710688 (FNDDS 2021-2023) Wine, red. Portion: 1 glass.",
+    "confidence": "high"
+  },
+  {
+    "id": "sports-drink",
+    "name": "Sports drink",
+    "unit": "glass",
+    "unitLabel": "1 bottle (20 fl oz) · 620 g",
+    "gramsPerUnit": 620,
+    "kcal": 161,
+    "protein": 0.0,
+    "carbs": 39.9,
+    "fat": 0.0,
+    "per100g": {
+      "kcal": 26.0,
+      "protein": 0.0,
+      "carbs": 6.43,
+      "fat": 0.0
+    },
+    "source": "USDA FDC 2710771 (FNDDS 2021-2023) Sports drink, NFS. Portion: 1 bottle (20 fl oz).",
+    "confidence": "medium"
+  },
+  {
+    "id": "energy-drink",
+    "name": "Energy drink",
+    "unit": "glass",
+    "unitLabel": "1 can (16 fl oz) · 496 g",
+    "gramsPerUnit": 496,
+    "kcal": 213,
+    "protein": 2.3,
+    "carbs": 50.7,
+    "fat": 0.0,
+    "per100g": {
+      "kcal": 43.0,
+      "protein": 0.46,
+      "carbs": 10.23,
+      "fat": 0.0
+    },
+    "source": "USDA FDC 2710756 (FNDDS 2021-2023) Energy Drink. Portion: Quantity not specified.",
+    "confidence": "high"
+  },
+  {
+    "id": "fruit-smoothie",
+    "name": "Fruit smoothie",
+    "unit": "glass",
+    "unitLabel": "1 small · 540 g",
+    "gramsPerUnit": 540,
+    "kcal": 356,
+    "protein": 12.5,
+    "carbs": 64.7,
+    "fat": 5.9,
+    "per100g": {
+      "kcal": 66.0,
+      "protein": 2.32,
+      "carbs": 11.98,
+      "fat": 1.1
+    },
+    "source": "USDA FDC 2705513 (FNDDS 2021-2023) Fruit smoothie, NFS. Portion: 1 small.",
+    "confidence": "medium"
+  }
+]

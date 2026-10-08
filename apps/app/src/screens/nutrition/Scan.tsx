@@ -22,7 +22,7 @@ import { success, thud } from '@/platform/haptics'
 import { isDemoBuild } from '@/platform/native'
 import { getApiKey } from '@/platform/secrets'
 import { savePhoto } from '@/platform/storage'
-import { useNutrition, useSettings } from '@/stores'
+import { useNutrition, useProfile, useSettings } from '@/stores'
 
 type Phase = 'camera' | 'nocamera' | 'analysing' | 'result' | 'error'
 
@@ -133,6 +133,7 @@ export function ScanScreen() {
         imageBase64: dataUrl.split(',')[1] ?? '',
         mime: 'image/jpeg',
         slot,
+        cuisine: useProfile.getState().cuisine,
       }),
     )
     if (r.ok) {
@@ -409,7 +410,7 @@ export function ScanScreen() {
             }}
           />
           {hasKey
-            ? 'Gemini Vision · Indian cuisine'
+            ? 'Gemini Vision · any cuisine'
             : isDemoBuild
               ? 'Demo · sample results'
               : 'Add a Gemini key to scan'}

@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
   bmr,
+  byCuisine,
+  frequentIds,
   computeTargets,
   dayTotals,
   FOOD_BY_ID,
@@ -28,10 +30,13 @@ const atul = {
 }
 
 describe('food table', () => {
-  it('has about 150 foods with unique ids and sane values', () => {
-    expect(FOODS.length).toBeGreaterThanOrEqual(150)
+  it('has 300+ foods with unique ids and sane values', () => {
+    expect(FOODS.length).toBeGreaterThanOrEqual(300)
     expect(new Set(FOODS.map((f) => f.id)).size).toBe(FOODS.length)
+    // Alcohol (7 kcal/g) carries energy that protein, carbs and fat do not explain.
+    const alcoholic = new Set(['beer', 'red-wine'])
     for (const f of FOODS) {
+      if (alcoholic.has(f.id)) continue
       const fromMacros = f.protein * 4 + f.carbs * 4 + f.fat * 9
       // Macros should roughly explain the calories (fibre and rounding leave some slack).
       expect(Math.abs(fromMacros - f.kcal), f.id).toBeLessThan(Math.max(35, f.kcal * 0.2))
@@ -153,5 +158,29 @@ describe('weight trend and weekly check-in', () => {
     const slow = weeklyAdjustment(0, -0.36)
     expect(slow.kcal).toBeLessThan(0)
     expect(slow.kcal).toBeGreaterThanOrEqual(-150)
+  })
+})
+
+describe('global foods', () => {
+  it('matches common non-Indian dishes to the table', () => {
+    expect(matchFood('cheeseburger')?.food.id).toBe('cheeseburger')
+    expect(matchFood('pad thai')?.food.id).toBe('pad-thai')
+    expect(matchFood('hummus')?.food.id).toBe('hummus')
+    expect(matchFood('scrambled eggs')?.food.id).toBe('scrambled-eggs')
+  })
+
+  it('every global food exists and frequent lists follow the cuisine', () => {
+    for (const id of frequentIds('global')) expect(FOOD_BY_ID[id], id).toBeDefined()
+    expect(frequentIds('indian')[0]).toBe('roti')
+    expect(frequentIds('global')[0]).toBe('scrambled-eggs')
+    const both = frequentIds('both')
+    expect(both.slice(0, 2)).toEqual(['roti', 'scrambled-eggs'])
+    expect(new Set(both).size).toBe(both.length)
+  })
+
+  it('orders but never hides foods by cuisine', () => {
+    const list = [FOOD_BY_ID.roti, FOOD_BY_ID.bagel, FOOD_BY_ID.dosa]
+    expect(byCuisine(list, 'global').map((f) => f.id)).toEqual(['bagel', 'roti', 'dosa'])
+    expect(byCuisine(list, 'both')).toBe(list)
   })
 })

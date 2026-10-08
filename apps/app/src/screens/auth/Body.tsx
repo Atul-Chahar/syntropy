@@ -3,6 +3,7 @@
 import { ACTIVITY_LABEL, type Activity, bmr } from '@syntropy/nutrition'
 import { Callout, PillButton, Segmented, Switch, TileStepper } from '@syntropy/ui'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { bodyW, fmtHeight, toKg, wUnit } from '@/lib/units'
 import { useProfile, useTraining } from '@/stores'
 import { AuthPage, bottomClass, StepHeader } from './parts'
 
@@ -81,23 +82,24 @@ export function BodyScreen() {
             display={`${p.age}`}
           />
           <TileStepper
-            kicker="HEIGHT · CM"
+            kicker={p.units === 'imperial' ? 'HEIGHT · FT IN' : 'HEIGHT · CM'}
             label="Height"
-            value={p.heightCm}
-            min={130}
-            max={220}
-            onChange={(heightCm) => p.set({ heightCm })}
+            value={p.units === 'imperial' ? Math.round(p.heightCm / 2.54) : p.heightCm}
+            min={p.units === 'imperial' ? 51 : 130}
+            max={p.units === 'imperial' ? 87 : 220}
+            onChange={(v) => p.set({ heightCm: p.units === 'imperial' ? Math.round(v * 2.54) : v })}
+            display={p.units === 'imperial' ? fmtHeight(p.heightCm, 'imperial') : undefined}
           />
           <div style={{ gridColumn: '1 / -1' }}>
             <TileStepper
-              kicker="WEIGHT · KG"
+              kicker={`WEIGHT · ${wUnit(p.units).toUpperCase()}`}
               label="Weight"
-              value={p.weightKg}
-              min={35}
-              max={200}
-              step={0.5}
-              onChange={(weightKg) => p.set({ weightKg })}
-              display={p.weightKg.toFixed(1)}
+              value={Math.round(bodyW(p.weightKg, p.units) * 10) / 10}
+              min={Math.round(bodyW(35, p.units))}
+              max={Math.round(bodyW(200, p.units))}
+              step={p.units === 'imperial' ? 1 : 0.5}
+              onChange={(v) => p.set({ weightKg: Math.round(toKg(v, p.units) * 10) / 10 })}
+              display={bodyW(p.weightKg, p.units).toFixed(1)}
             />
           </div>
         </div>

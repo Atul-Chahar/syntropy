@@ -263,6 +263,14 @@ describe('meal analysis', () => {
       ['rice', 0.5],
     ])
   })
+  it('reads global foods and units offline', () => {
+    const items = parseFoodTextLocally('a slice of pepperoni pizza and a latte, 2 scrambled eggs')
+    expect(items.map((i) => [i.foodId, i.qty])).toEqual([
+      ['pizza-pepperoni', 1],
+      ['latte', 1],
+      ['scrambled-eggs', 2],
+    ])
+  })
 })
 
 describe('coach', () => {

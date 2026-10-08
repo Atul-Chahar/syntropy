@@ -27,6 +27,7 @@ type Range = 'today' | 'd7' | 'd30' | 'd90'
 export function HomeScreen() {
   const name = useProfile((p) => p.name)
   const diet = useProfile((p) => p.diet)
+  const cuisine = useProfile((p) => p.cuisine)
   const S = useTraining((s) => s.S)
   const meals = useNutrition((s) => s.meals)
   const checkins = useGoal((g) => g.checkins)
@@ -83,7 +84,7 @@ export function HomeScreen() {
   const insight = boost
     ? `Heavy leg session yesterday. Carbohydrate target raised by ${boost} g to support recovery.`
     : t.training
-      ? `Training day: ${fmt(t.dt.kcal)} kcal target. ${proteinLeft > 5 ? `${Math.round(proteinLeft)} g protein to go — ${proteinIdea(diet)}.` : 'Protein is covered. Nicely done.'}`
+      ? `Training day: ${fmt(t.dt.kcal)} kcal target. ${proteinLeft > 5 ? `${Math.round(proteinLeft)} g protein to go — ${proteinIdea(diet, cuisine)}.` : 'Protein is covered. Nicely done.'}`
       : `Rest day: a little lower on carbs. ${proteinLeft > 5 ? `${Math.round(proteinLeft)} g protein still to go.` : 'Protein is covered.'}`
 
   return (

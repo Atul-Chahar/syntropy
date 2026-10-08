@@ -16,6 +16,7 @@ import { useMemo, useState } from 'react'
 import { BottomBar, Header } from '@/components/BottomBar'
 import { addDays, fmt, parseIso, shortDate, today } from '@/lib/dates'
 import { targetsFor } from '@/lib/summary'
+import { fmtBodyW } from '@/lib/units'
 import { success, tap } from '@/platform/haptics'
 import { toast, useGoal, useNutrition, useProfile, useTraining } from '@/stores'
 
@@ -24,15 +25,18 @@ const ORDER: GoalType[] = ['cut', 'recomp', 'gain', 'maintain']
 const kicker = { fontSize: 10.5, letterSpacing: '0.06em', color: 'rgba(243,241,236,0.5)' }
 const sub = { fontSize: 11.5, color: 'rgba(243,241,236,0.58)' }
 
+/** Body weight in the user's display unit ("72.4 kg" or "159.6 lb"). */
+const showKg = (kg: number, d = 1) => fmtBodyW(kg, useProfile.getState().units, d)
+
 function paceLine(t: Targets): string {
-  const kg = Math.abs(t.rateKgPerWeek).toFixed(2)
+  const kg = showKg(Math.abs(t.rateKgPerWeek), 2)
   if (t.floored && (t.type === 'cut' || t.type === 'gain'))
-    return `${t.type === 'cut' ? '−' : '+'}${kg} kg / week · limited by the safety floor`
-  if (t.type === 'cut') return `−${kg} kg / week · ${PACE_RATE.cut[t.pace] * 100}% of body weight`
+    return `${t.type === 'cut' ? '−' : '+'}${kg} / week · limited by the safety floor`
+  if (t.type === 'cut') return `−${kg} / week · ${PACE_RATE.cut[t.pace] * 100}% of body weight`
   if (t.type === 'gain')
-    return `+${kg} kg / week · ${Math.round(PACE_RATE.gain[t.pace] * 4.345 * 1000) / 10}% a month`
+    return `+${kg} / week · ${Math.round(PACE_RATE.gain[t.pace] * 4.345 * 1000) / 10}% a month`
   if (t.type === 'recomp') return 'Small deficit, high protein. Weight stays, waist goes down.'
-  return 'Eat at maintenance. Weight holds within about ±1 kg.'
+  return `Eat at maintenance. Weight holds within about ±${showKg(1, 0)}.`
 }
 
 function maintenanceNote(t: Targets): string {
@@ -90,7 +94,7 @@ function Projection({ t, now }: { t: Targets; now: number }) {
         : (t.rateKgPerWeek < 0 ? observed < t.rateKgPerWeek : observed > t.rateKgPerWeek)
           ? 'faster than plan'
           : 'slower than plan'
-    status = `Your trend: ${sign}${Math.abs(observed).toFixed(2)} kg / week · ${label}`
+    status = `Your trend: ${sign}${showKg(Math.abs(observed), 2)} / week · ${label}`
   }
 
   return (
@@ -122,7 +126,7 @@ function Projection({ t, now }: { t: Targets; now: number }) {
         viewBox={`0 0 ${W} ${H}`}
         width="100%"
         role="img"
-        aria-label={`Planned path from ${now.toFixed(1)} to ${t.targetWeightKg.toFixed(1)} kg`}
+        aria-label={`Planned path from ${showKg(now)} to ${showKg(t.targetWeightKg)}`}
       >
         <line
           x1="8"
@@ -196,14 +200,14 @@ export function GoalScreen() {
     router.replace(onboarding ? '/onboarding/training/' : '/food/')
   }
 
-  let targetTitle = `${t.targetWeightKg.toFixed(1)} kg`
+  let targetTitle = showKg(t.targetWeightKg)
   let targetSub = t.weeks ? `by ${shortDate(addDays(today(), t.weeks * 7))} · ${t.weeks} wk` : ''
   if (type === 'recomp') {
     targetTitle = 'Same weight'
     targetSub = 'Less fat, more muscle'
   } else if (type === 'maintain') {
-    targetTitle = `${nowKg.toFixed(1)} kg`
-    targetSub = 'Hold within ±1 kg'
+    targetTitle = showKg(nowKg)
+    targetSub = `Hold within ±${showKg(1, 0)}`
   }
 
   return (
@@ -247,7 +251,7 @@ export function GoalScreen() {
               NOW
             </span>
             <span style={{ fontSize: 20, fontWeight: 300, letterSpacing: '-0.03em' }}>
-              {nowKg.toFixed(1)} kg
+              {showKg(nowKg)}
             </span>
             <span style={sub}>
               {t.bodyFatEstimated ? '~' : ''}
@@ -312,7 +316,7 @@ export function GoalScreen() {
         >
           {[
             ['BODY FAT', `${t.bodyFatEstimated ? '~' : ''}${Math.round(t.bodyFatPct)}%`],
-            ['LEAN MASS', `${t.leanKg.toFixed(1)} kg`],
+            ['LEAN MASS', showKg(t.leanKg)],
             ['FFMI', t.ffmi.toFixed(1)],
           ].map(([k, v]) => (
             <div key={k} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -534,7 +538,7 @@ export function GoalScreen() {
             ? ` Your goal ${t.deltaKcal < 0 ? 'takes' : 'adds'} ${fmt(Math.abs(t.deltaKcal))} kcal a day.`
             : ''}
           {t.floored
-            ? ` Calories are held at your resting energy (${fmt(t.kcalRest)} kcal) for safety, so the real pace is ${Math.abs(t.rateKgPerWeek).toFixed(2)} kg a week.`
+            ? ` Calories are held at your resting energy (${fmt(t.kcalRest)} kcal) for safety, so the real pace is ${showKg(Math.abs(t.rateKgPerWeek), 2)} a week.`
             : ''}
         </Callout>
         <span className="sy-mono" style={{ ...kicker, fontSize: 9.5, lineHeight: 1.5 }}>

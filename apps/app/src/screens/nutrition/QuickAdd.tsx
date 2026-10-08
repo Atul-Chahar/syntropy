@@ -2,10 +2,11 @@
 
 import { parseFoodText, parseFoodTextLocally } from '@syntropy/ai'
 import {
+  byCuisine,
   FOOD_BY_ID,
   FOODS,
   type Food,
-  FREQUENT_IDS,
+  frequentIds,
   itemFromFood,
   type MealItem,
   type MealSlot,
@@ -20,10 +21,11 @@ import { useMemo, useState } from 'react'
 import { ModalHeader } from '@/components/BottomBar'
 import { aiToast, gemini, withAi } from '@/lib/ai'
 import { today } from '@/lib/dates'
+import { fmtFoodLabel, useUnits } from '@/lib/units'
 import { success, tap } from '@/platform/haptics'
-import { toast, useNutrition, useSettings } from '@/stores'
+import { toast, useNutrition, useProfile, useSettings } from '@/stores'
 
-type Tab = 'frequent' | 'indian' | 'recent' | 'mine'
+type Tab = 'frequent' | 'indian' | 'global' | 'recent' | 'mine'
 
 export function QuickAddScreen() {
   const router = useRouter()
@@ -35,6 +37,8 @@ export function QuickAddScreen() {
   const custom = useNutrition((s) => s.customFoods)
   const addItems = useNutrition((s) => s.addItems)
   const models = useSettings((s) => s.models)
+  const cuisine = useProfile((p) => p.cuisine)
+  const units = useUnits()
   const [text, setText] = useState('')
   const [tab, setTab] = useState<Tab>('frequent')
   const [counts, setCounts] = useState<Record<string, number>>({})
@@ -47,13 +51,15 @@ export function QuickAddScreen() {
     [custom],
   )
   const list: Food[] = useMemo(() => {
-    if (text.trim().length >= 2) return searchFoods(text, [...custom, ...FOODS], 20)
-    if (tab === 'frequent') return FREQUENT_IDS.map((id) => byId[id]).filter(Boolean)
+    if (text.trim().length >= 2)
+      return byCuisine(searchFoods(text, [...custom, ...FOODS], 30), cuisine).slice(0, 20)
+    const frequent = frequentIds(cuisine)
+    if (tab === 'frequent') return frequent.map((id) => byId[id]).filter(Boolean)
     if (tab === 'recent')
-      return (recent.length ? recent : FREQUENT_IDS).map((id) => byId[id]).filter(Boolean)
+      return (recent.length ? recent : frequent).map((id) => byId[id]).filter(Boolean)
     if (tab === 'mine') return custom
-    return FOODS.filter((f) => f.cuisine === 'indian')
-  }, [text, tab, recent, custom, byId])
+    return FOODS.filter((f) => f.cuisine === tab)
+  }, [text, tab, recent, custom, byId, cuisine])
 
   const existing =
     slot === 'extra' ? undefined : meals.find((m) => m.date === date && m.slot === slot)
@@ -74,7 +80,7 @@ export function QuickAddScreen() {
     const t = text.trim()
     if (!t) return
     setBusy(true)
-    const r = await withAi(() => parseFoodText(gemini, { model: models.text, text: t }))
+    const r = await withAi(() => parseFoodText(gemini, { model: models.text, text: t, cuisine }))
     let found: MealItem[] = r.ok ? r.value : []
     if (!r.ok) {
       found = parseFoodTextLocally(t)
@@ -82,9 +88,12 @@ export function QuickAddScreen() {
     }
     setBusy(false)
     if (!found.length)
-      return toast('Could not find foods in that sentence. Try “2 roti and a katori dal”.', {
-        icon: 'sparkle',
-      })
+      return toast(
+        `Could not find foods in that sentence. Try “${cuisine === 'global' ? '2 eggs and a slice of toast' : '2 roti and a katori dal'}”.`,
+        {
+          icon: 'sparkle',
+        },
+      )
     // Table foods go into the steppers; anything else stays as its own row.
     const next = { ...counts }
     const rest: MealItem[] = []
@@ -149,7 +158,11 @@ export function QuickAddScreen() {
             enterKeyHint="done"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="“2 more roti and a katori of dahi”"
+            placeholder={
+              cuisine === 'global'
+                ? '“a slice of pizza and a latte”'
+                : '“2 more roti and a katori of dahi”'
+            }
             style={{
               flexGrow: 1,
               minWidth: 0,
@@ -194,7 +207,15 @@ export function QuickAddScreen() {
         {(
           [
             ['frequent', 'Frequent'],
-            ['indian', 'Indian'],
+            ...(cuisine === 'global'
+              ? [
+                  ['global', 'Global'],
+                  ['indian', 'Indian'],
+                ]
+              : [
+                  ['indian', 'Indian'],
+                  ['global', 'Global'],
+                ]),
             ['recent', 'Recent'],
             ['mine', 'My foods'],
           ] as [Tab, string][]
@@ -305,7 +326,7 @@ export function QuickAddScreen() {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  {f.unitLabel} · {f.kcal} kcal
+                  {fmtFoodLabel(f.unitLabel, units)} · {f.kcal} kcal
                 </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -479,7 +500,7 @@ function CreateFoodSheet({
           onClick={() => {
             const f = addCustomFood({
               name: v.name.trim(),
-              cuisine: 'indian',
+              cuisine: useProfile.getState().cuisine === 'global' ? 'global' : 'indian',
               category: 'snack',
               unit: 'serving',
               unitLabel: v.unitLabel || '1 serving',

@@ -5,7 +5,7 @@ import { effectiveRoutines } from '@syntropy/core/history'
 import {
   dayTotals,
   FOOD_BY_ID,
-  FREQUENT_IDS,
+  frequentIds,
   GOAL_INFO,
   mealTotals,
   SLOT_LABEL,
@@ -43,7 +43,7 @@ export function buildCoachContext(): CoachContext {
   const weekMeals = week.map((d) => meals.filter((m) => m.date === d)).filter((x) => x.length)
   const wk = weekMeals.map(dayTotals)
   const lastW = S.bodyweight[S.bodyweight.length - 1]
-  const ids = [...new Set([...recent, ...FREQUENT_IDS])].slice(0, 20)
+  const ids = [...new Set([...recent, ...frequentIds(p.cuisine)])].slice(0, 20)
   return {
     today: t,
     profile: {
@@ -55,6 +55,8 @@ export function buildCoachContext(): CoachContext {
       goal: GOAL_INFO[g.type].name,
       pace: g.pace,
       diet: p.diet ?? undefined,
+      cuisine: p.cuisine,
+      units: p.units,
       avoidFoods: p.avoidFoods.length ? p.avoidFoods : undefined,
       training: p.trainingDone
         ? {

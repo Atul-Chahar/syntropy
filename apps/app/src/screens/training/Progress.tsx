@@ -21,6 +21,7 @@ import { PhotoPrompt } from '@/components/PhotoPrompt'
 import { addDays, fmt, shortDate, today } from '@/lib/dates'
 import { useProgressPhotos, weightNear } from '@/lib/photos'
 import { useToday, windowAverages } from '@/lib/summary'
+import { bodyW, fmtBodyW, toKg, useUnits, wUnit } from '@/lib/units'
 import { success } from '@/platform/haptics'
 import { loadPhoto } from '@/platform/storage'
 import { toast, useNutrition, useTraining } from '@/stores'
@@ -47,6 +48,7 @@ function smooth(pts: [number, number][]) {
 }
 
 function Photo({ id, w, d, day1 }: { id?: string; w: number | null; d: string; day1?: boolean }) {
+  const units = useUnits()
   const [src, setSrc] = useState<string | null>(null)
   useEffect(() => {
     if (id) void loadPhoto(id).then(setSrc)
@@ -119,7 +121,7 @@ function Photo({ id, w, d, day1 }: { id?: string; w: number | null; d: string; d
           textShadow: '0 1px 6px rgba(0,0,0,0.6)',
         }}
       >
-        {w != null ? <span style={{ fontSize: 13 }}>{w.toFixed(1)} kg</span> : null}
+        {w != null ? <span style={{ fontSize: 13 }}>{fmtBodyW(w, units)}</span> : null}
         <span className="sy-mono" style={{ fontSize: 10, color: 'rgba(243,241,236,0.7)' }}>
           {day1 ? 'DAY 1' : shortDate(d).toUpperCase()}
         </span>
@@ -138,6 +140,7 @@ export function ProgressScreen() {
   const [open, setOpen] = useState(false)
   const last = S.bodyweight[S.bodyweight.length - 1]
   const [w, setW] = useState(last?.w ?? 72)
+  const units = useUnits()
   const photos = useProgressPhotos()
 
   const chart = useMemo(() => {
@@ -237,9 +240,9 @@ export function ProgressScreen() {
         >
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
             <span className="sy-dot" style={{ fontSize: 56, lineHeight: 0.9 }}>
-              {(chart?.current ?? last?.w ?? 0).toFixed(1)}
+              {bodyW(chart?.current ?? last?.w ?? 0, units).toFixed(1)}
             </span>
-            <span style={{ fontSize: 15, color: 'rgba(243,241,236,0.62)' }}>kg</span>
+            <span style={{ fontSize: 15, color: 'rgba(243,241,236,0.62)' }}>{wUnit(units)}</span>
           </div>
           {chart ? (
             <span
@@ -255,7 +258,7 @@ export function ProgressScreen() {
               }}
             >
               {chart.delta > 0 ? '+' : '−'}
-              {Math.abs(chart.delta).toFixed(1)} kg · {range.slice(1).toUpperCase()}D
+              {fmtBodyW(Math.abs(chart.delta), units)} · {range.slice(1).toUpperCase()}D
             </span>
           ) : null}
         </div>
@@ -422,14 +425,14 @@ export function ProgressScreen() {
       <BottomSheet open={open} onClose={() => setOpen(false)} title="Weigh-in">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <TileStepper
-            kicker="WEIGHT · KG"
+            kicker={`WEIGHT · ${wUnit(units).toUpperCase()}`}
             label="weight"
-            value={w}
-            step={0.1}
-            min={30}
-            max={250}
-            onChange={setW}
-            display={w.toFixed(1)}
+            value={Math.round(bodyW(w, units) * 10) / 10}
+            step={units === 'imperial' ? 0.2 : 0.1}
+            min={Math.round(bodyW(30, units))}
+            max={Math.round(bodyW(250, units))}
+            onChange={(v) => setW(toKg(v, units))}
+            display={bodyW(w, units).toFixed(1)}
           />
           <PillButton
             variant="glass"

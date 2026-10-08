@@ -15,8 +15,9 @@ import { type KeyboardEvent, type PointerEvent, useEffect, useRef, useState } fr
 import { BottomBar, Header } from '@/components/BottomBar'
 import { addDays, daysBetween, shortDate, today } from '@/lib/dates'
 import { PHOTO_EVERY, POSES, useProgressPhotos, weightNear } from '@/lib/photos'
+import { fmtBodyW } from '@/lib/units'
 import { deletePhoto, loadPhoto } from '@/platform/storage'
-import { type Pose, type ProgressPhoto, toast, usePhotos, useTraining } from '@/stores'
+import { type Pose, type ProgressPhoto, toast, usePhotos, useProfile, useTraining } from '@/stores'
 
 function usePhotoSrc(id?: string) {
   const [src, setSrc] = useState<string | null>(null)
@@ -302,7 +303,9 @@ export function PhotoCompareScreen() {
   const dayOf = (d: string) => (first ? daysBetween(first.d, d) + 1 : 1)
   const wLabel = (d: string) => {
     const w = weightNear(bodyweight, d)
-    return w != null ? `${shortDate(d)} · ${w.toFixed(1)} kg` : shortDate(d)
+    return w != null
+      ? `${shortDate(d)} · ${fmtBodyW(w, useProfile.getState().units)}`
+      : shortDate(d)
   }
   const w0 = first ? weightNear(bodyweight, first.d) : null
   const w1 = after ? weightNear(bodyweight, after.d) : null

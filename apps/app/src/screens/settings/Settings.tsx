@@ -18,6 +18,7 @@ import { Avatar, squareImage } from '@/components/Avatar'
 import { ModalHeader } from '@/components/BottomBar'
 import { GYM_PRESETS } from '@/lib/plan'
 import { loadSeed } from '@/lib/seed'
+import { fmtHeight } from '@/lib/units'
 import { biometryAvailable, unlock } from '@/platform/biometric'
 import { pickPhoto, takePhotoNative } from '@/platform/camera'
 import { exportJson, pickJsonFile } from '@/platform/files'
@@ -193,7 +194,7 @@ export function SettingsScreen() {
               {p.name || 'You'}
             </span>
             <span className="sy-mono" style={{ fontSize: 11, color: 'rgba(243,241,236,0.55)' }}>
-              {p.age} Y · {p.heightCm} CM · {p.sex.toUpperCase()}
+              {p.age} Y · {fmtHeight(p.heightCm, p.units).toUpperCase()} · {p.sex.toUpperCase()}
             </span>
           </span>
           <Icon name="chevronRight" size={18} style={{ color: 'rgba(243,241,236,0.5)' }} />
@@ -249,6 +250,45 @@ export function SettingsScreen() {
       </Section>
 
       <Section title="Daily">
+        <GlassCard
+          radius={22}
+          padding="12px 14px"
+          style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
+        >
+          <span style={{ fontSize: 14.5, fontWeight: 500 }}>Cuisine you eat most</span>
+          <Segmented
+            label="Cuisine you eat most"
+            value={p.cuisine}
+            onChange={(v) => p.set({ cuisine: v })}
+            fill
+            options={[
+              { value: 'indian', label: 'Indian' },
+              { value: 'global', label: 'Global' },
+              { value: 'both', label: 'Both' },
+            ]}
+            height={36}
+            fontSize={13}
+          />
+        </GlassCard>
+        <GlassCard
+          radius={22}
+          padding="12px 14px"
+          style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
+        >
+          <span style={{ fontSize: 14.5, fontWeight: 500 }}>Units</span>
+          <Segmented
+            label="Units"
+            value={p.units}
+            onChange={(v) => p.set({ units: v })}
+            fill
+            options={[
+              { value: 'metric', label: 'kg · cm · g' },
+              { value: 'imperial', label: 'lb · ft · oz' },
+            ]}
+            height={36}
+            fontSize={13}
+          />
+        </GlassCard>
         <GlassCard
           radius={22}
           padding="12px 14px"

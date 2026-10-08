@@ -47,7 +47,10 @@ export type FoodMatch = { food: Food; score: number }
 /** Best table match for a dish name, or null below the threshold. */
 export function matchFood(name: string, threshold = 0.6): FoodMatch | null {
   let best: FoodMatch | null = null
+  const q = norm(name)
   for (const it of INDEX) {
+    // A food's own name beats another food's alias ("scrambled eggs" is an alias of egg bhurji).
+    if (it.names[0] === q) return { food: it.food, score: 1 }
     const s = score(name, it.names)
     if (!best || s > best.score) best = { food: it.food, score: s }
   }

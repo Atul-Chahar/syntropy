@@ -22,6 +22,7 @@ import { addDays, monthShort, parseIso, today } from '@/lib/dates'
 import { allRecords } from '@/lib/records'
 import { muscleRows, primaryMusclesOf, trendRate } from '@/lib/summary'
 import { exTitle, mondayOf, muscleName, streakWeeks } from '@/lib/training'
+import { bodyW, fmtBodyW, useUnits, wUnit } from '@/lib/units'
 import { useTraining } from '@/stores'
 
 const MONTHS = [
@@ -137,6 +138,7 @@ export function StatsScreen() {
   const last = trend[trend.length - 1]
   const month30 = trend.find((x) => x.d >= addDays(t, -30))
   const delta = last && month30 ? last.ema - month30.ema : 0
+  const units = useUnits()
 
   const balance = useMemo(() => {
     const days = range === 'wk' ? 7 : range === 'd30' ? 30 : 90
@@ -207,8 +209,8 @@ export function StatsScreen() {
           ['Streak', streakWeeks(S), 'wk', undefined],
           [
             'Weight',
-            `${delta > 0 ? '+' : delta < 0 ? '−' : ''}${Math.abs(delta).toFixed(1)}`,
-            'kg/30d',
+            `${delta > 0 ? '+' : delta < 0 ? '−' : ''}${bodyW(Math.abs(delta), units).toFixed(1)}`,
+            `${wUnit(units)}/30d`,
             '/progress/',
           ],
         ].map(([k, v, u, href]) => (
@@ -540,7 +542,7 @@ export function StatsScreen() {
       >
         Body progress
         {trendRate(S.bodyweight) != null
-          ? ` · ${(trendRate(S.bodyweight) as number).toFixed(2)} kg / week`
+          ? ` · ${fmtBodyW(trendRate(S.bodyweight) as number, units, 2)} / week`
           : ''}
       </Link>
     </Screen>

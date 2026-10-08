@@ -1,5 +1,6 @@
 'use client'
 
+import type { CuisinePref } from '@syntropy/nutrition'
 import { PillButton, Segmented } from '@syntropy/ui'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useProfile } from '@/stores'
@@ -15,9 +16,15 @@ const DIETS: { value: Diet; title: string; sub: string }[] = [
   { value: 'jain', title: 'Jain', sub: 'Vegetarian, no root vegetables' },
 ]
 
+const CUISINES: { value: CuisinePref; title: string; sub: string }[] = [
+  { value: 'indian', title: 'Indian', sub: 'Roti, dal, sabzi, in katoris' },
+  { value: 'global', title: 'Global', sub: 'Burgers to sushi, in cups and grams' },
+  { value: 'both', title: 'Both', sub: 'A mix of the two' },
+]
+
 const AVOID = ['Dairy', 'Gluten', 'Peanuts', 'Tree nuts', 'Soy', 'Seafood']
 
-/** Eating step: diet, meals a day and foods to avoid. Shapes suggestions and the coach. */
+/** Eating step: cuisine, diet, meals a day and foods to avoid. Shapes suggestions and the coach. */
 export function EatingScreen() {
   const router = useRouter()
   const edit = useSearchParams().get('edit') === '1'
@@ -39,6 +46,25 @@ export function EatingScreen() {
           title="How you eat"
           lede="So food suggestions, protein ideas and the coach fit your plate."
         />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <Kick>CUISINE YOU EAT MOST</Kick>
+          <div
+            role="radiogroup"
+            aria-label="Cuisine you eat most"
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 8 }}
+          >
+            {CUISINES.map((c) => (
+              <OptionCard
+                key={c.value}
+                on={p.cuisine === c.value}
+                title={c.title}
+                sub={c.sub}
+                onClick={() => p.set({ cuisine: c.value })}
+              />
+            ))}
+          </div>
+        </div>
+        <Kick>DIET</Kick>
         <div
           role="radiogroup"
           aria-label="Diet"

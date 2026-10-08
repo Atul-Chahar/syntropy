@@ -1,6 +1,6 @@
 'use client'
 
-import type { Activity, Sex } from '@syntropy/nutrition'
+import type { Activity, CuisinePref, Sex } from '@syntropy/nutrition'
 import { persisted } from './persist'
 
 export interface Profile {
@@ -23,6 +23,10 @@ export interface Profile {
   diet: Diet | null
   mealsPerDay: number
   avoidFoods: string[]
+  /** The cuisine eaten most: orders food lists and steers the AI; never hides foods. */
+  cuisine: CuisinePref
+  /** Display units for body weight, height and food weights. Data is always stored metric. */
+  units: Units
   // Training setup (onboarding): drives the plan generator and training energy.
   trainingGoal: TrainingGoal
   experience: Experience
@@ -36,6 +40,7 @@ export interface Profile {
   trainingDone: boolean
 }
 
+export type Units = 'metric' | 'imperial'
 export type Diet = 'veg' | 'egg' | 'nonveg' | 'vegan' | 'jain'
 export type TrainingGoal = 'muscle' | 'strength' | 'fatloss' | 'general'
 export type Experience = 'new' | 'some' | 'experienced'
@@ -64,6 +69,8 @@ export const DEFAULT_PROFILE: Profile = {
   diet: null,
   mealsPerDay: 3,
   avoidFoods: [],
+  cuisine: 'indian',
+  units: 'metric',
   trainingGoal: 'muscle',
   experience: 'some',
   preferredDays: [],

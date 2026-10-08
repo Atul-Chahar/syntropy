@@ -1,4 +1,5 @@
 import {
+  type CuisinePref,
   FOOD_BY_ID,
   type Food,
   type MealItem,
@@ -16,7 +17,8 @@ export const MEAL_SCHEMA = {
     is_food: { type: 'boolean', description: 'false if the photo shows no food' },
     title: {
       type: 'string',
-      description: 'short name for the whole meal, e.g. "North Indian thali"',
+      description:
+        'short name for the whole meal, e.g. "North Indian thali" or "Chicken burrito bowl"',
     },
     cuisine: { type: 'string' },
     items: {
@@ -56,19 +58,27 @@ export const MEAL_SCHEMA = {
   required: ['is_food', 'items'],
 } as const
 
-const UNITS_HELP = `Units, Indian serving sizes first:
-- pc: countable pieces (roti, idli, dosa, egg, samosa, fruit). 1 medium roti ≈ 40 g.
-- katori: a 150 g bowl for dal, sabzi, rice, curd, curry. Half katori = 0.5.
-- cup: 150 ml (chai, coffee). glass: 250 ml (lassi, milk, juice).
-- plate: a full plate of one dish (pav bhaji, momos). serving: anything else, with grams.`
+const UNITS_HELP = `Units: use the one people would use for that food where it comes from.
+- pc: countable pieces (roti, idli, dosa, egg, samosa, slice of pizza or bread, burger, taco, sushi piece, fruit). 1 medium roti ≈ 40 g.
+- katori: a 150 g bowl, ONLY for Indian dishes (dal, sabzi, rice, curd, curry). Half katori = 0.5.
+- bowl: a bowl of a non-Indian dish (ramen, salad, cereal, pasta). cup: 150 ml (chai, coffee).
+- glass: 250 ml (lassi, milk, juice, smoothie). plate: a full plate of one dish (pav bhaji, pad thai).
+- serving: anything else (fries, nuggets, a fillet), with grams.`
 
-export const MEAL_SYSTEM = `You are the nutrition vision model inside Syntropy, a calm health app used mostly for Indian home food.
+/** The line that tells the models which cuisine the user mostly eats. */
+export function cuisineHint(pref?: CuisinePref): string {
+  if (pref === 'indian') return 'The user mostly eats Indian food.'
+  if (pref === 'global') return 'The user mostly eats non-Indian food.'
+  return 'The user eats Indian and non-Indian food.'
+}
+
+export const MEAL_SYSTEM = `You are the nutrition vision model inside Syntropy, a calm health app used worldwide, with deep knowledge of Indian home food.
 Identify every distinct dish on the plate or in the photo and estimate each portion.
 ${UNITS_HELP}
 Rules:
-- Name dishes the way an Indian home cook would ("Dal tadka", "Palak paneer", "Jeera rice", "Roti").
-- Count pieces carefully. Estimate katoris from the bowl size.
-- Give calories and macros for the WHOLE portion of each item (quantity included), assuming typical home oil and ghee.
+- Name each dish the way someone from that cuisine would: "Dal tadka", "Palak paneer", "Roti" for Indian food; "Chicken Caesar salad", "Pad thai", "Shawarma wrap" for others. Do not force a dish into another cuisine.
+- Count pieces carefully. Estimate katoris or bowls from the bowl size, and use package or restaurant sizes when they are visible.
+- Give calories and macros for the WHOLE portion of each item (quantity included), assuming typical home oil and ghee for home food and typical restaurant amounts for restaurant food.
 - confidence is how sure you are of the dish identity and portion, 0 to 1.
 - If there is no food, set is_food false and return no items. Never invent items you cannot see.`
 
@@ -172,7 +182,13 @@ export interface MealAnalysis {
 /** Photo → items. Throws GeminiError('blocked') with "could not read this plate" semantics. */
 export async function analyzeMealPhoto(
   gemini: Gemini,
-  input: { model: string; imageBase64: string; mime: string; slot: MealSlot },
+  input: {
+    model: string
+    imageBase64: string
+    mime: string
+    slot: MealSlot
+    cuisine?: CuisinePref
+  },
 ): Promise<MealAnalysis> {
   const t0 = Date.now()
   const raw = await gemini.generateJSON<unknown>({
@@ -185,7 +201,9 @@ export async function analyzeMealPhoto(
         role: 'user',
         parts: [
           { inline_data: { mime_type: input.mime, data: input.imageBase64 } },
-          { text: `This is my ${input.slot}. List the dishes with Indian serving units.` },
+          {
+            text: `This is my ${input.slot}. ${cuisineHint(input.cuisine)} List the dishes with the serving units that fit each one.`,
+          },
         ],
       },
     ],
@@ -201,19 +219,20 @@ export async function analyzeMealPhoto(
   }
 }
 
-export const TEXT_SYSTEM = `You turn short food descriptions into structured items for Syntropy, an Indian nutrition app.
+export const TEXT_SYSTEM = `You turn short food descriptions into structured items for Syntropy, a nutrition app used worldwide.
 ${UNITS_HELP}
 "2 more roti and a katori of dahi" → roti 2 pc, dahi 1 katori. "half plate rajma chawal" → rajma chawal 0.5 plate.
+"a slice of pepperoni pizza and a coke" → pepperoni pizza 1 pc, cola 1 glass. "200 g grilled chicken" → grilled chicken 1 serving, 200 g.
 Give calories and macros for the whole quantity. If the text has no food, return is_food false.`
 
 /** Free text ("2 more roti and a katori of dahi") → items. */
 export async function parseFoodText(
   gemini: Gemini,
-  input: { model: string; text: string },
+  input: { model: string; text: string; cuisine?: CuisinePref },
 ): Promise<MealItem[]> {
   const raw = await gemini.generateJSON<unknown>({
     model: input.model,
-    system: TEXT_SYSTEM,
+    system: `${TEXT_SYSTEM}\n${cuisineHint(input.cuisine)}`,
     schema: MEAL_SCHEMA,
     temperature: 0.1,
     contents: [{ role: 'user', parts: [{ text: input.text.slice(0, 500) }] }],
@@ -247,7 +266,7 @@ export function parseFoodTextLocally(text: string): MealItem[] {
   const out: MealItem[] = []
   for (const p of parts) {
     const m = p.match(
-      /^(\d+(?:\.\d+)?|a|an|one|two|three|four|five|half|½)?\s*(pc|pcs|piece|pieces|katori|katoris|bowl|cup|cups|glass|glasses|plate|plates)?\s*(.*)$/,
+      /^(\d+(?:\.\d+)?|a|an|one|two|three|four|five|half|½)?\s*(pc|pcs|piece|pieces|slice|slices|katori|katoris|bowl|bowls|cup|cups|glass|glasses|can|cans|bottle|bottles|plate|plates|scoop|scoops|serving|servings)?\s*(.*)$/,
     )
     if (!m) continue
     const qty = m[1] ? (words[m[1]] ?? Number(m[1])) : 1

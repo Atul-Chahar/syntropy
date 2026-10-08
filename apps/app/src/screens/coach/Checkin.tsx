@@ -16,8 +16,9 @@ import { aiToast, gemini, withAi } from '@/lib/ai'
 import { addDays, fmt, today } from '@/lib/dates'
 import { primaryMusclesOf, useToday } from '@/lib/summary'
 import { muscleName } from '@/lib/training'
+import { bodyW, fmtBodyW, wUnit } from '@/lib/units'
 import { success } from '@/platform/haptics'
-import { toast, useGoal, useNutrition, useSettings, useTraining } from '@/stores'
+import { toast, useGoal, useNutrition, useProfile, useSettings, useTraining } from '@/stores'
 import type { Checkin } from '@/stores/goal'
 
 /** Weekly check-in (DESIGN_GAPS #14): code decides the change, Coach explains it. */
@@ -31,7 +32,8 @@ function measuredBody(
 ): string {
   const head = `Maintenance is now measured from your own logs (about ${fmt(maintenance)} kcal), so daily targets adjust by themselves.`
   if (observed == null) return `${head} Weigh in a few times this week to keep the trend fresh.`
-  const trend = `Your trend moved ${observed.toFixed(2)} kg a week against a plan of ${planned.toFixed(2)}.`
+  const u = useProfile.getState().units
+  const trend = `Your trend moved ${fmtBodyW(observed, u, 2)} a week against a plan of ${fmtBodyW(planned, u, 2)}.`
   const diff = observed - planned
   if (Math.abs(diff) < 0.1) return `${trend} That is on pace. ${head}`
   const slower = planned < 0 ? observed > planned : observed < planned
@@ -119,7 +121,7 @@ export function CheckinScreen() {
           )
         : summary.observed == null
           ? 'Log a few more weigh-ins this week and next Sunday’s check-in can read your trend.'
-          : `Your trend moved ${summary.observed.toFixed(2)} kg a week against a plan of ${summary.planned.toFixed(2)}. ${k === 0 ? 'That is close enough, so nothing changes.' : 'A small, bounded change keeps the pace sustainable.'}`,
+          : `Your trend moved ${fmtBodyW(summary.observed, useProfile.getState().units, 2)} a week against a plan of ${fmtBodyW(summary.planned, useProfile.getState().units, 2)}. ${k === 0 ? 'That is close enough, so nothing changes.' : 'A small, bounded change keeps the pace sustainable.'}`,
       tips: summary.low.length
         ? [`${summary.low.join(', ')} got fewer than 10 sets. Add a couple of sets next week.`]
         : [],
@@ -233,9 +235,11 @@ export function CheckinScreen() {
         {[
           [
             'Trend',
-            summary.observed == null ? '—' : summary.observed.toFixed(2),
-            'kg / wk',
-            `plan ${summary.planned.toFixed(2)}`,
+            summary.observed == null
+              ? '—'
+              : bodyW(summary.observed, useProfile.getState().units).toFixed(2),
+            `${wUnit(useProfile.getState().units)} / wk`,
+            `plan ${bodyW(summary.planned, useProfile.getState().units).toFixed(2)}`,
           ],
           ['Training', String(summary.trainingDays), 'sessions', `plan ${summary.plannedDays}`],
           ['Energy in', fmt(Math.round(summary.avgKcal)), 'kcal avg', `target ${fmt(t.dt.kcal)}`],

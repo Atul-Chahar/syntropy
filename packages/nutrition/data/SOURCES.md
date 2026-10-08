@@ -1,6 +1,7 @@
 # Food values: sources and method
 
-`foods-sourced.json` has one record for each of the 180 foods in `src/foods.ts`. Each record holds:
+`foods-sourced.json` has one record for each of the 180 Indian and everyday foods in
+`src/foods.ts`; `foods-global-sourced.json` has one for each of the 151 global foods (see below). Each record holds:
 
 - `gramsPerUnit`
 - `kcal`, `protein`, `carbs` and `fat` for one unit
@@ -98,3 +99,31 @@ Each change is the sum of the stated components. Labels that contained a gram we
 
 - `paneer` keeps 265 kcal, P18, C3.5, F20 per 100 g (typical Indian paneer labels) instead of IFCT's
   12.4 g carbs / 14.8 g fat, which do not match commercial paneer.
+
+## Global foods (`foods-global-sourced.json`)
+
+151 foods for people who do not mostly eat Indian food: breakfast staples, fast food, Western
+meals, East Asian and Middle Eastern dishes, meats and fish, vegetables, fruit, packaged snacks,
+nuts, spreads and drinks. Every value comes from **USDA FoodData Central**, public domain (CC0 1.0):
+
+- **FNDDS 2021-2023** (`FoodData_Central_survey_food_csv_2024-10-31`), the survey database behind
+  What We Eat in America. It describes foods as eaten (a cheeseburger, a slice of restaurant pizza,
+  a bowl of pad thai) with USDA's own portion weights. Used for most rows.
+- **SR Legacy** (`FoodData_Central_sr_legacy_food_csv_2018-04`) for a few ingredients and branded
+  fast-food items that FNDDS lacks (blueberry muffin, Greek yogurt, pepperoni pizza slice, sub,
+  chicken sandwich, spaghetti with meat sauce, broccoli, spinach, cantaloupe, chocolate).
+
+Method:
+
+1. Each record names its FDC id, data set, the USDA description and the USDA portion used for
+   `gramsPerUnit` (for example "1 medium pancake" = 50 g). Where we use a multiple or a fraction of a
+   USDA portion, the record says so ("1 egg = 55 g, x2").
+2. Energy, protein, carbohydrate and fat per unit are the USDA per-100 g values (nutrients 208, 203,
+   205, 204) multiplied by `gramsPerUnit / 100`, rounded to whole kcal and 0.1 g.
+3. `confidence` is `high` for a specific food and `medium` for a USDA "NFS" (not further specified)
+   average.
+4. Atwater check: every row's `protein*4 + carbs*4 + fat*9` is within 15 % of `kcal`, except beer and
+   wine (alcohol, 7 kcal/g, is not a macro here) and broccoli (fibre counted in carbohydrate).
+
+The full FDC data sets are not redistributed; only the per-food numbers with their ids. To check a
+row: https://fdc.nal.usda.gov/food-details/<fdc id>/nutrients

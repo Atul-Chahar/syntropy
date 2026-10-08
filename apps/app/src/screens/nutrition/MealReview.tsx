@@ -326,7 +326,7 @@ export function MealReviewScreen() {
             color: 'rgba(243,241,236,0.55)',
           }}
         >
-          <span>Portions in katori (150 g) and pieces</span>
+          <span>Portions in pieces, bowls, cups and katoris (150 g)</span>
           {avg != null ? <span className="sy-mono">AVG {avg}%</span> : null}
         </div>
       </GlassCard>

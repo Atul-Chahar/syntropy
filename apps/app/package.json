@@ -7,6 +7,7 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "cap:sync": "cap sync android",
     "android": "next build && cap sync android && cap run android",
     "android:open": "cap open android",

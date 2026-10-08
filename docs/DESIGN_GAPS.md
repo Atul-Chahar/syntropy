@@ -45,6 +45,8 @@ screenshot, and wires real data after approval. The phase column says when each 
 | 25 | Empty, loading and offline states | First run for Home, Food, Plan, Stats and Progress; skeletons; toasts. | 2 onward |
 | 26 | Android widgets and notification | Glance widget sizes; the rest-timer ongoing notification. | 10, 11 |
 | 27 | Landing mobile and tablet | The board is fixed at 1440 px. | 13 |
+| 28 | Personal records | Built: `/records`. Records are derived from the log (`lib/records.ts`), never stored: estimated 1RM, heaviest weight, most reps (unloaded lifts), session volume. The first session of a lift is the baseline; ties are not records. In a session, the set that breaks a record gets a trophy and a quiet toast, and the Exercise screen says "New record if logged" before you log it. Summary and History show each session's records. | 6 |
+| 29 | Exercise records | Built: `/records/exercise?id=`: strength curve, bests, rep maxes, record history. Opened from Records, Stats strength rows, a session's records, and the "Best" tag on the Exercise screen. | 6 |
 
 ## New primitives these pages need
 

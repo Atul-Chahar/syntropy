@@ -6,6 +6,7 @@ import {
   BodyMap,
   fitDot,
   GlassCard,
+  Icon,
   IconButton,
   PillButton,
   Screen,
@@ -16,7 +17,9 @@ import {
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Header } from '@/components/BottomBar'
+import { Trophy } from '@/components/RecordBits'
 import { addDays, monthShort, parseIso, today } from '@/lib/dates'
+import { allRecords } from '@/lib/records'
 import { muscleRows, primaryMusclesOf, trendRate } from '@/lib/summary'
 import { exTitle, mondayOf, muscleName, streakWeeks } from '@/lib/training'
 import { useTraining } from '@/stores'
@@ -173,6 +176,15 @@ export function StatsScreen() {
         return { id, v: lastV, d, series }
       })
       .filter((x) => x.v > 0)
+  }, [S, t])
+
+  const records = useMemo(() => {
+    const { moments } = allRecords(S)
+    return {
+      month: moments.filter((e) => e.d.slice(0, 7) === t.slice(0, 7)).length,
+      total: moments.length,
+      last: moments[0],
+    }
   }, [S, t])
 
   return (
@@ -434,7 +446,8 @@ export function StatsScreen() {
               Estimated one-rep max
             </span>
             {strength.map((s) => (
-              <div
+              <Link
+                href={`/records/exercise/?id=${s.id}`}
                 key={s.id}
                 style={{
                   display: 'grid',
@@ -473,7 +486,7 @@ export function StatsScreen() {
                     {Math.abs(s.d).toFixed(1)} · 90D
                   </span>
                 </span>
-              </div>
+              </Link>
             ))}
             {!strength.length ? (
               <p style={{ margin: 0, fontSize: 13, color: 'rgba(243,241,236,0.55)' }}>
@@ -482,6 +495,44 @@ export function StatsScreen() {
             ) : null}
           </div>
         ) : null}
+      </GlassCard>
+      <GlassCard
+        href="/records/"
+        aria-label="Personal records"
+        radius={26}
+        padding="14px 16px"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '44px minmax(0,1fr) auto 18px',
+          alignItems: 'center',
+          gap: 12,
+        }}
+      >
+        <Trophy size={44} glow={records.month > 0} />
+        <span style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
+          <span style={{ fontSize: 15 }}>Personal records</span>
+          <span
+            className="sy-mono"
+            style={{
+              fontSize: 10.5,
+              letterSpacing: '0.04em',
+              color: 'rgba(243,241,236,0.55)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              textTransform: 'uppercase',
+            }}
+          >
+            {records.last ? `Latest · ${exTitle(records.last.exId)}` : 'Bests for every lift'}
+          </span>
+        </span>
+        <span style={{ display: 'flex', alignItems: 'baseline', gap: 3 }}>
+          <span className="sy-dot" style={{ fontSize: 24, lineHeight: 1, color: '#FFE6DA' }}>
+            {records.month}
+          </span>
+          <span style={{ fontSize: 10.5, color: 'rgba(243,241,236,0.55)' }}>this month</span>
+        </span>
+        <Icon name="chevronRight" size={18} style={{ color: 'rgba(243,241,236,0.5)' }} />
       </GlassCard>
       <Link
         href="/progress/"

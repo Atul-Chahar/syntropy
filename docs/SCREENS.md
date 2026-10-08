@@ -15,7 +15,7 @@ Scan is the raised ember button in the middle. Modal flows (scan, review, quick 
 | Train | `/plan` | Workout, Exercise, Form guide, Library |
 | Scan | `/scan` | Review meal, Quick add |
 | Food | `/food` | Target physique, Quick add, Review meal |
-| Stats | `/stats` | Recovery, Body progress |
+| Stats | `/stats` | Recovery, Body progress, Records |
 
 Settings (`/settings`) opens from the Home avatar. The AI Coach (`/coach`) opens from the Plan coach card.
 
@@ -57,7 +57,9 @@ Settings (`/settings`) opens from the Home avatar. The AI Coach (`/coach`) opens
 | `Coach.dc.html` | `/coach` | Coach intro: animated orb avatar, greeting bubble, four suggested questions (each opens the chat with that question), "Start a chat", AI disclaimer. Opened from the Plan coach card. Details in `docs/COACH.md`. |
 | `Chat.dc.html` | `/coach/chat?id=` | Coach chat: messages, attached photo and PDF cards, formatted replies with action chips, thinking state, quick actions (Scan plate, Add files, Plan week, Voice chat), composer with mic and send. |
 | `Library.dc.html` | `/library` | Search, muscle chips, equipment chips, "Create your own exercise", rows with a small muscle-map thumbnail and "+ Plan". |
-| `Stats.dc.html` | `/stats` | Four tiles, 26-week activity dot grid, muscle card with Balance (sets vs 10 to 20 range), Fatigue, Strength (e1RM with sparklines) tabs. |
+| `Stats.dc.html` | `/stats` | Four tiles, 26-week activity dot grid, muscle card with Balance (sets vs 10 to 20 range), Fatigue, Strength (e1RM with sparklines) tabs. Strength rows open the lift's records; a Personal records card opens `/records`. |
+| (no board) | `/records` | Personal records: records this month (Doto) with a 12-week strip, the latest records (one row per lift per session, headline record plus chips for the others it broke), and every lift with its e1RM sparkline. |
+| (no board) | `/records/exercise?id=` | One lift: e1RM (or most reps) with a session curve, record sessions lit and the best as a dashed guide (3M / 1Y / All); heaviest, session volume, most reps, record sessions; rep maxes (best vs Epley-predicted); record history; ask the coach. |
 | `Recovery.dc.html` | `/recovery` | Front and back capsule body map coloured by state (ready, recovering, fatigued, detrained) and muscle rows. |
 | `Progress.dc.html` | `/progress` | Weight with exponential moving average line, 7D, 30D, 90D, tiles, private milestone photos. |
 | (no board) | `/progress/photo?pose=` | Guided progress photo: 3:4 viewfinder, NO FLEX tag, the three photo rules, front/side/back, self-timer, gallery, day-one overlay. Photos stay on the phone. |

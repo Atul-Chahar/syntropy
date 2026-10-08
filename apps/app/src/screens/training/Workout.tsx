@@ -5,6 +5,8 @@ import { motion } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
+import { announceRecords } from '@/components/RecordBits'
+import { recordSets } from '@/lib/records'
 import { addRest, skipRest, startRest } from '@/lib/rest'
 import {
   elapsed,
@@ -102,6 +104,11 @@ export function WorkoutScreen() {
   const cur = A?.cur ?? 0
   const entry = A?.entries[cur]
   const prev = useMemo(() => (entry ? prevFor(S, entry.id) : []), [S, entry])
+  // Sets in this session that broke a record wear a trophy in place of their number.
+  const recs = useMemo(
+    () => (entry ? recordSets(S, entry.id, entry.sets) : new Set<number>()),
+    [S, entry],
+  )
   if (!A || !entry) {
     return (
       <Screen>
@@ -142,6 +149,12 @@ export function WorkoutScreen() {
       setDraft({})
     }
     setRow(cur, i, patch)
+    announceRecords(
+      S,
+      entry.id,
+      entry.sets.map((s, j) => (j === i ? { ...s, ...patch } : s)),
+      i,
+    )
     const lastOfExercise = entry.sets.every((s, j) => j === i || s.done)
     if (lastOfExercise && nextEntry) {
       startRest(`Next: ${exTitle(nextEntry.id)}`)
@@ -430,12 +443,22 @@ export function WorkoutScreen() {
                   transition: 'background 250ms',
                 }}
               >
-                <span
-                  className="sy-mono"
-                  style={{ fontSize: 12, color: warm ? '#FFC7B0' : 'rgba(243,241,236,0.7)' }}
-                >
-                  {n}
-                </span>
+                {recs.has(i) ? (
+                  <span
+                    role="img"
+                    aria-label={`Set ${n}, new record`}
+                    style={{ display: 'flex', color: '#FFC7B0' }}
+                  >
+                    <Icon name="trophy" size={15} />
+                  </span>
+                ) : (
+                  <span
+                    className="sy-mono"
+                    style={{ fontSize: 12, color: warm ? '#FFC7B0' : 'rgba(243,241,236,0.7)' }}
+                  >
+                    {n}
+                  </span>
+                )}
                 <span
                   className="sy-mono"
                   style={{

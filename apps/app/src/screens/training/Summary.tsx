@@ -2,9 +2,13 @@
 
 import { GlassCard, Icon, IconButton, MetricNumber, PillButton, Screen, Tag } from '@syntropy/ui'
 import { motion } from 'motion/react'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useMemo } from 'react'
 import { ModalHeader } from '@/components/BottomBar'
+import { RecordRow } from '@/components/RecordBits'
 import { fmt, shortDate } from '@/lib/dates'
+import { allRecords, groupMoments, workoutRecords } from '@/lib/records'
 import { exTitle, fmtW, isBwExercise, workoutMinutes } from '@/lib/training'
 import { useTraining } from '@/stores'
 
@@ -15,6 +19,7 @@ export function SummaryScreen() {
   const S = useTraining((s) => s.S)
   const last = useTraining((s) => s.lastSummary)
   const w = S.workouts.find((x) => x.id === id) ?? last?.workout
+  const records = useMemo(() => (w ? groupMoments(workoutRecords(S, w.id)) : []), [S, w])
   if (!w) {
     return (
       <Screen>
@@ -28,7 +33,7 @@ export function SummaryScreen() {
   }
   const fresh = last?.workout.id === w.id
   const sets = w.entries.reduce((a, e) => a + e.sets.filter((s) => s.done).length, 0)
-  const prs = new Set(w.prs ?? [])
+  const prs = new Set(records.map((e) => e.exId))
   const index = S.workouts.findIndex((x) => x.id === w.id)
   const question = encodeURIComponent(
     `Debrief my ${w.name} session from ${shortDate(w.d)}: what went well and what should I change next time?`,
@@ -79,7 +84,7 @@ export function SummaryScreen() {
         {prs.size ? (
           <Tag tone="peach" height={26}>
             <Icon name="trophy" size={13} />
-            {prs.size} personal {prs.size === 1 ? 'record' : 'records'}
+            {records.length} personal {records.length === 1 ? 'record' : 'records'}
           </Tag>
         ) : null}
       </motion.div>
@@ -103,6 +108,30 @@ export function SummaryScreen() {
           </GlassCard>
         ))}
       </div>
+      {records.length ? (
+        <GlassCard as="section" aria-label="Personal records" radius={28} padding="14px 16px 2px">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'baseline',
+              paddingBottom: 4,
+            }}
+          >
+            <span style={{ fontSize: 15, fontWeight: 500 }}>Personal records</span>
+            <Link
+              href="/records/"
+              className="sy-mono"
+              style={{ fontSize: 10.5, letterSpacing: '0.06em', color: '#FFC7B0' }}
+            >
+              ALL RECORDS
+            </Link>
+          </div>
+          {records.map((m, i) => (
+            <RecordRow key={m.exId} m={m} first={i === 0} />
+          ))}
+        </GlassCard>
+      ) : null}
       <GlassCard as="section" aria-label="Exercises" radius={28} padding="4px 16px">
         {w.entries.map((e, i) => {
           const done = e.sets.filter((s) => s.done && s.phase !== 'warmup')
@@ -155,6 +184,11 @@ export function HistoryScreen() {
   const router = useRouter()
   const S = useTraining((s) => s.S)
   const list = [...S.workouts].reverse()
+  const recordCount = useMemo(() => {
+    const n = new Map<string, number>()
+    for (const e of allRecords(S).moments) n.set(e.workoutId, (n.get(e.workoutId) ?? 0) + 1)
+    return n
+  }, [S])
   return (
     <Screen>
       <ModalHeader
@@ -184,7 +218,22 @@ export function HistoryScreen() {
               </span>
             </span>
             <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              {w.prs?.length ? <Icon name="trophy" size={14} style={{ color: '#FFC7B0' }} /> : null}
+              {recordCount.get(w.id) ? (
+                <span
+                  className="sy-mono"
+                  aria-label={`${recordCount.get(w.id)} personal records`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 3,
+                    fontSize: 11,
+                    color: '#FFC7B0',
+                  }}
+                >
+                  <Icon name="trophy" size={14} />
+                  {recordCount.get(w.id)}
+                </span>
+              ) : null}
               <span style={{ fontSize: 15, fontWeight: 300 }}>
                 {((w.vol ?? 0) / 1000).toFixed(1)} t
               </span>

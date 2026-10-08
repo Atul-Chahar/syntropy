@@ -12,10 +12,13 @@ import {
   Tag,
   TileStepper,
 } from '@syntropy/ui'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ExerciseMedia, hasAnimation } from '@/components/ExerciseMedia'
+import { announceRecords } from '@/components/RecordBits'
 import { EX } from '@/lib/ex'
+import { fmtRecord, KIND_SHORT, liveRecords } from '@/lib/records'
 import { startRest } from '@/lib/rest'
 import { primaryMusclesOf } from '@/lib/summary'
 import {
@@ -53,6 +56,14 @@ export function ExerciseScreen() {
   const [kg, setKg] = useState(row?.w ?? 0)
   const [reps, setReps] = useState(row?.r ?? 8)
   const [rpe, setRpe] = useState('8')
+  // What the set on the steppers would break if logged as it stands.
+  const wouldBreak = useMemo(() => {
+    if (!entry || activeIdx < 0) return []
+    const sets = entry.sets.map((s, j) =>
+      j === activeIdx ? { ...s, w: kg, r: reps, done: true } : s,
+    )
+    return liveRecords(S, entry.id, sets, activeIdx)
+  }, [S, entry, activeIdx, kg, reps])
 
   if (!A || !entry) {
     router.replace('/workout/')
@@ -77,8 +88,10 @@ export function ExerciseScreen() {
 
   const log = () => {
     if (activeIdx < 0) return router.back()
-    setRow(i, activeIdx, { w: kg, r: reps, rpe: Number(rpe), done: true })
-    success()
+    const patch = { w: kg, r: reps, rpe: Number(rpe), done: true }
+    setRow(i, activeIdx, patch)
+    const sets = entry.sets.map((s, j) => (j === activeIdx ? { ...s, ...patch } : s))
+    if (!announceRecords(S, entry.id, sets, activeIdx)) success()
     const last = entry.sets.every((s, j) => j === activeIdx || s.done)
     if (last && A.entries[i + 1]) {
       setCurrent(i + 1)
@@ -241,9 +254,12 @@ export function ExerciseScreen() {
           ))}
           <Tag style={{ textTransform: 'capitalize' }}>{EX[entry.id]?.eq}</Tag>
           {best.w || best.r ? (
-            <Tag>
-              Best · {fmtW(best.w, bw)} kg × {best.r}
-            </Tag>
+            <Link href={`/records/exercise/?id=${entry.id}`} aria-label="Records for this lift">
+              <Tag tone="peach">
+                <Icon name="trophy" size={12} />
+                Best · {fmtW(best.w, bw)} kg × {best.r}
+              </Tag>
+            </Link>
           ) : null}
         </div>
       </div>
@@ -313,6 +329,30 @@ export function ExerciseScreen() {
             options={['6', '7', '8', '9', '10'].map((v) => ({ value: v, label: v }))}
           />
         </div>
+        {wouldBreak.length ? (
+          <div
+            role="status"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '10px 12px',
+              borderRadius: 16,
+              background: 'rgba(255,199,176,0.08)',
+              border: '1px solid rgba(255,199,176,0.22)',
+              fontSize: 12.5,
+              color: '#FFD9C8',
+            }}
+          >
+            <Icon name="trophy" size={14} />
+            <span style={{ minWidth: 0 }}>
+              New record if logged ·{' '}
+              {wouldBreak
+                .map((x) => `${KIND_SHORT[x.kind]} ${fmtRecord(x.kind, x.value)}`)
+                .join(' · ')}
+            </span>
+          </div>
+        ) : null}
       </GlassCard>
       <PillButton icon="check" lifted block onClick={log}>
         {activeIdx >= 0 ? `Log set ${activeIdx + 1}` : 'Back to session'}

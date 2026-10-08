@@ -11,13 +11,17 @@ import {
   Segmented,
   Switch,
 } from '@syntropy/ui'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Avatar, squareImage } from '@/components/Avatar'
 import { ModalHeader } from '@/components/BottomBar'
 import { loadSeed } from '@/lib/seed'
 import { biometryAvailable, unlock } from '@/platform/biometric'
+import { pickPhoto, takePhotoNative } from '@/platform/camera'
 import { exportJson, pickJsonFile } from '@/platform/files'
 import { ensureNotifyPermission, scheduleWaterReminders } from '@/platform/notifications'
+import { deletePhoto, savePhoto } from '@/platform/storage'
 import {
   toast,
   useCoach,
@@ -28,7 +32,6 @@ import {
   useTraining,
   useWater,
 } from '@/stores'
-import { initials } from '@/stores/profile'
 import { DEF } from '@/stores/training'
 
 const VERSION = '1.0.0'
@@ -40,6 +43,27 @@ export function SettingsScreen() {
   const settings = useSettings()
   const water = useWater()
   const [reset, setReset] = useState(false)
+  const [photoSheet, setPhotoSheet] = useState(false)
+
+  const changeAvatar = async (get: () => Promise<string | null>) => {
+    setPhotoSheet(false)
+    const raw = await get()
+    if (!raw) return
+    const square = await squareImage(raw)
+    const id = `avatar-${Date.now()}`
+    await savePhoto(id, square)
+    const old = useProfile.getState().avatarId
+    p.set({ avatarId: id })
+    if (old) deletePhoto(old)
+    toast('Profile picture updated')
+  }
+
+  const removeAvatar = () => {
+    setPhotoSheet(false)
+    const old = p.avatarId
+    p.set({ avatarId: null })
+    if (old) deletePhoto(old)
+  }
 
   const exportAll = async () => {
     const data = {
@@ -114,36 +138,56 @@ export function SettingsScreen() {
         title="Settings"
       />
       <GlassCard
-        href="/onboarding/body/?edit=1"
         padding={16}
         radius={26}
         style={{ display: 'flex', alignItems: 'center', gap: 14 }}
       >
-        <span
+        <button
+          type="button"
+          aria-label="Change profile picture"
+          onClick={() => setPhotoSheet(true)}
           style={{
-            width: 56,
-            height: 56,
-            borderRadius: 28,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid rgba(255,255,255,0.12)',
-            background: 'linear-gradient(145deg, #2A332E, #171C19)',
-            fontSize: 18,
-            fontWeight: 500,
+            position: 'relative',
+            padding: 0,
+            border: 0,
+            background: 'none',
+            color: 'inherit',
           }}
         >
-          {initials(p.name)}
-        </span>
-        <span style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
-          <span style={{ fontSize: 18, fontWeight: 400, letterSpacing: '-0.02em' }}>
-            {p.name || 'You'}
+          <Avatar size={56} />
+          <span
+            style={{
+              position: 'absolute',
+              right: -2,
+              bottom: -2,
+              width: 22,
+              height: 22,
+              borderRadius: 11,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'var(--sy-void)',
+              border: '1px solid rgba(255,255,255,0.16)',
+            }}
+          >
+            <Icon name="camera" size={12} />
           </span>
-          <span className="sy-mono" style={{ fontSize: 11, color: 'rgba(243,241,236,0.55)' }}>
-            {p.age} Y · {p.heightCm} CM · {p.sex.toUpperCase()}
+        </button>
+        <Link
+          href="/onboarding/body/?edit=1"
+          aria-label="Edit profile"
+          style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1, minHeight: 44 }}
+        >
+          <span style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
+            <span style={{ fontSize: 18, fontWeight: 400, letterSpacing: '-0.02em' }}>
+              {p.name || 'You'}
+            </span>
+            <span className="sy-mono" style={{ fontSize: 11, color: 'rgba(243,241,236,0.55)' }}>
+              {p.age} Y · {p.heightCm} CM · {p.sex.toUpperCase()}
+            </span>
           </span>
-        </span>
-        <Icon name="chevronRight" size={18} style={{ color: 'rgba(243,241,236,0.5)' }} />
+          <Icon name="chevronRight" size={18} style={{ color: 'rgba(243,241,236,0.5)' }} />
+        </Link>
       </GlassCard>
 
       <Section title="Goal & AI">
@@ -304,6 +348,26 @@ export function SettingsScreen() {
           >
             Erase everything on this phone
           </PillButton>
+        </div>
+      </BottomSheet>
+      <BottomSheet open={photoSheet} onClose={() => setPhotoSheet(false)} title="Profile picture">
+        <div style={{ display: 'grid', gap: 8 }}>
+          <PillButton
+            variant="glass"
+            icon="camera"
+            block
+            onClick={() => changeAvatar(takePhotoNative)}
+          >
+            Take a photo
+          </PillButton>
+          <PillButton variant="glass" block onClick={() => changeAvatar(pickPhoto)}>
+            Choose from gallery
+          </PillButton>
+          {p.avatarId && (
+            <PillButton variant="ghost" icon="trash" block onClick={removeAvatar}>
+              Remove picture
+            </PillButton>
+          )}
         </div>
       </BottomSheet>
     </Screen>

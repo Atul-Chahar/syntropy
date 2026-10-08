@@ -16,6 +16,8 @@ export interface Profile {
   onboarded: boolean
   bodyDone: boolean
   lockEnabled: boolean
+  /** Photo-file id of the profile picture (changes on every update), or null. */
+  avatarId: string | null
   createdAt: number
 }
 
@@ -37,6 +39,7 @@ export const DEFAULT_PROFILE: Profile = {
   onboarded: false,
   bodyDone: false,
   lockEnabled: false,
+  avatarId: null,
   createdAt: 0,
 }
 

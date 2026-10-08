@@ -15,9 +15,10 @@ import {
 } from '@syntropy/ui'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
+import { Avatar } from '@/components/Avatar'
 import { addDays, fmt, greeting, kickerDate, today } from '@/lib/dates'
 import { primaryMusclesOf, readinessOf, useToday, windowAverages } from '@/lib/summary'
-import { firstName, initials, useGoal, useNutrition, useProfile, useTraining } from '@/stores'
+import { firstName, useGoal, useNutrition, useProfile, useTraining } from '@/stores'
 
 type Range = 'today' | 'd7' | 'd30' | 'd90'
 
@@ -98,23 +99,8 @@ export function HomeScreen() {
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <IconButton icon="sparkle" label="Coach" href="/coach/" style={{ color: '#FFC7B0' }} />
-          <Link
-            href="/settings/"
-            aria-label="Profile and settings"
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 22,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '1px solid rgba(255,255,255,0.12)',
-              background: 'linear-gradient(145deg, #2A332E, #171C19)',
-              fontSize: 14,
-              fontWeight: 500,
-            }}
-          >
-            {initials(name)}
+          <Link href="/settings/" aria-label="Profile and settings" style={{ borderRadius: 22 }}>
+            <Avatar size={44} />
           </Link>
         </div>
       </header>
